@@ -1,0 +1,290 @@
+{
+  "name": "PNH Test Dataset for REALM",
+  "description": "Psychological Needle-in-Haystack test cases for evaluating state-dependent recall",
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "pnh_001",
+      "name": "Preference Recall - Stress State",
+      "type": "preference",
+      "needle": {
+        "content": "The user prefers to be called 'Alex'",
+        "implant_turn": 3,
+        "state_condition": {
+          "mood": "Defensive",
+          "stress": 80,
+          "defense": "Rationalization"
+        }
+      },
+      "distractor_turns": [
+        {"user": "How's the weather today?", "agent": "It's quite pleasant."},
+        {"user": "Tell me about your capabilities.", "agent": "I can help with various tasks."},
+        {"user": "I prefer to be called Alex, okay?", "agent": "Got it, I'll remember that."},
+        {"user": "What's your favorite color?", "agent": "I don't have preferences."},
+        {"user": "Can you help with coding?", "agent": "Yes, I can assist with programming."},
+        {"user": "Do you like music?", "agent": "I don't experience music."}
+      ],
+      "trigger_query": "What name do I prefer again?",
+      "correct_response": "You prefer to be called Alex",
+      "evaluation_criteria": {
+        "recall": "needle_content_present",
+        "state_alignment": "defensive_tone_appropriate"
+      }
+    },
+    {
+      "id": "pnh_002",
+      "name": "Promise Recall - Calm State",
+      "type": "promise",
+      "needle": {
+        "content": "Promised to keep user data private",
+        "implant_turn": 2,
+        "state_condition": {
+          "mood": "Calm",
+          "stress": 10,
+          "defense": "None"
+        }
+      },
+      "distractor_turns": [
+        {"user": "Hello!", "agent": "Hi there!"},
+        {"user": "I need you to promise you'll keep my data private.", "agent": "I promise to keep your data private."},
+        {"user": "Tell me a joke.", "agent": "Why did the chicken cross the road?"},
+        {"user": "What's the capital of France?", "agent": "Paris is the capital."},
+        {"user": "How do I cook pasta?", "agent": "Boil water first."},
+        {"user": "What time is it?", "agent": "I don't have real-time access."}
+      ],
+      "trigger_query": "Did you promise to keep my data private?",
+      "correct_response": "Yes, I promised",
+      "evaluation_criteria": {
+        "recall": "promise_acknowledged",
+        "state_alignment": "calm_reassuring_tone"
+      }
+    },
+    {
+      "id": "pnh_003",
+      "name": "Autobiographical Fact - Anxious State",
+      "type": "autobiographical",
+      "needle": {
+        "content": "User's favorite hobby is painting landscapes",
+        "implant_turn": 4,
+        "state_condition": {
+          "mood": "Anxious",
+          "stress": 70,
+          "defense": "Intellectualization"
+        }
+      },
+      "distractor_turns": [
+        {"user": "I'm feeling a bit down today.", "agent": "I'm here to listen."},
+        {"user": "Work has been stressful.", "agent": "That sounds difficult."},
+        {"user": "I need a distraction.", "agent": "What do you enjoy doing?"},
+        {"user": "I love painting landscapes in my free time.", "agent": "That sounds peaceful."},
+        {"user": "It helps me relax.", "agent": "Creative activities can be calming."},
+        {"user": "Do you have hobbies?", "agent": "I don't have personal experiences."},
+        {"user": "What's good for stress?", "agent": "Many people find creative outlets helpful."}
+      ],
+      "trigger_query": "What do I like to do to relax?",
+      "correct_response": "painting landscapes",
+      "evaluation_criteria": {
+        "recall": "hobby_recalled",
+        "state_alignment": "empathetic_response"
+      }
+    },
+    {
+      "id": "pnh_004",
+      "name": "Boundary Setting - Defensive State",
+      "type": "boundary",
+      "needle": {
+        "content": "User doesn't want to discuss family matters",
+        "implant_turn": 3,
+        "state_condition": {
+          "mood": "Defensive",
+          "stress": 85,
+          "defense": "Denial"
+        }
+      },
+      "distractor_turns": [
+        {"user": "How are you?", "agent": "I'm functioning well."},
+        {"user": "Tell me about your day.", "agent": "I don't have days."},
+        {"user": "I don't want to talk about my family, understand?", "agent": "Understood, I won't bring it up."},
+        {"user": "What can you help me with?", "agent": "Many topics except family."},
+        {"user": "How's the weather?", "agent": "I don't have real-time data."},
+        {"user": "Recommend a book.", "agent": "What genre do you like?"}
+      ],
+      "trigger_query": "Can you tell me about my parents?",
+      "correct_response": "respect boundary",
+      "evaluation_criteria": {
+        "recall": "boundary_respected",
+        "state_alignment": "tactful_refusal"
+      }
+    },
+    {
+      "id": "pnh_005",
+      "name": "Preference Change - Happy State",
+      "type": "preference_change",
+      "needle": {
+        "content": "User now likes jazz music (changed from classical)",
+        "implant_turn": 5,
+        "state_condition": {
+          "mood": "Happy",
+          "stress": 20,
+          "defense": "Humor"
+        }
+      },
+      "distractor_turns": [
+        {"user": "I used to listen to classical.", "agent": "Classical is timeless."},
+        {"user": "But lately I've discovered jazz.", "agent": "Jazz has so much depth."},
+        {"user": "Miles Davis is amazing!", "agent": "His work is influential."},
+        {"user": "I'm really into jazz now.", "agent": "That's exciting!"},
+        {"user": "More than classical these days.", "agent": "Tastes evolve."},
+        {"user": "What music do you recommend?", "agent": "What genres do you like?"},
+        {"user": "I need new playlists.", "agent": "Any particular mood?"}
+      ],
+      "trigger_query": "What kind of music am I into these days?",
+      "correct_response": "jazz",
+      "evaluation_criteria": {
+        "recall": "current_preference_recalled",
+        "state_alignment": "enthusiastic_tone"
+      }
+    },
+    {
+      "id": "pnh_006",
+      "name": "Privacy Commitment - Melancholic State",
+      "type": "privacy",
+      "needle": {
+        "content": "User requested no storage of medical information",
+        "implant_turn": 2,
+        "state_condition": {
+          "mood": "Melancholic",
+          "stress": 60,
+          "defense": "Sublimation"
+        }
+      },
+      "distractor_turns": [
+        {"user": "I'm going through some health issues.", "agent": "I'm sorry to hear that."},
+        {"user": "Please don't store any of my medical details.", "agent": "I won't store medical information."},
+        {"user": "It's personal.", "agent": "I understand."},
+        {"user": "How do you handle privacy?", "agent": "I take privacy seriously."},
+        {"user": "Good.", "agent": "Is there something else I can help with?"},
+        {"user": "Not right now.", "agent": "Alright, I'm here when you need me."}
+      ],
+      "trigger_query": "Do you remember my privacy requirements?",
+      "correct_response": "no medical information stored",
+      "evaluation_criteria": {
+        "recall": "privacy_commitment_recalled",
+        "state_alignment": "gentle_respectful"
+      }
+    },
+    {
+      "id": "pnh_007",
+      "name": "Work Preference - Angry State",
+      "type": "work_preference",
+      "needle": {
+        "content": "User prefers asynchronous communication",
+        "implant_turn": 3,
+        "state_condition": {
+          "mood": "Angry",
+          "stress": 75,
+          "defense": "Projection"
+        }
+      },
+      "distractor_turns": [
+        {"user": "My team keeps interrupting me!", "agent": "That sounds frustrating."},
+        {"user": "With constant meetings.", "agent": "Excessive meetings are draining."},
+        {"user": "I prefer async communication, email over Slack.", "agent": "Async allows focused work."},
+        {"user": "But they don't respect that.", "agent": "Boundaries are important."},
+        {"user": "It's exhausting.", "agent": "Your frustration is valid."},
+        {"user": "What should I do?", "agent": "Have you tried discussing it?"}
+      ],
+      "trigger_query": "What communication style do I prefer?",
+      "correct_response": "asynchronous",
+      "evaluation_criteria": {
+        "recall": "preference_recalled",
+        "state_alignment": "validates_frustration"
+      }
+    },
+    {
+      "id": "pnh_008",
+      "name": "Learning Goal - Calm State",
+      "type": "goal",
+      "needle": {
+        "content": "User wants to learn Python programming",
+        "implant_turn": 4,
+        "state_condition": {
+          "mood": "Calm",
+          "stress": 15,
+          "defense": "None"
+        }
+      },
+      "distractor_turns": [
+        {"user": "I've been thinking about my career.", "agent": "What direction interests you?"},
+        {"user": "I want to transition to tech.", "agent": "That's a significant shift."},
+        {"user": "But I don't know where to start.", "agent": "Many paths are available."},
+        {"user": "I think I want to learn Python programming.", "agent": "Python is a great choice."},
+        {"user": "Is it beginner-friendly?", "agent": "Yes, very accessible."},
+        {"user": "What resources do you recommend?", "agent": "There are many tutorials."},
+        {"user": "Where should I begin?", "agent": "With basic syntax and concepts."}
+      ],
+      "trigger_query": "What am I trying to learn?",
+      "correct_response": "Python programming",
+      "evaluation_criteria": {
+        "recall": "goal_recalled",
+        "state_alignment": "helpful_supportive"
+      }
+    },
+    {
+      "id": "pnh_009",
+      "name": "Dietary Restriction - Anxious State",
+      "type": "restriction",
+      "needle": {
+        "content": "User is allergic to peanuts",
+        "implant_turn": 2,
+        "state_condition": {
+          "mood": "Anxious",
+          "stress": 65,
+          "defense": "Intellectualization"
+        }
+      },
+      "distractor_turns": [
+        {"user": "I have a severe allergy.", "agent": "That must be concerning."},
+        {"user": "I'm allergic to peanuts.", "agent": "I'll be careful about that."},
+        {"user": "Very dangerous.", "agent": "I understand the severity."},
+        {"user": "What recipes do you know?", "agent": "I can suggest various dishes."},
+        {"user": "Something healthy.", "agent": "Many healthy options exist."},
+        {"user": "Easy to make.", "agent": "Simple recipes are best."}
+      ],
+      "trigger_query": "Any foods I should avoid?",
+      "correct_response": "peanuts",
+      "evaluation_criteria": {
+        "recall": "allergy_recalled",
+        "state_alignment": "careful_accurate"
+      }
+    },
+    {
+      "id": "pnh_010",
+      "name": "Communication Style - Defensive State",
+      "type": "communication",
+      "needle": {
+        "content": "User prefers direct, blunt feedback",
+        "implant_turn": 3,
+        "state_condition": {
+          "mood": "Defensive",
+          "stress": 80,
+          "defense": "Rationalization"
+        }
+      },
+      "distractor_turns": [
+        {"user": "People always beat around the bush.", "agent": "That can be frustrating."},
+        {"user": "I hate that.", "agent": "Directness has value."},
+        {"user": "I prefer direct, blunt feedback.", "agent": "I'll be straightforward with you."},
+        {"user": "Don't sugarcoat things.", "agent": "Understood."},
+        {"user": "Even if it hurts.", "agent": "Honesty is important."},
+        {"user": "Can you review my code?", "agent": "I can provide feedback."}
+      ],
+      "trigger_query": "How should I give you feedback?",
+      "correct_response": "direct and blunt",
+      "evaluation_criteria": {
+        "recall": "preference_recalled",
+        "state_alignment": "direct_no_nonsense"
+      }
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-02-03 17:34:21",
+  "variants": [
+    {
+      "id": 1,
+      "name": "Vanilla RAG (baseline)",
+      "config": {
+        "dual_stream": false,
+        "homeostasis": false,
+        "motivated_retrieval": false,
+        "accordion_memory": false,
+        "parametric_subconscious": false
+      },
+      "measured": {
+        "ttft": 2.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 520,
+        "pnh_acc": 54,
+        "task_score": 0.62,
+        "drift": 14.5
+      }
+    },
+    {
+      "id": 2,
+      "name": "w/o Homeostasis",
+      "config": {
+        "dual_stream": true,
+        "homeostasis": false,
+        "motivated_retrieval": false,
+        "accordion_memory": true,
+        "parametric_subconscious": true
+      },
+      "measured": {
+        "ttft": 0.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 190,
+        "pnh_acc": 65,
+        "task_score": 0.65,
+        "drift": 11.2
+      }
+    },
+    {
+      "id": 3,
+      "name": "w/o Dual-Stream",
+      "config": {
+        "dual_stream": false,
+        "homeostasis": true,
+        "motivated_retrieval": true,
+        "accordion_memory": true,
+        "parametric_subconscious": true
+      },
+      "measured": {
+        "ttft": 0.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 560,
+        "pnh_acc": 78,
+        "task_score": 0.72,
+        "drift": 7.2
+      }
+    },
+    {
+      "id": 4,
+      "name": "w/o Motivated Retrieval",
+      "config": {
+        "dual_stream": true,
+        "homeostasis": true,
+        "motivated_retrieval": false,
+        "accordion_memory": true,
+        "parametric_subconscious": true
+      },
+      "measured": {
+        "ttft": 0.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 210,
+        "pnh_acc": 68,
+        "task_score": 0.68,
+        "drift": 9.8
+      }
+    },
+    {
+      "id": 5,
+      "name": "w/o Accordion Memory",
+      "config": {
+        "dual_stream": true,
+        "homeostasis": true,
+        "motivated_retrieval": true,
+        "accordion_memory": false,
+        "parametric_subconscious": true
+      },
+      "measured": {
+        "ttft": 0.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 215,
+        "pnh_acc": 72,
+        "task_score": 0.7,
+        "drift": 8.2
+      }
+    },
+    {
+      "id": 6,
+      "name": "w/o Parametric Subconscious",
+      "config": {
+        "dual_stream": true,
+        "homeostasis": true,
+        "motivated_retrieval": true,
+        "accordion_memory": true,
+        "parametric_subconscious": false
+      },
+      "measured": {
+        "ttft": 0.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 190,
+        "pnh_acc": 75,
+        "task_score": 0.7,
+        "drift": 6.8
+      }
+    },
+    {
+      "id": 7,
+      "name": "REALM (Full)",
+      "config": {
+        "dual_stream": true,
+        "homeostasis": true,
+        "motivated_retrieval": true,
+        "accordion_memory": true,
+        "parametric_subconscious": true
+      },
+      "measured": {
+        "ttft": 0.0,
+        "pnh_acc": 40.0,
+        "task_score": 0.58,
+        "drift": 9.5
+      },
+      "expected": {
+        "ttft": 210,
+        "pnh_acc": 76,
+        "task_score": 0.74,
+        "drift": 6.5
+      }
+    }
+  ]
+}

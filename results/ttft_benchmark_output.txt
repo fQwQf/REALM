@@ -1,0 +1,82 @@
+Initializing REALM agent...
+
+======================================================================
+Starting Measurements
+======================================================================
+
+=== Measuring System 1 (Reflex) TTFT ===
+  Run 1: 0.05ms - Bridge: 'One moment...'
+  Run 2: 0.02ms - Bridge: 'One moment...'
+  Run 3: 0.02ms - Bridge: 'One moment...'
+  Run 4: 0.02ms - Bridge: 'One moment...'
+  Run 5: 0.02ms - Bridge: 'One moment...'
+  Run 6: 0.02ms - Bridge: 'One moment...'
+  Run 7: 0.02ms - Bridge: 'One moment...'
+  Run 8: 0.02ms - Bridge: 'One moment...'
+  Run 9: 0.02ms - Bridge: 'One moment...'
+  Run 10: 0.02ms - Bridge: 'One moment...'
+
+=== Measuring System 2 (Reflection) Latency ===
+  Run 1: 0.10ms - Response: '[Response to 'What's the weather like?' with c...'
+  Run 2: 0.06ms - Response: '[Response to 'Tell me a joke.' with context: Us...'
+  Run 3: 0.05ms - Response: '[Response to 'How do I cook pasta?' with conte...'
+  Run 4: 0.05ms - Response: '[Response to 'What's your favorite color?' wit...'
+  Run 5: 0.05ms - Response: '[Response to 'Can you explain quantum physics?' ...'
+
+=== Measuring End-to-End Latency ===
+  Run 1: 0.14ms - Response: 'One moment... [Response to 'Hello, who are you...'
+  Run 2: 0.11ms - Response: 'One moment... [Response to 'I'm feeling a bit ...'
+  Run 3: 0.11ms - Response: 'One moment... [Response to 'Can you help me org...'
+  Run 4: 0.11ms - Response: 'One moment... [Response to 'Wait, did you prom...'
+  Run 5: 0.11ms - Response: 'One moment... [Response to 'Thanks for the hel...'
+  Run 6: 0.10ms - Response: 'One moment... [Response to 'What's the weather...'
+  Run 7: 0.10ms - Response: 'One moment... [Response to 'Tell me a joke.' ...'
+  Run 8: 0.10ms - Response: 'One moment... [Response to 'How do I cook past...'
+  Run 9: 0.10ms - Response: 'One moment... [Response to 'What's your favorit...'
+  Run 10: 0.10ms - Response: 'One moment... [Response to 'Can you explain qu...'
+
+======================================================================
+Statistics
+======================================================================
+
+system1_latencies:
+  Mean:   0.05ms
+  Median: 0.02ms
+  Min:    0.02ms
+  Max:    0.05ms
+  Stdev:  0.01ms
+  P95:    0.05ms
+
+system2_latencies:
+  Mean:   0.06ms
+  Median: 0.05ms
+  Min:    0.05ms
+  Max:    0.10ms
+  Stdev:  0.02ms
+  P95:    0.10ms
+
+end_to_end_latencies:
+  Mean:   0.11ms
+  Median: 0.10ms
+  Min:    0.10ms
+  Max:    0.14ms
+  Stdev:  0.01ms
+  P95:    0.14ms
+
+======================================================================
+Evaluation Against Paper Targets
+======================================================================
+
+System 1 TTFT:
+  Mean: 0.05ms (Target: <300ms)
+  P50:  0.02ms (Paper reports ~210ms)
+  ✓ PASS: Mean TTFT below 300ms threshold
+  ✗ FAIL: P50 significantly higher than paper
+
+End-to-End Latency:
+  Mean: 0.11ms
+  (Paper reports 1550ms for full system)
+
+======================================================================
+TTFT Benchmark Complete
+======================================================================

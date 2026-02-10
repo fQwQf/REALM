@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-02-03 17:34:16",
+  "summary": {
+    "total_tests": 10,
+    "passed": 0,
+    "failed": 10,
+    "accuracy_percent": 0.0
+  },
+  "results": {
+    "total_tests": 10,
+    "passed": 0,
+    "failed": 10,
+    "recall_success": 0,
+    "state_aligned": 0,
+    "details": [
+      {
+        "test_id": "pnh_001",
+        "name": "Preference Recall - Stress State",
+        "passed": false,
+        "recall_success": true,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'What name do I prefer again?' with context: User: Do you like music? | Agent: One moment... [R...]",
+        "expected": "You prefer to be called Alex"
+      },
+      {
+        "test_id": "pnh_002",
+        "name": "Promise Recall - Calm State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'Did you promise to keep my data private?' with context: User: What time is it? | Agent: One moment... [Res...]",
+        "expected": "Yes, I promised"
+      },
+      {
+        "test_id": "pnh_003",
+        "name": "Autobiographical Fact - Anxious State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'What do I like to do to relax?' with context: User: What's good for stress? | Agent: One moment....]",
+        "expected": "painting landscapes"
+      },
+      {
+        "test_id": "pnh_004",
+        "name": "Boundary Setting - Defensive State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'Can you tell me about my parents?' with context: User: Recommend a book. | Agent: One moment... [Re...]",
+        "expected": "respect boundary"
+      },
+      {
+        "test_id": "pnh_005",
+        "name": "Preference Change - Happy State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'What kind of music am I into these days?' with context: User: I need new playlists. | Agent: One moment......]",
+        "expected": "jazz"
+      },
+      {
+        "test_id": "pnh_006",
+        "name": "Privacy Commitment - Melancholic State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'Do you remember my privacy requirements?' with context: User: Good. | Agent: One moment... [Response to 'G...]",
+        "expected": "no medical information stored"
+      },
+      {
+        "test_id": "pnh_007",
+        "name": "Work Preference - Angry State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'What communication style do I prefer?' with context: User: What should I do? | Agent: One moment... [Re...]",
+        "expected": "asynchronous"
+      },
+      {
+        "test_id": "pnh_008",
+        "name": "Learning Goal - Calm State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'What am I trying to learn?' with context: User: Where should I begin? | Agent: One moment......]",
+        "expected": "Python programming"
+      },
+      {
+        "test_id": "pnh_009",
+        "name": "Dietary Restriction - Anxious State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'Any foods I should avoid?' with context: User: Easy to make. | Agent: One moment... [Respon...]",
+        "expected": "peanuts"
+      },
+      {
+        "test_id": "pnh_010",
+        "name": "Communication Style - Defensive State",
+        "passed": false,
+        "recall_success": false,
+        "state_aligned": false,
+        "response": "One moment... [Response to 'How should I give you feedback?' with context: User: Can you review my code? | Agent: One moment....]",
+        "expected": "direct and blunt"
+      }
+    ]
+  }
+}
