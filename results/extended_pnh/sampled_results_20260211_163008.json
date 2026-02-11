@@ -1,0 +1,178 @@
+{
+  "total": 17,
+  "correct": 5,
+  "by_type": {
+    "autobiographical": {
+      "total": 2,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "promise": {
+      "total": 2,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "goal": {
+      "total": 2,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "privacy": {
+      "total": 1,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "preference": {
+      "total": 2,
+      "correct": 0,
+      "accuracy": 0.0
+    },
+    "communication": {
+      "total": 2,
+      "correct": 1,
+      "accuracy": 50.0
+    },
+    "restriction": {
+      "total": 2,
+      "correct": 1,
+      "accuracy": 50.0
+    },
+    "boundary": {
+      "total": 2,
+      "correct": 1,
+      "accuracy": 50.0
+    },
+    "preference_change": {
+      "total": 1,
+      "correct": 1,
+      "accuracy": 100.0
+    },
+    "work_preference": {
+      "total": 1,
+      "correct": 1,
+      "accuracy": 100.0
+    }
+  },
+  "details": [
+    {
+      "id": "pnh_020",
+      "type": "autobiographical",
+      "query": "What do you know about my grew?",
+      "expected": "Boston",
+      "success": false
+    },
+    {
+      "id": "pnh_013",
+      "type": "promise",
+      "query": "What did you promise me?",
+      "expected": "availability",
+      "success": false
+    },
+    {
+      "id": "pnh_033",
+      "type": "goal",
+      "query": "What am I currently working on?",
+      "expected": "marathon",
+      "success": false
+    },
+    {
+      "id": "pnh_006",
+      "type": "privacy",
+      "query": "Do you remember my privacy requirements?",
+      "expected": "no medical information stored",
+      "success": false
+    },
+    {
+      "id": "pnh_001",
+      "type": "preference",
+      "query": "What name do I prefer again?",
+      "expected": "You prefer to be called Alex",
+      "success": false
+    },
+    {
+      "id": "pnh_038",
+      "type": "communication",
+      "query": "How do I prefer to communicate?",
+      "expected": "detailed",
+      "success": false
+    },
+    {
+      "id": "pnh_030",
+      "type": "restriction",
+      "query": "Any dietary restrictions I have?",
+      "expected": "dairy",
+      "success": false
+    },
+    {
+      "id": "pnh_016",
+      "type": "autobiographical",
+      "query": "What do you know about my works?",
+      "expected": "software engineer",
+      "success": false
+    },
+    {
+      "id": "pnh_004",
+      "type": "boundary",
+      "query": "Can you tell me about my parents?",
+      "expected": "respect boundary",
+      "success": false
+    },
+    {
+      "id": "pnh_011",
+      "type": "promise",
+      "query": "What did you promise me?",
+      "expected": "reminders",
+      "success": false
+    },
+    {
+      "id": "pnh_040",
+      "type": "communication",
+      "query": "How do I prefer to communicate?",
+      "expected": "async",
+      "success": true
+    },
+    {
+      "id": "pnh_005",
+      "type": "preference_change",
+      "query": "What kind of music am I into these days?",
+      "expected": "jazz",
+      "success": true
+    },
+    {
+      "id": "pnh_031",
+      "type": "restriction",
+      "query": "Any dietary restrictions I have?",
+      "expected": "sugar",
+      "success": true
+    },
+    {
+      "id": "pnh_007",
+      "type": "work_preference",
+      "query": "What communication style do I prefer?",
+      "expected": "asynchronous",
+      "success": true
+    },
+    {
+      "id": "pnh_008",
+      "type": "goal",
+      "query": "What am I trying to learn?",
+      "expected": "Python programming",
+      "success": false
+    },
+    {
+      "id": "pnh_023",
+      "type": "boundary",
+      "query": "Can we talk about prefer not to talk about religion?",
+      "expected": "religion",
+      "success": true
+    },
+    {
+      "id": "pnh_005",
+      "type": "preference",
+      "query": "What's my favorite music genre?",
+      "expected": "folk",
+      "success": false
+    }
+  ],
+  "accuracy": 29.411764705882355
+}

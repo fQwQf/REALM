@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-02-11T16:36:45.049048",
+  "baselines": {
+    "PsyAgent": {
+      "paper": "PersonaForge / PsyAgent (2026)",
+      "key_mechanisms": [
+        "Psychological trait/state modeling",
+        "Defense mechanism detection",
+        "Inner monologue generation",
+        "State-conditioned response"
+      ],
+      "our_implementation": {
+        "trait_model": "Lightweight MLP for trait prediction",
+        "state_update": "OU process with bounded impulses",
+        "defense_detection": "Lexicon-based + LLM classification",
+        "response_conditioning": "State vector injected into prompt"
+      },
+      "fidelity_notes": [
+        "Uses same psychological framework (Big 5 + defense mechanisms)",
+        "State updates follow similar dynamics",
+        "No dual-stream pacing (single model for generation)"
+      ],
+      "verification": "verified"
+    },
+    "Sophia": {
+      "paper": "Sophia (2026)",
+      "key_mechanisms": [
+        "Hierarchical memory organization",
+        "Reflection before response",
+        "Persona consistency scoring"
+      ],
+      "our_implementation": {
+        "memory": "Hot/Warm/Cold stack with compression",
+        "reflection": "Pre-response analysis step",
+        "scoring": "Persona consistency metric"
+      },
+      "fidelity_notes": [
+        "Memory hierarchy matches Sophia's design",
+        "Reflection step implemented as System 2 analysis",
+        "No Safe-to-Say or dual-stream architecture"
+      ],
+      "verification": "verified"
+    },
+    "CAIM": {
+      "paper": "CAIM (2026)",
+      "key_mechanisms": [
+        "Context-aware identity management",
+        "Multi-turn persona tracking",
+        "Identity drift detection"
+      ],
+      "our_implementation": {
+        "identity_tracking": "State vector with OU dynamics",
+        "drift_detection": "State deviation monitoring",
+        "context_management": "Budget-constrained memory"
+      },
+      "fidelity_notes": [
+        "Identity tracking similar to our state controller",
+        "Drift detection via mean reversion",
+        "No latency optimization focus"
+      ],
+      "verification": "verified"
+    },
+    "MemGPT": {
+      "paper": "MemGPT (Packer et al., 2023)",
+      "key_mechanisms": [
+        "OS-like memory management",
+        "Core memory + archival storage",
+        "Function calling for memory operations"
+      ],
+      "our_implementation": {
+        "memory": "Vector store + episodic memory",
+        "operations": "Add/retrieve/search via FAISS",
+        "pagination": "Budget-constrained context"
+      },
+      "fidelity_notes": [
+        "Different architecture (no OS metaphor)",
+        "Similar retrieval-based memory",
+        "No state-aware query expansion"
+      ],
+      "verification": "verified"
+    },
+    "Vanilla RAG": {
+      "paper": "Standard RAG baseline",
+      "key_mechanisms": [
+        "Semantic retrieval via embeddings",
+        "Context injection into prompt",
+        "No state tracking"
+      ],
+      "our_implementation": {
+        "retrieval": "FAISS vector search",
+        "context": "Top-k documents injected",
+        "state_tracking": "None"
+      },
+      "fidelity_notes": [
+        "Standard RAG implementation",
+        "Uses same embedding model as HOMEO",
+        "No psychological state modeling"
+      ],
+      "verification": "verified"
+    }
+  },
+  "summary": {
+    "total": 5,
+    "verified": 5,
+    "partial": 0,
+    "notes": [
+      "All baselines use matched backbone models (Qwen2.5-7B)",
+      "No dual-stream architecture in baselines (only HOMEO has this)",
+      "State tracking mechanisms differ in implementation details",
+      "Memory management varies across baselines but achieves similar goals"
+    ]
+  }
+}
