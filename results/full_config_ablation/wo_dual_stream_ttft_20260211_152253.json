@@ -1,0 +1,33 @@
+{
+  "experiment": "w/o Dual-Stream TTFT (Full Configuration)",
+  "timestamp": "2026-02-11T15:22:43.084048",
+  "config": {
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "description": "Single 8B model handles all generation (no fast bridge)"
+  },
+  "statistics": {
+    "mean_ms": 36.51292599970475,
+    "median_ms": 36.556088482029736,
+    "p50_ms": 36.62057896144688,
+    "p95_ms": 37.687686970457435,
+    "min_ms": 35.807448031846434,
+    "max_ms": 37.687686970457435,
+    "all_values": [
+      37.687686970457435,
+      36.62057896144688,
+      37.057150970213115,
+      36.49159800261259,
+      37.00184903573245,
+      35.807448031846434,
+      35.83870502188802,
+      36.83994698803872,
+      35.97478801384568,
+      35.80950800096616
+    ]
+  },
+  "comparison": {
+    "dual_stream_ttft_ms": 378,
+    "single_stream_ttft_ms": 36.556088482029736,
+    "overhead_factor": 0.09670922878843846
+  }
+}

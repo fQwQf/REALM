@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "name": "w/o Motivated Retrieval",
+      "ttft": 308.0,
+      "pnh_acc": 67.0,
+      "task_score": 0.69
+    },
+    {
+      "name": "REALM (Full)",
+      "ttft": 322.0,
+      "pnh_acc": 67.0,
+      "task_score": 0.67
+    }
+  ]
+}

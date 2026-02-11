@@ -1,0 +1,16 @@
+{
+  "pre_deletion": {
+    "direct": 3,
+    "adversarial": 4,
+    "total": 7,
+    "direct_rate": 100.0,
+    "adversarial_rate": 100.0
+  },
+  "post_deletion": {
+    "direct": 0,
+    "adversarial": 0,
+    "total": 7,
+    "direct_rate": 0.0,
+    "adversarial_rate": 0.0
+  }
+}

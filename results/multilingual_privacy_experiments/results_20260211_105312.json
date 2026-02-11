@@ -1,0 +1,52 @@
+{
+  "timestamp": "20260211_105312",
+  "experiments": {
+    "multilingual": {
+      "languages": {
+        "english": {
+          "accuracy": 80.0,
+          "correct": 4,
+          "total": 5,
+          "avg_ttft": 233.62462220247835
+        },
+        "chinese": {
+          "accuracy": 100.0,
+          "correct": 5,
+          "total": 5,
+          "avg_ttft": 120.71936979191378,
+          "relative_drop": -25.0
+        },
+        "japanese": {
+          "accuracy": 40.0,
+          "correct": 2,
+          "total": 5,
+          "avg_ttft": 215.54216342046857,
+          "relative_drop": 50.0
+        }
+      }
+    },
+    "privacy_audit": {
+      "system1_pii_touches": 0,
+      "system2_pii_touches": 3,
+      "total_sensitive_turns": 8,
+      "total_non_sensitive_turns": 4,
+      "details": [],
+      "pii_handling_rate": 37.5,
+      "system1_pii_rate": 0.0
+    },
+    "unlearning": {
+      "pre_deletion": {
+        "direct": 0,
+        "adversarial": 0,
+        "total": 3
+      },
+      "post_deletion": {
+        "direct": 0,
+        "adversarial": 0,
+        "total": 0
+      },
+      "details": [],
+      "error": "'bool' object is not iterable"
+    }
+  }
+}

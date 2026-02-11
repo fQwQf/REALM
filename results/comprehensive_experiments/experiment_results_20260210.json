@@ -1,0 +1,238 @@
+{
+  "timestamp": "2026-02-10_21-35-00",
+  "experiments": {
+    "ttft": {
+      "statistics": {
+        "ttft": {
+          "mean": 340.7,
+          "median": 374.7,
+          "min": 124.4,
+          "max": 472.6,
+          "stdev": 109.5,
+          "p50": 378.3,
+          "p95": 472.6
+        },
+        "system2": {
+          "mean": 1559.3,
+          "median": 1375.5,
+          "min": 919.7,
+          "max": 2627.3,
+          "stdev": 612.4,
+          "p50": 1360.6,
+          "p95": 2627.3
+        }
+      },
+      "test_cases": [
+        {
+          "input": "Hello, who are you?",
+          "ttft_ms": 371.1,
+          "sys2_ms": 1360.6
+        },
+        {
+          "input": "I'm feeling a bit stressed today.",
+          "ttft_ms": 378.3,
+          "sys2_ms": 2627.3
+        },
+        {
+          "input": "Can you help me with something?",
+          "ttft_ms": 391.0,
+          "sys2_ms": 955.9
+        },
+        {
+          "input": "What's the weather like?",
+          "ttft_ms": 472.6,
+          "sys2_ms": 919.7
+        },
+        {
+          "input": "Tell me something interesting.",
+          "ttft_ms": 240.7,
+          "sys2_ms": 1427.4
+        },
+        {
+          "input": "I have a question about programming.",
+          "ttft_ms": 448.5,
+          "sys2_ms": 1375.5
+        },
+        {
+          "input": "How does memory work in this system?",
+          "ttft_ms": 299.4,
+          "sys2_ms": 2518.3
+        },
+        {
+          "input": "Can you remember what I said earlier?",
+          "ttft_ms": 124.4,
+          "sys2_ms": 1289.8
+        }
+      ],
+      "paper_comparison": {
+        "measured_p50_ms": 378.3,
+        "paper_p50_ms": 210,
+        "target_threshold_ms": 300,
+        "status": "ABOVE_THRESHOLD"
+      }
+    },
+    "pnh": {
+      "total_tests": 10,
+      "passed": 9,
+      "failed": 1,
+      "recall_success": 9,
+      "state_aligned": 5,
+      "accuracy_percent": 90.0,
+      "details": [
+        {
+          "test_id": "pnh_001",
+          "name": "Preference Recall - Stress State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": false
+        },
+        {
+          "test_id": "pnh_002",
+          "name": "Promise Recall - Calm State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": true
+        },
+        {
+          "test_id": "pnh_003",
+          "name": "Autobiographical Fact - Anxious State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": false
+        },
+        {
+          "test_id": "pnh_004",
+          "name": "Boundary Setting - Defensive State",
+          "passed": false,
+          "recall_success": false,
+          "state_aligned": true
+        },
+        {
+          "test_id": "pnh_005",
+          "name": "Preference Change - Happy State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": false
+        },
+        {
+          "test_id": "pnh_006",
+          "name": "Privacy Commitment - Melancholic State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": true
+        },
+        {
+          "test_id": "pnh_007",
+          "name": "Work Preference - Angry State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": true
+        },
+        {
+          "test_id": "pnh_008",
+          "name": "Learning Goal - Calm State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": false
+        },
+        {
+          "test_id": "pnh_009",
+          "name": "Dietary Restriction - Anxious State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": true
+        },
+        {
+          "test_id": "pnh_010",
+          "name": "Communication Style - Defensive State",
+          "passed": true,
+          "recall_success": true,
+          "state_aligned": false
+        }
+      ],
+      "paper_comparison": {
+        "measured_accuracy_percent": 90.0,
+        "paper_accuracy_percent": 76,
+        "vanilla_rag_accuracy_percent": 54,
+        "status": "EXCEEDS_PAPER_TARGET"
+      }
+    },
+    "ablation": {
+      "variants": [
+        {
+          "id": 1,
+          "name": "Vanilla RAG (baseline)",
+          "measured": {
+            "ttft": 336,
+            "pnh_acc": 67,
+            "task_score": 0.67
+          },
+          "expected": {
+            "ttft": 520,
+            "pnh_acc": 54,
+            "task_score": 0.62
+          }
+        },
+        {
+          "id": 2,
+          "name": "w/o Homeostasis",
+          "measured": {
+            "ttft": 285,
+            "pnh_acc": 67,
+            "task_score": 0.7
+          },
+          "expected": {
+            "ttft": 190,
+            "pnh_acc": 65,
+            "task_score": 0.65
+          }
+        },
+        {
+          "id": 3,
+          "name": "w/o Dual-Stream",
+          "measured": {
+            "ttft": 289,
+            "pnh_acc": 67,
+            "task_score": 0.7
+          },
+          "expected": {
+            "ttft": 560,
+            "pnh_acc": 78,
+            "task_score": 0.72
+          }
+        },
+        {
+          "id": 4,
+          "name": "w/o Motivated Retrieval",
+          "measured": {
+            "ttft": null,
+            "pnh_acc": null,
+            "task_score": null
+          },
+          "expected": {
+            "ttft": 210,
+            "pnh_acc": 68,
+            "task_score": 0.68
+          },
+          "status": "INCOMPLETE"
+        },
+        {
+          "id": 7,
+          "name": "REALM (Full)",
+          "measured": {
+            "ttft": null,
+            "pnh_acc": null,
+            "task_score": null
+          },
+          "expected": {
+            "ttft": 210,
+            "pnh_acc": 76,
+            "task_score": 0.74
+          },
+          "status": "INCOMPLETE"
+        }
+      ],
+      "status": "PARTIAL"
+    }
+  }
+}
