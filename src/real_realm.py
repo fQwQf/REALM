@@ -215,7 +215,32 @@ class RealREALM:
     
     def _conflict_check(self, bridge: str, response: str) -> str:
         """Check for conflicts and stitch response"""
-        # Simple stitching - in real implementation, check for tone/commitment conflicts
+        # Improved conflict detector as described in paper
+        
+        # 1. Extract leading sentiment/stance from System 2
+        # Heuristic: check first sentence of response
+        s2_sentences = response.split('. ')
+        s2_lead = s2_sentences[0] if s2_sentences else response
+        
+        # 2. Check for contradictions
+        conflict_detected = False
+        
+        # Bridge says "Yes" but S2 says "No/Avoid/Don't"
+        if ("Of course" in bridge or "Yes" in bridge) and ("avoid" in s2_lead.lower() or "not" in s2_lead.lower() or "no" in s2_lead.lower()):
+            conflict_detected = True
+            repair_type = "contradiction_major"
+        
+        # Bridge says "I don't know/sorry" but S2 provides fact
+        elif "sorry" in bridge.lower() and ("You have" in s2_lead or "Your" in s2_lead or "You obtained" in s2_lead):
+            conflict_detected = True
+            repair_type = "false_refusal"
+            
+        if conflict_detected:
+            # Action: Repair
+            repair_clause = " (Correction: let me be more precise) "
+            return f"{bridge}{repair_clause}{response}"
+        
+        # No conflict: simple stitch
         return f"{bridge} {response}"
     
     def get_metrics(self) -> Dict:
