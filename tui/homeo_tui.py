@@ -640,18 +640,26 @@ class HOMEOApp(App):
     
     def _show_response_complete(self, chat_history, response: str, metadata: dict):
         """Show final System 2 response when complete"""
-        # Clear the bridge line and show final response
+        # Show final response
         chat_history.write(f"[b green]HOMEO:[/b green] {response}")
         
-        # Show metadata
+        # Show metadata including entropy info
         sys2_ms = metadata.get('system2_latency_ms', 0)
         retrieval_ms = metadata.get('retrieval_time_ms', 0)
+        entropy_info = metadata.get('entropy', {})
+        avg_entropy = entropy_info.get('avg_first_3', 0)
+        
+        # Build metadata string
+        meta_parts = []
+        if avg_entropy > 0:
+            meta_parts.append(f"Entropy: {avg_entropy:.2f}")
         if sys2_ms > 0:
-            chat_history.write(
-                f"[dim]System 2: {sys2_ms:.0f}ms | Retrieval: {retrieval_ms:.0f}ms[/dim]"
-            )
+            meta_parts.append(f"S2: {sys2_ms:.0f}ms")
+            if retrieval_ms > 0:
+                meta_parts.append(f"Retrieval: {retrieval_ms:.0f}ms")
+            chat_history.write(f"[dim]{' | '.join(meta_parts)} [System 2 triggered][/dim]")
         else:
-            chat_history.write("[dim]Single-stream mode (System 1 only)[/dim]")
+            chat_history.write(f"[dim]{' | '.join(meta_parts)} [System 1 only][/dim]")
         chat_history.write("")
     
     def _refresh_memory(self):
