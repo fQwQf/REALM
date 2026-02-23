@@ -124,10 +124,10 @@ class RealREALM:
         # 2. System 1: Bridge Generation with Uncertainty-Based Routing
         start_time = time.perf_counter()
         
-        # Entropy threshold for System 2 trigger (configurable, default 0.3)
+        # Entropy threshold for System 2 trigger (configurable, default 0.75)
         # With temperature=1.0, entropy ranges from ~0.1 (confident) to ~2.0 (uncertain)
-        # Threshold at 0.3 provides good separation based on empirical observation
-        tau_H = self.config.get('entropy_threshold', 0.3)
+        # Threshold at 0.75 provides good separation based on empirical observation
+        tau_H = self.config.get('entropy_threshold', 0.75)
         
         if self.use_real_llm and self.llm_backend:
             try:
