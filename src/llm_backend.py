@@ -128,7 +128,7 @@ class RealLLMBackend:
         user_input: str,
         state_vector: Optional[List[float]] = None,
         max_new_tokens: int = 20,
-        temperature: float = 0.8,  # Increased from 0.3 for meaningful entropy
+        temperature: float = 1.0,  # Increased to 1.0 for wider entropy separation
         return_entropy: bool = False
     ) -> str:
         """Generate bridge using System 1
