@@ -160,28 +160,36 @@ class RealREALM:
         metadata['retrieval_time_ms'] = retrieval_time
         self.metrics['retrieval_times'].append(retrieval_time)
         
-        # 4. System 2: Response Generation
+        # 4. System 2: Response Generation (conditional based on dual_stream config)
         sys2_start = time.perf_counter()
         
-        if self.use_real_llm and self.llm_backend:
-            try:
-                response = self.llm_backend.generate_system2(
-                    user_input,
-                    context=context,
-                    state_vector=current_state if self.config.get('homeostasis') else None
-                )
-            except Exception as e:
-                print(f"System 2 error: {e}, using fallback")
+        # Check if dual_stream is enabled (defaults to True)
+        if self.config.get('dual_stream', True):
+            # Full dual-stream mode: run System 2
+            if self.use_real_llm and self.llm_backend:
+                try:
+                    response = self.llm_backend.generate_system2(
+                        user_input,
+                        context=context,
+                        state_vector=current_state if self.config.get('homeostasis') else None
+                    )
+                except Exception as e:
+                    print(f"System 2 error: {e}, using fallback")
+                    response = self._fallback_response(user_input, context)
+            else:
                 response = self._fallback_response(user_input, context)
+            
+            sys2_latency = (time.perf_counter() - sys2_start) * 1000
+            metadata['system2_latency_ms'] = sys2_latency
+            self.metrics['system2_latencies'].append(sys2_latency)
+            
+            # 5. Conflict Check & Stitching (only in dual-stream mode)
+            final_output = self._conflict_check(bridge, response)
         else:
-            response = self._fallback_response(user_input, context)
-        
-        sys2_latency = (time.perf_counter() - sys2_start) * 1000
-        metadata['system2_latency_ms'] = sys2_latency
-        self.metrics['system2_latencies'].append(sys2_latency)
-        
-        # 5. Conflict Check & Stitching
-        final_output = self._conflict_check(bridge, response)
+            # Single-stream mode: use bridge as final output
+            sys2_latency = 0
+            metadata['system2_latency_ms'] = 0
+            final_output = bridge
         
         # 6. Store to memory
         self.memory.add_episode(user_input, final_output)

@@ -313,6 +313,93 @@ class HOMEOClient:
                 metadata=metadata
             )
     
+    def chat_with_progress(self, message: str, on_bridge: callable = None, on_complete: callable = None) -> InferenceResult:
+        """
+        Send a message with progressive display callbacks.
+        
+        This method provides callbacks to show System 1 (bridge) output immediately,
+        then the final response when System 2 completes. This demonstrates the
+        dual-stream architecture advantage of fast TTFT.
+        
+        Args:
+            message: User input message
+            on_bridge: Callback function(bridge_text, ttft_ms) called when System 1 completes
+            on_complete: Callback function(response_text, metadata) called when System 2 completes
+            
+        Returns:
+            InferenceResult containing response and metadata
+            
+        Example:
+            def show_bridge(bridge, ttft):
+                print(f"[System 1: {bridge}] (TTFT: {ttft:.0f}ms)")
+            
+            def show_response(response, meta):
+                print(f"HOMEO: {response}")
+            
+            result = client.chat_with_progress("Hello", show_bridge, show_response)
+        """
+        if not self.is_initialized():
+            raise RuntimeError("HOMEO not initialized. Call initialize() first.")
+        
+        with self._lock:
+            # Step 1: Get bridge immediately (System 1 - fast TTFT)
+            start_time = time.perf_counter()
+            
+            # Get bridge from System 1
+            if self._test_mode:
+                # Test mode: simulate System 1
+                state = self._realm.state_controller.get_state()
+                bridge = self._generate_test_bridge(message, state)
+                ttft_ms = 100.0
+            else:
+                # Real mode: use actual System 1
+                import time as time_module
+                s1_start = time_module.perf_counter()
+                bridge = self._realm.llm_backend.generate_system1(
+                    message,
+                    state_vector=self._realm.state_controller.get_state()
+                )
+                ttft_ms = (time_module.perf_counter() - s1_start) * 1000
+            
+            # Call bridge callback immediately to show fast TTFT
+            if on_bridge:
+                on_bridge(bridge, ttft_ms)
+            
+            # Step 2: Get full response (System 2 - slower)
+            response, metadata = self._realm.step(message)
+            
+            # Call completion callback
+            if on_complete:
+                on_complete(response, metadata)
+            
+            # Store in conversation history
+            self._conversation_history.append({
+                'timestamp': time.time(),
+                'user': message,
+                'agent': response,
+                'metadata': metadata
+            })
+            
+            return InferenceResult(
+                response=response,
+                bridge=bridge,
+                ttft_ms=ttft_ms,
+                system2_latency_ms=metadata.get('system2_latency_ms', 0.0),
+                retrieval_time_ms=metadata.get('retrieval_time_ms', 0.0),
+                state=PsychologicalState.from_array(metadata.get('state', np.array([0.5]*5))),
+                metadata=metadata
+            )
+    
+    def _generate_test_bridge(self, message: str, state) -> str:
+        """Generate test bridge for test mode"""
+        mood = state[0] if len(state) > 0 else 0.5
+        if mood > 0.7:
+            return "Got it, let me check..."
+        elif mood < 0.3:
+            return "Hmm, let me see..."
+        else:
+            return "One moment..."
+    
     def get_state(self) -> PsychologicalState:
         """
         Get current psychological state.

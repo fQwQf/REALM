@@ -40,8 +40,12 @@ def main():
         return
     print("✓ Client initialized successfully")
     
-    # Chat demo
-    print("\n[2/5] Testing chat functionality...")
+    # Chat demo - Progressive display (dual-stream advantage)
+    print("\n[2/6] Testing chat with progressive display...")
+    print("  This demonstrates the dual-stream advantage:")
+    print("  - System 1 (Bridge): Fast TTFT (~100ms)")
+    print("  - System 2 (Response): Slower but thorough (~500ms)\n")
+    
     test_messages = [
         "Hello!",
         "How does dual-stream inference work?",
@@ -49,10 +53,41 @@ def main():
     ]
     
     for msg in test_messages:
-        result = client.chat(msg)
         print(f"  User: {msg}")
-        print(f"  HOMEO: {result.response[:60]}...")
-        print(f"  (TTFT: {result.ttft_ms:.2f}ms)\n")
+        
+        # Use progressive display to show bridge immediately
+        def show_bridge(bridge, ttft):
+            print(f"    ⏳ {bridge} (TTFT: {ttft:.0f}ms)")
+        
+        def show_response(response, metadata):
+            print(f"    🤖 {response[:60]}...")
+            sys2_ms = metadata.get('system2_latency_ms', 0)
+            if sys2_ms > 0:
+                print(f"       (System 2: {sys2_ms:.0f}ms)\n")
+            else:
+                print(f"       (Single-stream mode)\n")
+        
+        result = client.chat_with_progress(msg, on_bridge=show_bridge, on_complete=show_response)
+    
+    # Demo dual-stream vs single-stream mode
+    print("\n[3/6] Testing dual-stream vs single-stream mode...")
+    print("  Configuring client with dual_stream=False (single-stream mode)...")
+    
+    # Create a new client with dual_stream disabled
+    client_single = HOMEOClient(test_mode=use_test_mode, config={'dual_stream': False})
+    if client_single.initialize():
+        print("  Single-stream client initialized")
+        result = client_single.chat("Test query")
+        print(f"  Response (System 1 only): {result.response}")
+        print(f"  System 2 latency: {result.system2_latency_ms:.0f}ms (0 = skipped)\n")
+    
+    print("  Configuring client with dual_stream=True (dual-stream mode)...")
+    client_dual = HOMEOClient(test_mode=use_test_mode, config={'dual_stream': True})
+    if client_dual.initialize():
+        print("  Dual-stream client initialized")
+        result = client_dual.chat("Test query")
+        print(f"  Response (System 1 + System 2): {result.response[:60]}...")
+        print(f"  System 2 latency: {result.system2_latency_ms:.0f}ms\n")
     
     # State demo
     print("\n[3/5] Current psychological state:")

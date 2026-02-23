@@ -84,7 +84,7 @@ class ChatScreen(Container):
             yield Label("💬 Chat with HOMEO", id="chat-title", classes="title")
             
             with Container(id="chat-history-container"):
-                yield RichLog(id="chat-history", highlight=True, markup=True)
+                yield RichLog(id="chat-history", highlight=True, markup=True, auto_scroll=True, wrap=True)
             
             with Horizontal(id="chat-input-container"):
                 yield Input(placeholder="Type your message here...", id="chat-input")
@@ -187,7 +187,7 @@ class ExperimentsScreen(Container):
                     yield Label("Progress", classes="card-title")
                     yield ProgressBar(id="experiment-progress", total=100)
                     yield Static(id="experiment-status", content="Ready")
-                    yield RichLog(id="experiment-log", highlight=True)
+                    yield RichLog(id="experiment-log", highlight=True, auto_scroll=True, wrap=True)
                 
                 # Quick Results
                 with Container(classes="card"):
@@ -597,7 +597,7 @@ class HOMEOApp(App):
         if event.input.id == "chat-input":
             self._handle_send_message()
     def _handle_send_message(self):
-        """Handle sending a chat message"""
+        """Handle sending a chat message with progressive display"""
         if not self._initialized:
             self.notify("System not initialized yet!", severity="warning")
             return
@@ -613,31 +613,46 @@ class HOMEOApp(App):
         # Show user message
         chat_history.write(f"[b]You:[/b] {message}")
         input_widget.value = ""
+        input_widget.disabled = True  # Disable input while processing
         
-        # Get response
+        # Get response with progressive display
         try:
-            result = self.client.chat(message)
-            
-            # Show bridge if available
-            if result.bridge:
-                chat_history.write(f"[dim][System 1 Bridge: {result.bridge}][/dim]")
-            
-            # Show response
-            chat_history.write(f"[b green]HOMEO:[/b green] {result.response}")
-            
-            # Show metadata
-            chat_history.write(
-                f"[dim]TTFT: {result.ttft_ms:.1f}ms | "
-                f"S2 Latency: {result.system2_latency_ms:.1f}ms | "
-                f"Retrieval: {result.retrieval_time_ms:.1f}ms[/dim]"
+            # Use chat_with_progress to show System 1 bridge immediately
+            result = self.client.chat_with_progress(
+                message,
+                on_bridge=lambda bridge, ttft: self._show_bridge(chat_history, bridge, ttft),
+                on_complete=lambda response, metadata: self._show_response_complete(chat_history, response, metadata)
             )
-            chat_history.write("")
             
             # Update status
             self._update_status_bar()
             
         except Exception as e:
             chat_history.write(f"[b red]Error:[/b red] {e}")
+        finally:
+            input_widget.disabled = False
+            input_widget.focus()
+    
+    def _show_bridge(self, chat_history, bridge: str, ttft_ms: float):
+        """Show System 1 bridge output immediately (fast TTFT)"""
+        if bridge:
+            chat_history.write(f"[dim yellow]⏳ {bridge}[/dim yellow] [dim](TTFT: {ttft_ms:.0f}ms)[/dim]")
+    
+    def _show_response_complete(self, chat_history, response: str, metadata: dict):
+        """Show final System 2 response when complete"""
+        # Clear the bridge line and show final response
+        chat_history.write(f"[b green]HOMEO:[/b green] {response}")
+        
+        # Show metadata
+        sys2_ms = metadata.get('system2_latency_ms', 0)
+        retrieval_ms = metadata.get('retrieval_time_ms', 0)
+        if sys2_ms > 0:
+            chat_history.write(
+                f"[dim]System 2: {sys2_ms:.0f}ms | Retrieval: {retrieval_ms:.0f}ms[/dim]"
+            )
+        else:
+            chat_history.write("[dim]Single-stream mode (System 1 only)[/dim]")
+        chat_history.write("")
     
     def _refresh_memory(self):
         """Refresh memory display"""
