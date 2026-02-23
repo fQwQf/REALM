@@ -234,7 +234,7 @@ class ConfigScreen(Container):
                 with Container(classes="card"):
                     yield Label("System Settings", classes="card-title")
                     yield Horizontal(
-                        Label("Use Real LLM:"),
+                        Label("Load LLM Models (GPU required):"),
                         Switch(id="config-real-llm", value=False)
                     )
                     yield Horizontal(
@@ -587,6 +587,10 @@ class HOMEOApp(App):
         elif button_id == "btn-refresh-results":
             self._refresh_results_list()
     
+    def on_input_submitted(self, event: Input.Submitted) -> None:
+        """Handle input submission (Enter key)"""
+        if event.input.id == "chat-input":
+            self._handle_send_message()
     def _handle_send_message(self):
         """Handle sending a chat message"""
         if not self._initialized:
