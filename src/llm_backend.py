@@ -128,9 +128,21 @@ class RealLLMBackend:
         user_input: str,
         state_vector: Optional[List[float]] = None,
         max_new_tokens: int = 20,
-        temperature: float = 0.3
+        temperature: float = 0.3,
+        return_entropy: bool = False
     ) -> str:
-        """Generate bridge using System 1"""
+        """Generate bridge using System 1
+        
+        Args:
+            user_input: User's input text
+            state_vector: Current psychological state
+            max_new_tokens: Maximum tokens to generate
+            temperature: Sampling temperature
+            return_entropy: If True, returns dict with 'response' and 'entropy_info'
+        
+        Returns:
+            str: Generated response, or dict if return_entropy=True
+        """
         if self.sys1_model is None or self.sys1_tokenizer is None:
             raise RuntimeError("System 1 not loaded")
         
@@ -157,19 +169,60 @@ class RealLLMBackend:
         inputs = self.sys1_tokenizer([text], return_tensors="pt").to(f"cuda:{self.sys1_gpu}")
         
         with torch.no_grad():
-            outputs = self.sys1_model.generate(
-                inputs.input_ids,
-                max_new_tokens=max_new_tokens,
-                do_sample=True,
-                temperature=temperature,
-                pad_token_id=self.sys1_tokenizer.eos_token_id
-            )
-        
-        # Decode only the generated part
-        generated_ids = outputs[0][inputs.input_ids.shape[1]:]
-        response = self.sys1_tokenizer.decode(generated_ids, skip_special_tokens=True)
-        
-        return response.strip()
+            if return_entropy:
+                # Generate with scores for entropy calculation
+                outputs = self.sys1_model.generate(
+                    inputs.input_ids,
+                    max_new_tokens=max_new_tokens,
+                    do_sample=True,
+                    temperature=temperature,
+                    pad_token_id=self.sys1_tokenizer.eos_token_id,
+                    return_dict_in_generate=True,
+                    output_scores=True
+                )
+                
+                # Calculate entropy for each generated token
+                scores = outputs.scores  # Tuple of logits for each step
+                entropies = []
+                
+                for score in scores:
+                    # Convert logits to probabilities
+                    probs = torch.softmax(score[0], dim=-1)
+                    # Calculate entropy: -sum(p * log(p))
+                    entropy = -torch.sum(probs * torch.log(probs + 1e-10))
+                    entropies.append(entropy.item())
+                
+                # Average entropy over first 3 tokens (as per paper)
+                avg_entropy_first_3 = sum(entropies[:3]) / min(3, len(entropies)) if entropies else 0.0
+                max_entropy = max(entropies) if entropies else 0.0
+                
+                # Decode response
+                generated_ids = outputs.sequences[0][inputs.input_ids.shape[1]:]
+                response = self.sys1_tokenizer.decode(generated_ids, skip_special_tokens=True)
+                
+                return {
+                    'response': response.strip(),
+                    'entropy_info': {
+                        'avg_first_3': avg_entropy_first_3,
+                        'max': max_entropy,
+                        'all_entropies': entropies
+                    }
+                }
+            else:
+                # Standard generation without entropy
+                outputs = self.sys1_model.generate(
+                    inputs.input_ids,
+                    max_new_tokens=max_new_tokens,
+                    do_sample=True,
+                    temperature=temperature,
+                    pad_token_id=self.sys1_tokenizer.eos_token_id
+                )
+                
+                # Decode only the generated part
+                generated_ids = outputs[0][inputs.input_ids.shape[1]:]
+                response = self.sys1_tokenizer.decode(generated_ids, skip_special_tokens=True)
+                
+                return response.strip()
     
     def generate_system2(
         self,

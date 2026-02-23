@@ -121,51 +121,75 @@ class RealREALM:
         current_state = self.state_controller.step(event_embedding)
         metadata['state'] = current_state.copy()
         
-        # 2. System 1: Bridge Generation (measure TTFT)
+        # 2. System 1: Bridge Generation with Uncertainty-Based Routing
         start_time = time.perf_counter()
+        
+        # Entropy threshold for System 2 trigger (configurable, default 1.5)
+        tau_H = self.config.get('entropy_threshold', 1.5)
         
         if self.use_real_llm and self.llm_backend:
             try:
-                bridge = self.llm_backend.generate_system1(
+                # Generate System 1 bridge with entropy tracking
+                result = self.llm_backend.generate_system1(
                     user_input,
-                    state_vector=current_state
+                    state_vector=current_state,
+                    return_entropy=True
                 )
+                
+                bridge = result['response']
+                entropy_info = result['entropy_info']
+                avg_entropy = entropy_info['avg_first_3']
+                
+                # Log entropy for debugging
+                print(f"[System 1] Bridge: '{bridge}' | Avg Entropy: {avg_entropy:.3f} (threshold: {tau_H})")
+                
             except Exception as e:
                 print(f"System 1 error: {e}, using fallback")
                 bridge = self._fallback_bridge(user_input, current_state)
+                avg_entropy = 0.0  # Low entropy for fallback
+                entropy_info = {'avg_first_3': 0.0, 'max': 0.0, 'all_entropies': []}
         else:
             bridge = self._fallback_bridge(user_input, current_state)
+            avg_entropy = 0.0
+            entropy_info = {'avg_first_3': 0.0, 'max': 0.0, 'all_entropies': []}
         
         ttft_ms = (time.perf_counter() - start_time) * 1000
         metadata['ttft_ms'] = ttft_ms
         metadata['bridge'] = bridge
+        metadata['entropy'] = entropy_info
         self.metrics['ttft_values'].append(ttft_ms)
         
-        # 3. State-conditioned Retrieval
-        retrieval_start = time.perf_counter()
+        # 3. Uncertainty-Based Routing: Decide whether to trigger System 2
+        # If entropy is low (< tau_H), System 1 is confident -> skip System 2
+        # If entropy is high (>= tau_H), System 1 is uncertain -> trigger System 2
+        system2_triggered = avg_entropy >= tau_H
         
-        if self.config.get('motivated_retrieval', True) and self.vector_retriever:
-            # Use vector retrieval with state conditioning
-            retrieved_docs = self.vector_retriever.search(
-                query=user_input,
-                top_k=3,
-                state_vector=current_state if self.config.get('motivated_retrieval') else None
-            )
-            context = [doc['text'] for doc in retrieved_docs]
+        if system2_triggered:
+            print(f"[Routing] High entropy ({avg_entropy:.3f} >= {tau_H}), triggering System 2...")
         else:
-            # Fallback to simple memory
-            context = self.memory.retrieve(user_input)
+            print(f"[Routing] Low entropy ({avg_entropy:.3f} < {tau_H}), using System 1 only")
         
-        retrieval_time = (time.perf_counter() - retrieval_start) * 1000
-        metadata['retrieval_time_ms'] = retrieval_time
-        self.metrics['retrieval_times'].append(retrieval_time)
-        
-        # 4. System 2: Response Generation (conditional based on dual_stream config)
-        sys2_start = time.perf_counter()
-        
-        # Check if dual_stream is enabled (defaults to True)
-        if self.config.get('dual_stream', True):
-            # Full dual-stream mode: run System 2
+        # 4. State-conditioned Retrieval (only if System 2 will be triggered)
+        if system2_triggered:
+            retrieval_start = time.perf_counter()
+            
+            if self.config.get('motivated_retrieval', True) and self.vector_retriever:
+                retrieved_docs = self.vector_retriever.search(
+                    query=user_input,
+                    top_k=3,
+                    state_vector=current_state if self.config.get('motivated_retrieval') else None
+                )
+                context = [doc['text'] for doc in retrieved_docs]
+            else:
+                context = self.memory.retrieve(user_input)
+            
+            retrieval_time = (time.perf_counter() - retrieval_start) * 1000
+            metadata['retrieval_time_ms'] = retrieval_time
+            self.metrics['retrieval_times'].append(retrieval_time)
+            
+            # 5. System 2: Response Generation
+            sys2_start = time.perf_counter()
+            
             if self.use_real_llm and self.llm_backend:
                 try:
                     response = self.llm_backend.generate_system2(
@@ -183,11 +207,11 @@ class RealREALM:
             metadata['system2_latency_ms'] = sys2_latency
             self.metrics['system2_latencies'].append(sys2_latency)
             
-            # 5. Conflict Check & Stitching (only in dual-stream mode)
+            # 6. Conflict Check & Stitching
             final_output = self._conflict_check(bridge, response)
         else:
             # Single-stream mode: use bridge as final output
-            sys2_latency = 0
+            metadata['retrieval_time_ms'] = 0
             metadata['system2_latency_ms'] = 0
             final_output = bridge
         
