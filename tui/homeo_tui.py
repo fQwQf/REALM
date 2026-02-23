@@ -531,7 +531,7 @@ class HOMEOApp(App):
 [b]Total Episodes:[/b] {mem_stats.total_episodes}
 [b]Hot Tier:[/b] {mem_stats.hot_tier_size}
 [b]Warm Tier:[/b] {mem_stats.warm_tier_size}
-[cold]Cold Tier:[/b] {mem_stats.cold_tier_size}
+[b]Cold Tier:[/b] {mem_stats.cold_tier_size}
             """.strip()
             memory_content.update(memory_text)
         except Exception as e:
