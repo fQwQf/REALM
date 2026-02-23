@@ -20,12 +20,23 @@ def main():
     print("HOMEO TUI Demo - API Showcase")
     print("=" * 70)
     
-    # Initialize client
+    # Use test mode for demo (set to False for real LLM)
+    use_test_mode = True
+    
     print("\n[1/5] Initializing HOMEO client...")
-    client = HOMEOClient(use_real_llm=False)
+    if use_test_mode:
+        print("  Running in TEST MODE (mock LLM)")
+        print("  Set use_test_mode=False to load real LLM models")
+    else:
+        print("  Loading LLM models (this may take a few minutes)...")
+    client = HOMEOClient(test_mode=use_test_mode)
     
     if not client.initialize():
         print("✗ Failed to initialize!")
+        print("  Make sure you have:")
+        print("  - Sufficient GPU memory")
+        print("  - Model files available")
+        print("  - Dependencies installed")
         return
     print("✓ Client initialized successfully")
     

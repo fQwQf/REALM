@@ -230,13 +230,19 @@ class ConfigScreen(Container):
                     yield Label("System 2 GPUs:")
                     yield Input(value="4,5,6,7", id="config-sys2-gpus")
                 
+                # LLM Model Paths
+                with Container(classes="card"):
+                    yield Label("LLM Model Paths (Required)", classes="card-title")
+                    yield Label("System 1 Model:")
+                    yield Input(value="Qwen/Qwen2.5-7B-Instruct", id="config-sys1-model")
+                    yield Label("System 2 Model:")
+                    yield Input(value="Qwen/Qwen2.5-32B-Instruct", id="config-sys2-model")
+                    yield Label("Model Cache Dir:")
+                    yield Input(value="./model_cache", id="config-cache-dir")
+                
                 # System Settings
                 with Container(classes="card"):
                     yield Label("System Settings", classes="card-title")
-                    yield Horizontal(
-                        Label("Load LLM Models (GPU required):"),
-                        Switch(id="config-real-llm", value=False)
-                    )
                     yield Horizontal(
                         Label("Dual Stream:"),
                         Switch(id="config-dual-stream", value=True)
@@ -441,7 +447,7 @@ class HOMEOApp(App):
         self.notify("Initializing HOMEO system...", severity="information")
         
         try:
-            self.client = HOMEOClient(use_real_llm=False)
+            self.client = HOMEOClient()
             success = await asyncio.get_event_loop().run_in_executor(
                 None, self.client.initialize
             )
@@ -499,7 +505,6 @@ class HOMEOApp(App):
             status_content = self.query_one("#system-status-content", Static)
             status_text = f"""
 [b]Initialized:[/b] {'Yes' if self._initialized else 'No'}
-[b]Real LLM:[/b] {self.client.use_real_llm}
 [b]System 1 GPU:[/b] {self.client.sys1_gpu}
 [b]System 2 GPUs:[/b] {', '.join(map(str, self.client.sys2_gpus))}
             """.strip()

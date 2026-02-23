@@ -8,9 +8,11 @@ complexity of dual-stream inference, memory management, and state dynamics.
 Example Usage:
     >>> from homeo_client import HOMEOClient
     >>> 
-    >>> # Initialize the client
-    >>> client = HOMEOClient(use_real_llm=True)
-    >>> 
+    >>> # Initialize the client (loads LLM models automatically)
+    >>> client = HOMEOClient()
+    >>> if not client.initialize():
+    ...     print("Failed to initialize - check GPU memory and model availability")
+    ...
     >>> # Start a conversation
     >>> response = client.chat("Hello, how are you?")
     >>> print(response)
@@ -171,29 +173,32 @@ class HOMEOClient:
     - Viewing results
     
     Args:
-        use_real_llm: Whether to use real LLM backend or simulation
         sys1_gpu: GPU ID for System 1 (Reflex)
         sys2_gpus: GPU IDs for System 2 (Reflection)
-        config: Optional configuration dictionary
+        config: Optional configuration dictionary (can include 'sys1_model' and 'sys2_model')
+        test_mode: If True, use mock objects for testing (no real LLM loading)
     """
     
     def __init__(
         self,
-        use_real_llm: bool = False,
         sys1_gpu: int = 2,
         sys2_gpus: List[int] = [4, 5, 6, 7],
-        config: Optional[Dict] = None
+        config: Optional[Dict] = None,
+        test_mode: bool = False
     ):
-        self.use_real_llm = use_real_llm
         self.sys1_gpu = sys1_gpu
         self.sys2_gpus = sys2_gpus
         self.config = config or {}
+        self._test_mode = test_mode
         
         # Initialize the core system
         self._realm: Optional[RealREALM] = None
         self._initialized = False
         self._conversation_history: List[Dict] = []
         self._lock = threading.Lock()
+        
+        # Mock objects for test mode
+        self._mock_realm = None
         
     def initialize(self) -> bool:
         """
@@ -202,9 +207,12 @@ class HOMEOClient:
         Returns:
             True if initialization successful, False otherwise
         """
+        if self._test_mode:
+            # Use mock objects for testing
+            return self._initialize_test_mode()
+        
         try:
             self._realm = RealREALM(
-                use_real_llm=self.use_real_llm,
                 sys1_gpu=self.sys1_gpu,
                 sys2_gpus=self.sys2_gpus,
                 config=self.config
@@ -213,6 +221,54 @@ class HOMEOClient:
             return True
         except Exception as e:
             print(f"Failed to initialize HOMEO: {e}")
+            self._initialized = False
+            return False
+    
+    def _initialize_test_mode(self) -> bool:
+        """Initialize with mock objects for testing (no LLM loading)"""
+        try:
+            # Create mock realm with minimal setup
+            from unittest.mock import MagicMock
+            
+            self._mock_realm = MagicMock()
+            self._mock_realm.state_controller = MagicMock()
+            self._mock_realm.state_controller.get_state.return_value = np.array([0.7, 0.3, 0.5, 0.6, 0.4])
+            
+            self._mock_realm.memory = MagicMock()
+            self._mock_realm.memory.episodes = []
+            self._mock_realm.memory.get_relevant_context.return_value = []
+            self._mock_realm.memory.retrieval_count = 0
+            
+            def mock_step(message):
+                return (
+                    f"Mock response to: {message[:30]}...",
+                    {
+                        'bridge': 'Mock bridge',
+                        'ttft_ms': 100.0,
+                        'system2_latency_ms': 500.0,
+                        'retrieval_time_ms': 50.0,
+                        'state': np.array([0.7, 0.3, 0.5, 0.6, 0.4])
+                    }
+                )
+            
+            self._mock_realm.step = mock_step
+            self._mock_realm.get_metrics.return_value = {
+                'ttft_values': {'mean': 150.0, 'median': 145.0, 'min': 100.0, 'max': 200.0, 'p95': 190.0},
+                'system2_latencies': {'mean': 500.0},
+                'retrieval_times': {'mean': 50.0}
+            }
+            self._mock_realm.metrics = {'ttft_values': [150.0, 145.0, 100.0, 200.0]}
+            # Create a proper reset_metrics function that actually resets
+            def reset_metrics():
+                self._mock_realm.metrics = {'ttft_values': []}
+            
+            self._mock_realm.reset_metrics = reset_metrics
+            
+            self._realm = self._mock_realm
+            self._initialized = True
+            return True
+        except Exception as e:
+            print(f"Failed to initialize test mode: {e}")
             self._initialized = False
             return False
     
@@ -647,17 +703,17 @@ class HOMEOClient:
 
 
 # Convenience functions for quick usage
-def create_client(use_real_llm: bool = False) -> HOMEOClient:
+def create_client(test_mode: bool = False) -> HOMEOClient:
     """Create and initialize a HOMEO client"""
-    client = HOMEOClient(use_real_llm=use_real_llm)
+    client = HOMEOClient(test_mode=test_mode)
     client.initialize()
     return client
 
 
 if __name__ == "__main__":
-    # Simple test
+    # Simple test with test mode (no LLM loading)
     print("Testing HOMEO Client API...")
-    client = HOMEOClient(use_real_llm=False)
+    client = HOMEOClient(test_mode=True)
     
     if client.initialize():
         print("✓ Client initialized")

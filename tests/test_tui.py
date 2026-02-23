@@ -19,14 +19,14 @@ class TestHOMEOClient:
     
     @pytest.fixture
     def client(self):
-        """Create initialized client fixture"""
-        client = HOMEOClient(use_real_llm=False)
+        """Create initialized client fixture with test mode"""
+        client = HOMEOClient(sys1_gpu=2, sys2_gpus=[4,5,6,7], test_mode=True)
         client.initialize()
         return client
     
     def test_client_initialization(self):
-        """Test client can be initialized"""
-        client = HOMEOClient(use_real_llm=False)
+        """Test client can be initialized with test mode"""
+        client = HOMEOClient(sys1_gpu=2, sys2_gpus=[4,5,6,7], test_mode=True)
         assert not client.is_initialized()
         
         success = client.initialize()
