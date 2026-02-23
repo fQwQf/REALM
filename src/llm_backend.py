@@ -128,7 +128,7 @@ class RealLLMBackend:
         user_input: str,
         state_vector: Optional[List[float]] = None,
         max_new_tokens: int = 20,
-        temperature: float = 0.3,
+        temperature: float = 0.8,  # Increased from 0.3 for meaningful entropy
         return_entropy: bool = False
     ) -> str:
         """Generate bridge using System 1
@@ -186,8 +186,10 @@ class RealLLMBackend:
                 entropies = []
                 
                 for score in scores:
-                    # Convert logits to probabilities
-                    probs = torch.softmax(score[0], dim=-1)
+                    # Apply temperature scaling to logits BEFORE softmax
+                    # This matches how temperature is used during generation
+                    scaled_logits = score[0] / temperature
+                    probs = torch.softmax(scaled_logits, dim=-1)
                     # Calculate entropy: -sum(p * log(p))
                     entropy = -torch.sum(probs * torch.log(probs + 1e-10))
                     entropies.append(entropy.item())
