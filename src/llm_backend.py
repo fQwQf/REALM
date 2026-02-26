@@ -164,6 +164,48 @@ class RealLLMBackend:
 
 Your task is to:
 1. Classify the user's query into ONE of these types:
+   - FACTUAL: Asking for specific information (names, dates, facts, preferences, locations, history)
+   - GREETING: Simple hello/goodbye/how are you
+   - SHARING: User sharing information about themselves ("I like...", "I went...", "My name is...")
+   - OPINION: Asking for opinions or advice ("What do you think?", "Should I...?")
+   - OTHER: Commands, chitchat, or unclear intent
+
+2. Provide a SHORT bridge response (3-6 words)
+
+CLASSIFICATION RULES:
+- "What's my name?" → FACTUAL (asking for stored information)
+- "Where do I live/work?" → FACTUAL (asking for location/fact)
+- "What did I say earlier?" → FACTUAL (asking for history)
+- "Who am I?" → FACTUAL (asking for identity)
+- "Tell me about myself" → FACTUAL (asking for summary)
+- "Do you remember...?" → FACTUAL (checking memory)
+- "Hello/Hi/Hey" → GREETING
+- "I like/love/enjoy..." → SHARING
+- "I went to..." → SHARING
+- "What do you think?" → OPINION
+- "Should I...?" → OPINION
+
+CRITICAL: Output in this exact format:
+TYPE: <classification>
+BRIDGE: <your response>
+
+Examples:
+User: "What's my name?"
+TYPE: FACTUAL
+BRIDGE: Let me recall your name...
+
+User: "Hello!"
+TYPE: GREETING
+BRIDGE: Hello! How can I help?
+
+User: "I love hiking."
+TYPE: SHARING
+BRIDGE: Got it, noted. Thanks!"""
+        if return_query_type:
+            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
+
+Your task is to:
+1. Classify the user's query into ONE of these types:
    - FACTUAL: Asking for specific information (names, dates, facts, preferences)
    - GREETING: Simple hello/goodbye
    - SHARING: User sharing information about themselves
@@ -319,7 +361,16 @@ Keep responses SHORT (3-6 words) and NATURAL."""
             elif mood_val < 0.3:
                 state_desc = "The user seems stressed or concerned."
         
-        system_prompt = f"""You are a helpful, consistent assistant. 
+        system_prompt = f"""You are a helpful, consistent assistant.
+{state_desc}
+CRITICAL INSTRUCTIONS:
+1. You MUST use the provided context to answer the user's question
+2. If the context contains the answer, use it directly and naturally
+3. If the context does NOT contain the answer, say "I don't recall you mentioning that" or similar
+4. NEVER make up information that is not in the context
+5. Keep your response concise (1-2 sentences)
+
+The context contains relevant information from previous conversations. Use it accurately."""
 {state_desc}
 Use the provided context to give accurate, relevant responses.
 Keep your response concise but informative."""

@@ -190,7 +190,7 @@ class RealREALM:
             if self.config.get('motivated_retrieval', True) and self.vector_retriever:
                 retrieved_docs = self.vector_retriever.search(
                     query=user_input,
-                    top_k=3,
+                    top_k=5,
                     state_vector=current_state if self.config.get('motivated_retrieval') else None
                 )
                 context = [doc['text'] for doc in retrieved_docs]
