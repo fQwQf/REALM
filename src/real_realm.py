@@ -124,7 +124,11 @@ class RealREALM:
         # 2. System 1: Bridge Generation with Uncertainty-Based Routing
         start_time = time.perf_counter()
         
-        # Entropy threshold for System 2 trigger (configurable, default 0.75)
+        # Entropy threshold for System 2 trigger (configurable, default 0.5)
+        # Lower threshold to ensure more queries trigger System 2 for better recall
+        # With temperature=1.0, entropy typically ranges from 0.1 to 2.0
+        # Threshold at 0.5 catches most factual queries while preserving fast path for simple greetings
+        tau_H = self.config.get('entropy_threshold', 0.5)
         # With temperature=1.0, entropy ranges from ~0.1 (confident) to ~2.0 (uncertain)
         # Threshold at 0.75 provides good separation based on empirical observation
         tau_H = self.config.get('entropy_threshold', 0.75)
@@ -160,10 +164,9 @@ class RealREALM:
         metadata['bridge'] = bridge
         metadata['entropy'] = entropy_info
         self.metrics['ttft_values'].append(ttft_ms)
-        
         # 3. Uncertainty-Based Routing: Decide whether to trigger System 2
-        # If entropy is low (< tau_H), System 1 is confident -> skip System 2
-        # If entropy is high (>= tau_H), System 1 is uncertain -> trigger System 2
+        # Pure entropy-based routing (no keyword detection for language independence)
+        # Lower threshold (0.5) ensures most factual queries trigger System 2
         system2_triggered = avg_entropy >= tau_H
         
         if system2_triggered:

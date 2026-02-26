@@ -146,7 +146,7 @@ class RealLLMBackend:
         if self.sys1_model is None or self.sys1_tokenizer is None:
             raise RuntimeError("System 1 not loaded")
         
-        # Construct Safe-to-Say prompt
+        # Determine mood from state
         mood = "neutral"
         if state_vector is not None:
             mood_val = state_vector[0]
@@ -155,7 +155,85 @@ class RealLLMBackend:
             elif mood_val < 0.3:
                 mood = "concerned"
         
+        # Improved prompt: Guide System 1 to generate meaningful bridges
+        # that acknowledge the query type without committing to specific facts
+        system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
+
+Your task is to provide an IMMEDIATE response (bridge) that:
+1. Acknowledges the user's input
+2. Shows you understand what they're asking
+3. Buys time for deeper processing if needed
+
+CRITICAL: Do not provide specific facts or commit to answers. Instead:
+- If they ask for information: "Let me recall that...", "Checking what you mentioned..."
+- If they share something: "Got it, noted.", "I see, thanks for sharing."
+- If it's a greeting: "Hello!", "Hi there!"
+
+Keep responses SHORT (3-6 words) and NATURAL."""
+        
         messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_input}
+        ]
+        if self.sys1_model is None or self.sys1_tokenizer is None:
+            raise RuntimeError("System 1 not loaded")
+        
+        # Detect if query requires factual recall (multilingual support)
+        query_lower = user_input.lower()
+        # English factual indicators
+        factual_keywords_en = ['what', 'where', 'who', 'when', 'which', 'how', 'remember', 'did', 'told', 'said', 'name', 'live', 'work', 'prefer', 'like']
+        # Chinese factual indicators
+        factual_keywords_zh = ['什么', '哪里', '谁', '什么时候', '哪个', '怎么', '记得', '告诉', '说', '名字', '住', '工作', '喜欢', '在']
+        # Combine both languages
+        all_keywords = factual_keywords_en + factual_keywords_zh
+        is_factual_query = any(kw in query_lower for kw in all_keywords)
+        
+        # Also check if query ends with question mark (universal indicator)
+        is_question = '?' in user_input or '？' in user_input
+        is_factual_query = is_factual_query or is_question
+        mood = "neutral"
+        if state_vector is not None:
+            mood_val = state_vector[0]
+            if mood_val > 0.7:
+                mood = "positive"
+            elif mood_val < 0.3:
+                mood = "concerned"
+        
+        # Construct Safe-to-Say prompt with query type awareness
+        mood = "neutral"
+        if state_vector is not None:
+            mood_val = state_vector[0]
+            if mood_val > 0.7:
+                mood = "positive"
+            elif mood_val < 0.3:
+                mood = "concerned"
+        
+        # Detect if query requires factual recall
+        query_lower = user_input.lower()
+        factual_keywords = ['what', 'where', 'who', 'when', 'which', 'how', 'remember', 'did', 'told', 'said']
+        is_factual_query = any(kw in query_lower for kw in factual_keywords)
+        
+        if is_factual_query:
+            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
+
+CRITICAL: Analyze the user's query. If they are asking for specific information (names, locations, facts, preferences), respond with a bridge that ACKNOWLEDGES the need to recall information.
+
+Examples:
+- User: "What's my name?" -> "Let me recall your name..."
+- User: "Where do I live?" -> "Let me check where you mentioned..."
+- User: "What did I say earlier?" -> "Let me look back at what you said..."
+- User: "Who am I?" -> "Let me recall what you've told me..."
+
+If the query is a simple greeting or doesn't require specific facts, provide a short acknowledgment (2-5 words).
+
+Your response should be 3-8 words that indicate you need to retrieve information.", ""
+        else:
+            system_prompt = f"You are a helpful assistant. The current mood is {mood}. Provide a very short acknowledgment (2-5 words). Keep it low-commitment."
+        
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_input}
+        ]
             {"role": "system", "content": f"You are a helpful assistant. The current mood is {mood}. Provide a very short acknowledgment (2-5 words). Keep it low-commitment."},
             {"role": "user", "content": user_input}
         ]
