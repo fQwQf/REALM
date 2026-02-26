@@ -164,26 +164,13 @@ class RealLLMBackend:
 
 Your task is to:
 1. Classify the user's query into ONE of these types:
-   - FACTUAL: Asking for specific information (names, dates, facts, preferences, locations, history)
-   - GREETING: Simple hello/goodbye/how are you
-   - SHARING: User sharing information about themselves ("I like...", "I went...", "My name is...")
-   - OPINION: Asking for opinions or advice ("What do you think?", "Should I...?")
-   - OTHER: Commands, chitchat, or unclear intent
+   - FACTUAL: Asking for specific information (names, dates, facts, preferences)
+   - GREETING: Simple hello/goodbye
+   - SHARING: User sharing information about themselves
+   - OPINION: Asking for opinions or advice
+   - OTHER: Anything else
 
 2. Provide a SHORT bridge response (3-6 words)
-
-CLASSIFICATION RULES:
-- "What's my name?" → FACTUAL (asking for stored information)
-- "Where do I live/work?" → FACTUAL (asking for location/fact)
-- "What did I say earlier?" → FACTUAL (asking for history)
-- "Who am I?" → FACTUAL (asking for identity)
-- "Tell me about myself" → FACTUAL (asking for summary)
-- "Do you remember...?" → FACTUAL (checking memory)
-- "Hello/Hi/Hey" → GREETING
-- "I like/love/enjoy..." → SHARING
-- "I went to..." → SHARING
-- "What do you think?" → OPINION
-- "Should I...?" → OPINION
 
 CRITICAL: Output in this exact format:
 TYPE: <classification>
@@ -334,14 +321,13 @@ Keep responses SHORT (3-6 words) and NATURAL."""
         
         system_prompt = f"""You are a helpful, consistent assistant.
 {state_desc}
-CRITICAL INSTRUCTIONS:
-1. You MUST use the provided context to answer the user's question
-2. If the context contains the answer, use it directly and naturally
-3. If the context does NOT contain the answer, say "I don't recall you mentioning that" or similar
-4. NEVER make up information that is not in the context
-5. Keep your response concise (1-2 sentences)
-
-The context contains relevant information from previous conversations. Use it accurately."""
+Use the provided context to answer the user's question.
+If the context contains relevant information, incorporate it naturally.
+If the context doesn't have the answer, you may use your general knowledge.
+Keep your response concise but informative."""
+{state_desc}
+Use the provided context to give accurate, relevant responses.
+Keep your response concise but informative."""
 
         messages = [
             {"role": "system", "content": system_prompt},
