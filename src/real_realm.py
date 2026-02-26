@@ -132,19 +132,22 @@ class RealREALM:
         
         if self.use_real_llm and self.llm_backend:
             try:
-                # Generate System 1 bridge with entropy tracking AND query type classification
+                # Check if we should use query type classification
+                use_query_type = self.config.get('use_query_type', True)
+                
+                # Generate System 1 bridge with entropy tracking AND optional query type classification
                 result = self.llm_backend.generate_system1(
                     user_input,
                     state_vector=current_state,
                     return_entropy=True,
-                    return_query_type=True  # Enable query type classification
+                    return_query_type=use_query_type  # Enable/disable query type classification
                 )
                 
                 # Extract information from result
                 bridge = result.get('bridge', result['response'])
                 entropy_info = result['entropy_info']
                 avg_entropy = entropy_info['avg_first_3']
-                query_type = result.get('query_type', 'OTHER')
+                query_type = result.get('query_type', 'OTHER') if use_query_type else 'OTHER'
                 
                 # Log for debugging
                 print(f"[System 1] Type: {query_type} | Bridge: '{bridge}' | Entropy: {avg_entropy:.3f}")
@@ -167,21 +170,25 @@ class RealREALM:
         metadata['entropy'] = entropy_info
         self.metrics['ttft_values'].append(ttft_ms)
         # 3. Uncertainty-Based Routing: Decide whether to trigger System 2
-        # Combine entropy-based routing with query type classification
-        # Trigger System 2 if:
-        # 1. High entropy (uncertain), OR
-        # 2. FACTUAL query type (needs retrieval)
+        # Check if dual-stream is enabled
+        dual_stream_enabled = self.config.get('dual_stream', True)
         
-        is_factual = (query_type == 'FACTUAL')
-        system2_triggered = (avg_entropy >= tau_H) or is_factual
-        
-        if system2_triggered:
-            if is_factual:
-                print(f"[Routing] FACTUAL query detected (entropy: {avg_entropy:.3f}), triggering System 2...")
-            else:
-                print(f"[Routing] High entropy ({avg_entropy:.3f} >= {tau_H}), triggering System 2...")
+        if not dual_stream_enabled:
+            # Vanilla RAG mode: Always use System 2 (no System 1 fast path)
+            system2_triggered = True
+            print(f"[Routing] Vanilla RAG mode - always triggering System 2")
         else:
-            print(f"[Routing] {query_type} query with low entropy ({avg_entropy:.3f}), using System 1 only")
+            # Dual-stream mode: Combine entropy-based routing with query type classification
+            is_factual = (query_type == 'FACTUAL')
+            system2_triggered = (avg_entropy >= tau_H) or is_factual
+            
+            if system2_triggered:
+                if is_factual:
+                    print(f"[Routing] FACTUAL query detected (entropy: {avg_entropy:.3f}), triggering System 2...")
+                else:
+                    print(f"[Routing] High entropy ({avg_entropy:.3f} >= {tau_H}), triggering System 2...")
+            else:
+                print(f"[Routing] {query_type} query with low entropy ({avg_entropy:.3f}), using System 1 only")
         
         # 4. State-conditioned Retrieval (only if System 2 will be triggered)
         if system2_triggered:
@@ -190,7 +197,7 @@ class RealREALM:
             if self.config.get('motivated_retrieval', True) and self.vector_retriever:
                 retrieved_docs = self.vector_retriever.search(
                     query=user_input,
-                    top_k=5,
+                    top_k=3,
                     state_vector=current_state if self.config.get('motivated_retrieval') else None
                 )
                 context = [doc['text'] for doc in retrieved_docs]
