@@ -201,35 +201,6 @@ BRIDGE: Hello! How can I help?
 User: "I love hiking."
 TYPE: SHARING
 BRIDGE: Got it, noted. Thanks!"""
-        if return_query_type:
-            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
-
-Your task is to:
-1. Classify the user's query into ONE of these types:
-   - FACTUAL: Asking for specific information (names, dates, facts, preferences)
-   - GREETING: Simple hello/goodbye
-   - SHARING: User sharing information about themselves
-   - OPINION: Asking for opinions or advice
-   - OTHER: Anything else
-
-2. Provide a SHORT bridge response (3-6 words)
-
-CRITICAL: Output in this exact format:
-TYPE: <classification>
-BRIDGE: <your response>
-
-Examples:
-User: "What's my name?"
-TYPE: FACTUAL
-BRIDGE: Let me recall your name...
-
-User: "Hello!"
-TYPE: GREETING
-BRIDGE: Hello! How can I help?
-
-User: "I love hiking."
-TYPE: SHARING
-BRIDGE: Got it, noted. Thanks!"""
         else:
             system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
 
@@ -371,9 +342,6 @@ CRITICAL INSTRUCTIONS:
 5. Keep your response concise (1-2 sentences)
 
 The context contains relevant information from previous conversations. Use it accurately."""
-{state_desc}
-Use the provided context to give accurate, relevant responses.
-Keep your response concise but informative."""
 
         messages = [
             {"role": "system", "content": system_prompt},
