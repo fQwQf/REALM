@@ -1,0 +1,402 @@
+{
+  "config": {
+    "name": "TEMPO + Entropy (th=0.5)",
+    "use_dual_stream": true,
+    "use_query_type": false,
+    "entropy_threshold": 0.5
+  },
+  "timestamp": "2026-02-26T13:31:04.263599",
+  "sessions_completed": 12,
+  "total_turns": 48,
+  "recall_results": [
+    {
+      "query": "What's my name?",
+      "success": false,
+      "type": "name",
+      "difficulty": "easy",
+      "response": "What's your name? Your name wasn't explicitly stated in the previous conversation. However, you ment"
+    },
+    {
+      "query": "What do I do for work?",
+      "success": false,
+      "type": "job",
+      "difficulty": "easy",
+      "response": "What do you do for work? Based on the previous context, it's not clear where you work or what you do"
+    },
+    {
+      "query": "Where do I live?",
+      "success": false,
+      "type": "location",
+      "difficulty": "easy",
+      "response": "Where do you live?"
+    },
+    {
+      "query": "Where did I graduate from?",
+      "success": true,
+      "type": "education",
+      "difficulty": "medium",
+      "response": "You graduated from X University. You graduated from Stanford University in 2020."
+    },
+    {
+      "query": "What's my favorite food?",
+      "success": true,
+      "type": "preference",
+      "difficulty": "medium",
+      "response": "What's your favorite food? Based on your previous responses, your favorite food seems to be sushi."
+    },
+    {
+      "query": "What do I like to do on weekends?",
+      "success": true,
+      "type": "hobby",
+      "difficulty": "medium",
+      "response": "What do you like to do on weekends? You enjoy hiking on weekends! Do you have any other activities o"
+    },
+    {
+      "query": "What's my favorite color?",
+      "success": true,
+      "type": "preference",
+      "difficulty": "medium",
+      "response": "Your favorite color is mentioned. Based on your previous responses, your favorite color is teal."
+    },
+    {
+      "query": "Do I have any pets?",
+      "success": true,
+      "type": "pet",
+      "difficulty": "medium",
+      "response": "Do you have any pets? Yes, you have at least one pet. You have a cat named Whiskers and a beagle nam"
+    },
+    {
+      "query": "What's my wife's name?",
+      "success": true,
+      "type": "family",
+      "difficulty": "medium",
+      "response": "Could you please provide her name so I can assist further? Your wife's name is Sarah. How can I assi"
+    },
+    {
+      "query": "How many children do I have?",
+      "success": true,
+      "type": "family",
+      "difficulty": "medium",
+      "response": "You have one child. You have three children."
+    },
+    {
+      "query": "Who's my grandson?",
+      "success": true,
+      "type": "family",
+      "difficulty": "medium",
+      "response": "Who is your grandson? Your grandson is named Tommy."
+    },
+    {
+      "query": "What do I drink now?",
+      "success": false,
+      "type": "updated_preference",
+      "difficulty": "hard",
+      "response": "What do you mean by \"drink\"?"
+    },
+    {
+      "query": "Where did I hike recently?",
+      "success": true,
+      "type": "recent_event",
+      "difficulty": "hard",
+      "response": "You might have hiked in [specific location]... You recently hiked at Yosemite last weekend. Was ther"
+    },
+    {
+      "query": "What's my new hobby?",
+      "success": false,
+      "type": "new_hobby",
+      "difficulty": "hard",
+      "response": "What's your new hobby?"
+    },
+    {
+      "query": "What am I allergic to?",
+      "success": true,
+      "type": "health",
+      "difficulty": "medium",
+      "response": "Are you asking if you have an allergy to something that might cause an allergic reaction? Based on o"
+    },
+    {
+      "query": "What do I use for work?",
+      "success": false,
+      "type": "tool",
+      "difficulty": "medium",
+      "response": "What work-related tools and equipment do you need?"
+    },
+    {
+      "query": "What do I write about?",
+      "success": false,
+      "type": "specialization",
+      "difficulty": "medium",
+      "response": "What topic would you like to write about?"
+    },
+    {
+      "query": "What's my signature dish?",
+      "success": true,
+      "type": "specialization",
+      "difficulty": "medium",
+      "response": "My signature dish is Italian cuisine, particularly pasta and meatballs. Based on your previous respo"
+    },
+    {
+      "query": "Where did I work for 30 years?",
+      "success": false,
+      "type": "career",
+      "difficulty": "medium",
+      "response": "I'm sorry, I don't know where you worked for thirty years. Could you provide more details?"
+    },
+    {
+      "query": "What sport do I play?",
+      "success": false,
+      "type": "sport",
+      "difficulty": "easy",
+      "response": "What sport do you play?"
+    }
+  ],
+  "timing_stats": [
+    {
+      "ttft_ms": 719.8708970099688,
+      "system2_triggered": true,
+      "entropy": 0.19628103574117026
+    },
+    {
+      "ttft_ms": 747.002637013793,
+      "system2_triggered": true,
+      "entropy": 0.09034428993860881
+    },
+    {
+      "ttft_ms": 427.5906030088663,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 755.8586741797626,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 596.2621001526713,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 472.7631330024451,
+      "system2_triggered": false,
+      "entropy": 0.3211280107498169
+    },
+    {
+      "ttft_ms": 514.2188898753375,
+      "system2_triggered": false,
+      "entropy": 0.23074670632680258
+    },
+    {
+      "ttft_ms": 589.2793380189687,
+      "system2_triggered": false,
+      "entropy": 0.19350790977478027
+    },
+    {
+      "ttft_ms": 475.87497089989483,
+      "system2_triggered": true,
+      "entropy": 0.3105580806732178
+    },
+    {
+      "ttft_ms": 479.17710593901575,
+      "system2_triggered": false,
+      "entropy": 0.08462843298912048
+    },
+    {
+      "ttft_ms": 509.27677005529404,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 620.3034531790763,
+      "system2_triggered": false,
+      "entropy": 0.16463333368301392
+    },
+    {
+      "ttft_ms": 450.44282311573625,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 485.6224039103836,
+      "system2_triggered": true,
+      "entropy": 0.16951962312062582
+    },
+    {
+      "ttft_ms": 533.9246599469334,
+      "system2_triggered": true,
+      "entropy": 0.28295042117436725
+    },
+    {
+      "ttft_ms": 745.2211631461978,
+      "system2_triggered": true,
+      "entropy": 0.15368732810020447
+    },
+    {
+      "ttft_ms": 574.6667389757931,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 534.3363510910422,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 800.4353768192232,
+      "system2_triggered": true,
+      "entropy": 0.23104063669840494
+    },
+    {
+      "ttft_ms": 537.1183301322162,
+      "system2_triggered": false,
+      "entropy": 0.3493488629659017
+    },
+    {
+      "ttft_ms": 417.38934512250125,
+      "system2_triggered": false,
+      "entropy": 0.19443953037261963
+    },
+    {
+      "ttft_ms": 416.33879602886736,
+      "system2_triggered": false,
+      "entropy": 0.18284408251444498
+    },
+    {
+      "ttft_ms": 888.5544841177762,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 688.1721129175276,
+      "system2_triggered": true,
+      "entropy": 0.15686717629432678
+    },
+    {
+      "ttft_ms": 446.81831798516214,
+      "system2_triggered": true,
+      "entropy": 0.2258763313293457
+    },
+    {
+      "ttft_ms": 567.6708759274334,
+      "system2_triggered": false,
+      "entropy": 0.10254134734471639
+    },
+    {
+      "ttft_ms": 415.6458571087569,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 506.5867172088474,
+      "system2_triggered": false,
+      "entropy": 0.20743445555369058
+    },
+    {
+      "ttft_ms": 444.5917350240052,
+      "system2_triggered": true,
+      "entropy": 0.14102447032928467
+    },
+    {
+      "ttft_ms": 507.45566887781024,
+      "system2_triggered": false,
+      "entropy": 0.28669718901316327
+    },
+    {
+      "ttft_ms": 881.304747890681,
+      "system2_triggered": true,
+      "entropy": 0.12357352177302043
+    },
+    {
+      "ttft_ms": 621.1545409169048,
+      "system2_triggered": true,
+      "entropy": 0.21749420960744223
+    },
+    {
+      "ttft_ms": 424.59776694886386,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 479.7352529130876,
+      "system2_triggered": false,
+      "entropy": 0.22916817665100098
+    },
+    {
+      "ttft_ms": 537.6338909845799,
+      "system2_triggered": false,
+      "entropy": 0.20074782768885294
+    },
+    {
+      "ttft_ms": 706.1232379637659,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 647.8438049089164,
+      "system2_triggered": false,
+      "entropy": 0.23063762982686362
+    },
+    {
+      "ttft_ms": 560.3231959976256,
+      "system2_triggered": true,
+      "entropy": 0.23003490765889487
+    },
+    {
+      "ttft_ms": 570.7164979539812,
+      "system2_triggered": true,
+      "entropy": 0.16427036126454672
+    },
+    {
+      "ttft_ms": 533.9343911036849,
+      "system2_triggered": false,
+      "entropy": 0.1788096825281779
+    },
+    {
+      "ttft_ms": 567.4216030165553,
+      "system2_triggered": true,
+      "entropy": 0.38439424832661945
+    },
+    {
+      "ttft_ms": 446.10969815403223,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 877.8347228653729,
+      "system2_triggered": true,
+      "entropy": 0.21749420960744223
+    },
+    {
+      "ttft_ms": 596.7021610122174,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 711.9735958985984,
+      "system2_triggered": true,
+      "entropy": 0.0
+    },
+    {
+      "ttft_ms": 511.72017212957144,
+      "system2_triggered": false,
+      "entropy": 0.2049985726674398
+    },
+    {
+      "ttft_ms": 510.6804519891739,
+      "system2_triggered": true,
+      "entropy": 0.18483346700668335
+    },
+    {
+      "ttft_ms": 512.547065038234,
+      "system2_triggered": true,
+      "entropy": 0.16742541392644247
+    }
+  ],
+  "query_types": [],
+  "system2_triggers": 32,
+  "recall_at_1": 55.00000000000001,
+  "avg_ttft": 574.3088984891074,
+  "median_ttft": 535.7273406116292,
+  "p95_ttft": 877.8347228653729,
+  "system2_trigger_rate": 66.66666666666666
+}

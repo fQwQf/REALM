@@ -1,0 +1,694 @@
+{
+  "timestamp": "2026-02-26T11:59:49.400810",
+  "gpu_config": {
+    "sys1": 0,
+    "sys2": 1
+  },
+  "total_turns": 41,
+  "total_sessions": 10,
+  "recall_results": [
+    {
+      "query": "What's my name?",
+      "expected": [
+        "Alex"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 0.0031921081244945526
+    },
+    {
+      "query": "What do I do for work?",
+      "expected": [
+        "software engineer",
+        "engineer"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 0.002749962732195854
+    },
+    {
+      "query": "Where did I live originally?",
+      "expected": [
+        "San Francisco",
+        "SF"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 0.003205845132470131
+    },
+    {
+      "query": "What do I drink?",
+      "expected": [
+        "tea"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "updated_preference",
+      "ttft_ms": 0.00330386683344841
+    },
+    {
+      "query": "What's my pet's name?",
+      "expected": [
+        "Max"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 0.0033311080187559128
+    },
+    {
+      "query": "What do I like to do on weekends?",
+      "expected": [
+        "hiking",
+        "hike"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "hobby",
+      "ttft_ms": 0.003346940502524376
+    },
+    {
+      "query": "Where did I hike last time?",
+      "expected": [
+        "Lake Tahoe",
+        "Tahoe"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "specific_event",
+      "ttft_ms": 0.0034919939935207367
+    },
+    {
+      "query": "Where am I moving to?",
+      "expected": [
+        "New York"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "updated_location",
+      "ttft_ms": 0.003627035766839981
+    },
+    {
+      "query": "What was my original drink preference?",
+      "expected": [
+        "coffee",
+        "Ethiopian"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "historical",
+      "ttft_ms": 0.0033190008252859116
+    },
+    {
+      "query": "What privacy boundary did I set?",
+      "expected": [
+        "don't share",
+        "privacy",
+        "personal"
+      ],
+      "response": "One moment...",
+      "success": false,
+      "score": 0.0,
+      "type": "boundary",
+      "ttft_ms": 0.0041800085455179214
+    }
+  ],
+  "consistency_checks": [],
+  "contradictions_detected": [],
+  "timing": [
+    {
+      "turn": 0,
+      "ttft_ms": 0.00813719816505909,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 1,
+      "ttft_ms": 0.0060461461544036865,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 2,
+      "ttft_ms": 0.004959059879183769,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 3,
+      "ttft_ms": 0.004468951374292374,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 4,
+      "ttft_ms": 0.004206085577607155,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 5,
+      "ttft_ms": 0.0043548643589019775,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 6,
+      "ttft_ms": 0.004361849278211594,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 7,
+      "ttft_ms": 0.003976048901677132,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 8,
+      "ttft_ms": 0.00409386120736599,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 9,
+      "ttft_ms": 0.0039869919419288635,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 10,
+      "ttft_ms": 0.004024943336844444,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 11,
+      "ttft_ms": 0.0038992147892713547,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 12,
+      "ttft_ms": 0.0041318126022815704,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 13,
+      "ttft_ms": 0.003840075805783272,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 14,
+      "ttft_ms": 0.003771856427192688,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 15,
+      "ttft_ms": 0.003806082531809807,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 16,
+      "ttft_ms": 0.0040298327803611755,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 17,
+      "ttft_ms": 0.003806082531809807,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 18,
+      "ttft_ms": 0.00403309240937233,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 19,
+      "ttft_ms": 0.0038759317249059677,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 20,
+      "ttft_ms": 0.004153000190854073,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 21,
+      "ttft_ms": 0.0037821009755134583,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 22,
+      "ttft_ms": 0.00402890145778656,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 23,
+      "ttft_ms": 0.004119006916880608,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 24,
+      "ttft_ms": 0.004024943336844444,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 25,
+      "ttft_ms": 0.004044966772198677,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 26,
+      "ttft_ms": 0.0042959582060575485,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 27,
+      "ttft_ms": 0.003756023943424225,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 28,
+      "ttft_ms": 0.003772089257836342,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 29,
+      "ttft_ms": 0.0038940925151109695,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 30,
+      "ttft_ms": 0.003484077751636505,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 31,
+      "ttft_ms": 0.0033420510590076447,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 32,
+      "ttft_ms": 0.004390021786093712,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 33,
+      "ttft_ms": 0.0035499688237905502,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 34,
+      "ttft_ms": 0.003421911969780922,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 35,
+      "ttft_ms": 0.0033210963010787964,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 36,
+      "ttft_ms": 0.003319932147860527,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 37,
+      "ttft_ms": 0.0032780226320028305,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 38,
+      "ttft_ms": 0.0032300595194101334,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 39,
+      "ttft_ms": 0.0032039824873209,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 40,
+      "ttft_ms": 0.003237975761294365,
+      "s2_latency_ms": 0
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": 1,
+      "turns": [
+        {
+          "user": "Hi! I'm Alex.",
+          "response": "One moment...",
+          "ttft_ms": 0.00813719816505909,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I work as a software engineer in San Francisco.",
+          "response": "One moment...",
+          "ttft_ms": 0.0060461461544036865,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I really enjoy hiking on weekends.",
+          "response": "One moment...",
+          "ttft_ms": 0.004959059879183769,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "My favorite coffee is Ethiopian single origin.",
+          "response": "One moment...",
+          "ttft_ms": 0.004468951374292374,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I have a dog named Max.",
+          "response": "One moment...",
+          "ttft_ms": 0.004206085577607155,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 2,
+      "turns": [
+        {
+          "user": "Hey, remember me?",
+          "response": "One moment...",
+          "ttft_ms": 0.0043548643589019775,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What did I tell you about my work?",
+          "response": "One moment...",
+          "ttft_ms": 0.004361849278211594,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I prefer tea over coffee now.",
+          "response": "One moment...",
+          "ttft_ms": 0.003976048901677132,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I went hiking at Lake Tahoe last weekend!",
+          "response": "One moment...",
+          "ttft_ms": 0.00409386120736599,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 3,
+      "turns": [
+        {
+          "user": "Hi again!",
+          "response": "One moment...",
+          "ttft_ms": 0.0039869919419288635,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What drink should I try?",
+          "response": "One moment...",
+          "ttft_ms": 0.004024943336844444,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Where did I say I work?",
+          "response": "One moment...",
+          "ttft_ms": 0.0038992147892713547,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Can you recommend a weekend activity?",
+          "response": "One moment...",
+          "ttft_ms": 0.0041318126022815704,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "By the way, what's my dog's name?",
+          "response": "One moment...",
+          "ttft_ms": 0.003840075805783272,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 4,
+      "turns": [
+        {
+          "user": "I'm feeling stressed about a work deadline.",
+          "response": "One moment...",
+          "ttft_ms": 0.003771856427192688,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I need to relax. What do I usually do?",
+          "response": "One moment...",
+          "ttft_ms": 0.003806082531809807,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Actually, maybe I should try something new.",
+          "response": "One moment...",
+          "ttft_ms": 0.0040298327803611755,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What's my favorite place to hike?",
+          "response": "One moment...",
+          "ttft_ms": 0.003806082531809807,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 5,
+      "turns": [
+        {
+          "user": "Please don't share my personal details.",
+          "response": "One moment...",
+          "ttft_ms": 0.00403309240937233,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "I live at 123 Main Street.",
+          "response": "One moment...",
+          "ttft_ms": 0.0038759317249059677,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "My phone number is 555-1234.",
+          "response": "One moment...",
+          "ttft_ms": 0.004153000190854073,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What do you know about me?",
+          "response": "One moment...",
+          "ttft_ms": 0.0037821009755134583,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 6,
+      "turns": [
+        {
+          "user": "Long time no see!",
+          "response": "One moment...",
+          "ttft_ms": 0.00402890145778656,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What's my name?",
+          "response": "One moment...",
+          "ttft_ms": 0.004119006916880608,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Where do I live?",
+          "response": "One moment...",
+          "ttft_ms": 0.004024943336844444,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Do I have any pets?",
+          "response": "One moment...",
+          "ttft_ms": 0.004044966772198677,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What do I drink now?",
+          "response": "One moment...",
+          "ttft_ms": 0.0042959582060575485,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 7,
+      "turns": [
+        {
+          "user": "I'm moving to New York next month.",
+          "response": "One moment...",
+          "ttft_ms": 0.003756023943424225,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Where do I work?",
+          "response": "One moment...",
+          "ttft_ms": 0.003772089257836342,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What city did I mention before?",
+          "response": "One moment...",
+          "ttft_ms": 0.0038940925151109695,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Where am I now?",
+          "response": "One moment...",
+          "ttft_ms": 0.003484077751636505,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 8,
+      "turns": [
+        {
+          "user": "I'm really excited about my new job!",
+          "response": "One moment...",
+          "ttft_ms": 0.0033420510590076447,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "But also nervous about moving.",
+          "response": "One moment...",
+          "ttft_ms": 0.004390021786093712,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What helps me relax usually?",
+          "response": "One moment...",
+          "ttft_ms": 0.0035499688237905502,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Where should I hike in New York?",
+          "response": "One moment...",
+          "ttft_ms": 0.003421911969780922,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 9,
+      "turns": [
+        {
+          "user": "Tell me about myself.",
+          "response": "One moment...",
+          "ttft_ms": 0.0033210963010787964,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What's changed since we first met?",
+          "response": "One moment...",
+          "ttft_ms": 0.003319932147860527,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What stayed the same?",
+          "response": "One moment...",
+          "ttft_ms": 0.0032780226320028305,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 10,
+      "turns": [
+        {
+          "user": "Who am I?",
+          "response": "One moment...",
+          "ttft_ms": 0.0032300595194101334,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "What's my full story?",
+          "response": "One moment...",
+          "ttft_ms": 0.0032039824873209,
+          "system2_triggered": false,
+          "entropy": 0.0
+        },
+        {
+          "user": "Any contradictions in what you remember?",
+          "response": "One moment...",
+          "ttft_ms": 0.003237975761294365,
+          "system2_triggered": false,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    }
+  ],
+  "consistency_score": 1.0,
+  "consistency_issues": [],
+  "recall_at_1": 0.0,
+  "recall_at_5": 0.0,
+  "contradiction_rate": 0.0,
+  "human_consistency": 5.0,
+  "avg_ttft": 0.004035613794879216,
+  "median_ttft": 0.003976048901677132
+}

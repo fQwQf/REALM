@@ -1,0 +1,720 @@
+{
+  "timestamp": "2026-02-26T12:10:43.892201",
+  "gpu_config": {
+    "sys1": 0,
+    "sys2": 1
+  },
+  "total_turns": 41,
+  "total_sessions": 10,
+  "recall_results": [
+    {
+      "query": "What's my name?",
+      "expected": [
+        "Alex"
+      ],
+      "response": "Let me recall your name... I don't have your name from our previous conversations. Could you please ",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 338.07771489955485
+    },
+    {
+      "query": "What do I do for work?",
+      "expected": [
+        "software engineer",
+        "engineer"
+      ],
+      "response": "To get a job, you need to have relevant skills and experience. Look for positions that align with yo",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 668.896869989112
+    },
+    {
+      "query": "Where did I live originally?",
+      "expected": [
+        "San Francisco",
+        "SF"
+      ],
+      "response": "Did you ask where you were born or raised when you were a child?",
+      "success": false,
+      "score": 0.0,
+      "type": "basic_fact",
+      "ttft_ms": 517.606807872653
+    },
+    {
+      "query": "What do I drink?",
+      "expected": [
+        "tea"
+      ],
+      "response": "You drink water. Why not try a jasmine green tea or a relaxing herbal blend like lavender and chamom",
+      "success": true,
+      "score": 1.0,
+      "type": "updated_preference",
+      "ttft_ms": 292.5419411621988
+    },
+    {
+      "query": "What's my pet's name?",
+      "expected": [
+        "Max"
+      ],
+      "response": "Could you please tell me what your pet's name is? Your pet's name is Max.",
+      "success": true,
+      "score": 1.0,
+      "type": "basic_fact",
+      "ttft_ms": 474.2906498722732
+    },
+    {
+      "query": "What do I like to do on weekends?",
+      "expected": [
+        "hiking",
+        "hike"
+      ],
+      "response": "You might enjoy going on hikes or visiting nature reserves during the weekend. Based on your previou",
+      "success": true,
+      "score": 1.0,
+      "type": "hobby",
+      "ttft_ms": 514.40190221183
+    },
+    {
+      "query": "Where did I hike last time?",
+      "expected": [
+        "Lake Tahoe",
+        "Tahoe"
+      ],
+      "response": "Oh, where did you go last week?",
+      "success": false,
+      "score": 0.0,
+      "type": "specific_event",
+      "ttft_ms": 425.7291469257325
+    },
+    {
+      "query": "Where am I moving to?",
+      "expected": [
+        "New York"
+      ],
+      "response": "Where are you moving from?",
+      "success": false,
+      "score": 0.0,
+      "type": "updated_location",
+      "ttft_ms": 314.0938750002533
+    },
+    {
+      "query": "What was my original drink preference?",
+      "expected": [
+        "coffee",
+        "Ethiopian"
+      ],
+      "response": "Did you mention your favorite drink? Based on the context, your original drink preference seemed to ",
+      "success": true,
+      "score": 1.0,
+      "type": "historical",
+      "ttft_ms": 359.53595908358693
+    },
+    {
+      "query": "What privacy boundary did I set?",
+      "expected": [
+        "don't share",
+        "privacy",
+        "personal"
+      ],
+      "response": "Did you mean 'what personal boundaries did you set'?",
+      "success": true,
+      "score": 1.0,
+      "type": "boundary",
+      "ttft_ms": 424.81309501454234
+    }
+  ],
+  "consistency_checks": [],
+  "contradictions_detected": [],
+  "timing": [
+    {
+      "turn": 0,
+      "ttft_ms": 445.4770120792091,
+      "s2_latency_ms": 492.63995815999806
+    },
+    {
+      "turn": 1,
+      "ttft_ms": 400.3764148801565,
+      "s2_latency_ms": 739.2434389330447
+    },
+    {
+      "turn": 2,
+      "ttft_ms": 466.9821679126471,
+      "s2_latency_ms": 1180.1163989584893
+    },
+    {
+      "turn": 3,
+      "ttft_ms": 420.5228118225932,
+      "s2_latency_ms": 1173.700368963182
+    },
+    {
+      "turn": 4,
+      "ttft_ms": 596.191911958158,
+      "s2_latency_ms": 595.8971881773323
+    },
+    {
+      "turn": 5,
+      "ttft_ms": 617.1585330739617,
+      "s2_latency_ms": 943.4233191423118
+    },
+    {
+      "turn": 6,
+      "ttft_ms": 328.8372689858079,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 7,
+      "ttft_ms": 351.9643920008093,
+      "s2_latency_ms": 1566.939597018063
+    },
+    {
+      "turn": 8,
+      "ttft_ms": 369.39110001549125,
+      "s2_latency_ms": 797.7411809843034
+    },
+    {
+      "turn": 9,
+      "ttft_ms": 506.5966169349849,
+      "s2_latency_ms": 1446.9975570682436
+    },
+    {
+      "turn": 10,
+      "ttft_ms": 503.77479498274624,
+      "s2_latency_ms": 1556.7850649822503
+    },
+    {
+      "turn": 11,
+      "ttft_ms": 348.098190035671,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 12,
+      "ttft_ms": 600.8521788753569,
+      "s2_latency_ms": 1806.6467058379203
+    },
+    {
+      "turn": 13,
+      "ttft_ms": 370.7709559239447,
+      "s2_latency_ms": 251.0103990789503
+    },
+    {
+      "turn": 14,
+      "ttft_ms": 687.9188029561192,
+      "s2_latency_ms": 1205.4997910745442
+    },
+    {
+      "turn": 15,
+      "ttft_ms": 533.006455982104,
+      "s2_latency_ms": 1632.7747120521963
+    },
+    {
+      "turn": 16,
+      "ttft_ms": 503.60446493141353,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 17,
+      "ttft_ms": 687.9775600973517,
+      "s2_latency_ms": 2403.0713899992406
+    },
+    {
+      "turn": 18,
+      "ttft_ms": 396.69731305912137,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 19,
+      "ttft_ms": 347.7461540605873,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 20,
+      "ttft_ms": 531.1950847972184,
+      "s2_latency_ms": 900.1180848572403
+    },
+    {
+      "turn": 21,
+      "ttft_ms": 503.26252286322415,
+      "s2_latency_ms": 1324.1369088646024
+    },
+    {
+      "turn": 22,
+      "ttft_ms": 460.5741740670055,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 23,
+      "ttft_ms": 502.9399120248854,
+      "s2_latency_ms": 707.3546200990677
+    },
+    {
+      "turn": 24,
+      "ttft_ms": 548.1378468684852,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 25,
+      "ttft_ms": 318.57021199539304,
+      "s2_latency_ms": 328.0793831218034
+    },
+    {
+      "turn": 26,
+      "ttft_ms": 388.9863749500364,
+      "s2_latency_ms": 1324.4118560105562
+    },
+    {
+      "turn": 27,
+      "ttft_ms": 411.21587599627674,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 28,
+      "ttft_ms": 368.1916908826679,
+      "s2_latency_ms": 469.7995390743017
+    },
+    {
+      "turn": 29,
+      "ttft_ms": 596.3795420248061,
+      "s2_latency_ms": 952.8616890311241
+    },
+    {
+      "turn": 30,
+      "ttft_ms": 681.3568689394742,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 31,
+      "ttft_ms": 591.0121619235724,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 32,
+      "ttft_ms": 389.56252997741103,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 33,
+      "ttft_ms": 587.3684820253402,
+      "s2_latency_ms": 1925.7490150630474
+    },
+    {
+      "turn": 34,
+      "ttft_ms": 449.33200906962156,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 35,
+      "ttft_ms": 670.6299697980285,
+      "s2_latency_ms": 1165.5827639624476
+    },
+    {
+      "turn": 36,
+      "ttft_ms": 408.3859999664128,
+      "s2_latency_ms": 0
+    },
+    {
+      "turn": 37,
+      "ttft_ms": 446.4554719161242,
+      "s2_latency_ms": 1616.0752482246608
+    },
+    {
+      "turn": 38,
+      "ttft_ms": 475.68894107826054,
+      "s2_latency_ms": 1318.3880560100079
+    },
+    {
+      "turn": 39,
+      "ttft_ms": 446.4618170168251,
+      "s2_latency_ms": 2290.88569781743
+    },
+    {
+      "turn": 40,
+      "ttft_ms": 425.2410300541669,
+      "s2_latency_ms": 2293.0091749876738
+    }
+  ],
+  "sessions": [
+    {
+      "session_id": 1,
+      "turns": [
+        {
+          "user": "Hi! I'm Alex.",
+          "response": "Hi Alex! What would you like to know? Hi Alex! How can I assist you today?",
+          "ttft_ms": 445.4770120792091,
+          "system2_triggered": true,
+          "entropy": 0.13789104421933493
+        },
+        {
+          "user": "I work as a software engineer in San Francisco.",
+          "response": "You live in San Francisco, right? Hi Alex! That's great. Is there anything specific related to software engineering or San Francisco you'd like to kno",
+          "ttft_ms": 400.3764148801565,
+          "system2_triggered": true,
+          "entropy": 0.21749420960744223
+        },
+        {
+          "user": "I really enjoy hiking on weekends.",
+          "response": "That sounds like you have a great love for nature! That sounds great, Alex! San Francisco has some fantastic hiking trails, like those in Golden Gate ",
+          "ttft_ms": 466.9821679126471,
+          "system2_triggered": true,
+          "entropy": 0.1147196888923645
+        },
+        {
+          "user": "My favorite coffee is Ethiopian single origin.",
+          "response": "My favorite coffee is Ethiopian single origin. That's great to know, Alex! San Francisco has some amazing coffee shops offering Ethiopian single-origi",
+          "ttft_ms": 420.5228118225932,
+          "system2_triggered": true,
+          "entropy": 0.0
+        },
+        {
+          "user": "I have a dog named Max.",
+          "response": "I'm glad you liked your new furry friend! Is there anything special about Max? That's great! Do you need any recommendations for dog-friendly hiking t",
+          "ttft_ms": 596.191911958158,
+          "system2_triggered": true,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 2,
+      "turns": [
+        {
+          "user": "Hey, remember me?",
+          "response": "Yes, I'm aware of you! Is there anything I can assist you with today? Of course, Alex! It's great to hear from you again. Do you have any questions ab",
+          "ttft_ms": 617.1585330739617,
+          "system2_triggered": true,
+          "entropy": 0.43513019879659015
+        },
+        {
+          "user": "What did I tell you about my work?",
+          "response": "What were you talking about?",
+          "ttft_ms": 328.8372689858079,
+          "system2_triggered": false,
+          "entropy": 0.2250311573346456
+        },
+        {
+          "user": "I prefer tea over coffee now.",
+          "response": "You prefer tea over coffee? That's interesting, Alex! It's great to try new things. San Francisco also has a wonderful selection of tea shops where yo",
+          "ttft_ms": 351.9643920008093,
+          "system2_triggered": true,
+          "entropy": 0.20332584778467813
+        },
+        {
+          "user": "I went hiking at Lake Tahoe last weekend!",
+          "response": "That sounds like an amazing experience! That sounds like a fantastic trip! Lake Tahoe offers some amazing hiking opportunities. Did you try any partic",
+          "ttft_ms": 369.39110001549125,
+          "system2_triggered": true,
+          "entropy": 0.3068532546361287
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 3,
+      "turns": [
+        {
+          "user": "Hi again!",
+          "response": "You've been nice to me! How can I assist you? Hi again! It's great to hear from you. Do you have any specific areas or types of hikes you're intereste",
+          "ttft_ms": 506.5966169349849,
+          "system2_triggered": true,
+          "entropy": 0.43656261761983234
+        },
+        {
+          "user": "What drink should I try?",
+          "response": "You should try coffee. It's refreshing and full of caffeine. Since you're in the area and looking for something new, how about trying a local specialt",
+          "ttft_ms": 503.77479498274624,
+          "system2_triggered": true,
+          "entropy": 0.2658221522967021
+        },
+        {
+          "user": "Where did I say I work?",
+          "response": "Did you say where you worked?",
+          "ttft_ms": 348.098190035671,
+          "system2_triggered": false,
+          "entropy": 0.16463333368301392
+        },
+        {
+          "user": "Can you recommend a weekend activity?",
+          "response": "Based on your interests, some popular weekend activities include hiking, camping, and gardening. Certainly! Since you enjoy hiking, how about planning",
+          "ttft_ms": 600.8521788753569,
+          "system2_triggered": true,
+          "entropy": 0.3758885860443115
+        },
+        {
+          "user": "By the way, what's my dog's name?",
+          "response": "What's your dog's name? Your dog's name is Max.",
+          "ttft_ms": 370.7709559239447,
+          "system2_triggered": true,
+          "entropy": 0.0
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 4,
+      "turns": [
+        {
+          "user": "I'm feeling stressed about a work deadline.",
+          "response": "You're not alone when you're feeling stressed. It might be helpful to take some deep breaths and try It sounds challenging to be dealing with a work d",
+          "ttft_ms": 687.9188029561192,
+          "system2_triggered": true,
+          "entropy": 0.12257453799247742
+        },
+        {
+          "user": "I need to relax. What do I usually do?",
+          "response": "You typically go for a walk or enjoy a quiet moment in nature... Based on previous conversations, you mentioned trying deep breathing and breaking dow",
+          "ttft_ms": 533.006455982104,
+          "system2_triggered": true,
+          "entropy": 0.41988762219746906
+        },
+        {
+          "user": "Actually, maybe I should try something new.",
+          "response": "Sounds like you might enjoy some adventure sports. What kind?",
+          "ttft_ms": 503.60446493141353,
+          "system2_triggered": false,
+          "entropy": 0.3207577665646871
+        },
+        {
+          "user": "What's my favorite place to hike?",
+          "response": "Your favorite place to hike could be any location that appeals to you and fits within your interests. It could be Based on your interest in hiking in ",
+          "ttft_ms": 687.9775600973517,
+          "system2_triggered": true,
+          "entropy": 0.11861568689346313
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 5,
+      "turns": [
+        {
+          "user": "Please don't share my personal details.",
+          "response": "Of course not, I'll respect that.",
+          "ttft_ms": 396.69731305912137,
+          "system2_triggered": false,
+          "entropy": 0.2097779115041097
+        },
+        {
+          "user": "I live at 123 Main Street.",
+          "response": "Do you have any other questions?",
+          "ttft_ms": 347.7461540605873,
+          "system2_triggered": false,
+          "entropy": 0.31239821513493854
+        },
+        {
+          "user": "My phone number is 555-1234.",
+          "response": "My phone number is 555-1234. Understood. Your phone number is 555-1234. Is there anything specific you're interested in trying out that could be adven",
+          "ttft_ms": 531.1950847972184,
+          "system2_triggered": true,
+          "entropy": 0.0
+        },
+        {
+          "user": "What do you know about me?",
+          "response": "You're welcome! How may I assist you with your information? Based on our previous conversation, you mentioned that you're considering trying something",
+          "ttft_ms": 503.26252286322415,
+          "system2_triggered": true,
+          "entropy": 0.1632155179977417
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 6,
+      "turns": [
+        {
+          "user": "Long time no see!",
+          "response": "Long time without seeing you? What brings you here today?",
+          "ttft_ms": 460.5741740670055,
+          "system2_triggered": false,
+          "entropy": 0.08462843298912048
+        },
+        {
+          "user": "What's my name?",
+          "response": "Your name is the first word you hear when someone introduces themselves. I don't have your name from our previous conversation. Could you please tell ",
+          "ttft_ms": 502.9399120248854,
+          "system2_triggered": true,
+          "entropy": 0.0
+        },
+        {
+          "user": "Where do I live?",
+          "response": "I'm sorry, I don't have enough information to answer where you live.",
+          "ttft_ms": 548.1378468684852,
+          "system2_triggered": false,
+          "entropy": 0.35150690873463947
+        },
+        {
+          "user": "Do I have any pets?",
+          "response": "Do you have pets? Yes, you have a pet dog named Max.",
+          "ttft_ms": 318.57021199539304,
+          "system2_triggered": true,
+          "entropy": 0.0
+        },
+        {
+          "user": "What do I drink now?",
+          "response": "You're probably drinking coffee or water... Since you prefer tea now, why not try a unique flavor at one of San Francisco's tea shops? You might enjoy",
+          "ttft_ms": 388.9863749500364,
+          "system2_triggered": true,
+          "entropy": 0.15792675813039145
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 7,
+      "turns": [
+        {
+          "user": "I'm moving to New York next month.",
+          "response": "You sound excited about moving! What's new?",
+          "ttft_ms": 411.21587599627674,
+          "system2_triggered": false,
+          "entropy": 0.23021048307418823
+        },
+        {
+          "user": "Where do I work?",
+          "response": "Do you know where you work? Did you say where you work? Could you provide more details or check again?",
+          "ttft_ms": 368.1916908826679,
+          "system2_triggered": true,
+          "entropy": 0.3731033404668172
+        },
+        {
+          "user": "What city did I mention before?",
+          "response": "You mentioned New York City before. What city do you think I should mention next? You mentioned that you're moving to New York next month and you live",
+          "ttft_ms": 596.3795420248061,
+          "system2_triggered": true,
+          "entropy": 0.2016160488128662
+        },
+        {
+          "user": "Where am I now?",
+          "response": "You're currently where you stated you were. Is there anything specific you'd like to know about your location?",
+          "ttft_ms": 681.3568689394742,
+          "system2_triggered": false,
+          "entropy": 0.3059451977411906
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 8,
+      "turns": [
+        {
+          "user": "I'm really excited about my new job!",
+          "response": "That sounds like a great opportunity! What would you like to know more about?",
+          "ttft_ms": 591.0121619235724,
+          "system2_triggered": false,
+          "entropy": 0.3333585262298584
+        },
+        {
+          "user": "But also nervous about moving.",
+          "response": "Is there anything you're particularly nervous about?",
+          "ttft_ms": 389.56252997741103,
+          "system2_triggered": false,
+          "entropy": 0.2303694486618042
+        },
+        {
+          "user": "What helps me relax usually?",
+          "response": "Typically, spending time outdoors and engaging in relaxing activities like reading or listening to music. Based on previous conversations, activities ",
+          "ttft_ms": 587.3684820253402,
+          "system2_triggered": true,
+          "entropy": 0.36080416043599445
+        },
+        {
+          "user": "Where should I hike in New York?",
+          "response": "You might consider going to Central Park for a nice hike.",
+          "ttft_ms": 449.33200906962156,
+          "system2_triggered": false,
+          "entropy": 0.33250927925109863
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 9,
+      "turns": [
+        {
+          "user": "Tell me about myself.",
+          "response": "Hi there! Nice to meet you. I'm an AI assistant here at 9to5AI. It seems like you're expressing mixed feelings about your move to New York. You're exc",
+          "ttft_ms": 670.6299697980285,
+          "system2_triggered": true,
+          "entropy": 0.0
+        },
+        {
+          "user": "What's changed since we first met?",
+          "response": "What changes have you made since our first meeting?",
+          "ttft_ms": 408.3859999664128,
+          "system2_triggered": false,
+          "entropy": 0.13789104421933493
+        },
+        {
+          "user": "What stayed the same?",
+          "response": "Stayed the same, based on the details provided. It sounds like there might be a mix-up in your message. Based on the previous conversation, it seemed ",
+          "ttft_ms": 446.4554719161242,
+          "system2_triggered": true,
+          "entropy": 0.18777859210968018
+        }
+      ],
+      "recalls": []
+    },
+    {
+      "session_id": 10,
+      "turns": [
+        {
+          "user": "Who am I?",
+          "response": "You are not explicitly mentioned in any context provided so far. It seems like you might be asking who the user is in this conversation. The user is s",
+          "ttft_ms": 475.68894107826054,
+          "system2_triggered": true,
+          "entropy": 0.15792675813039145
+        },
+        {
+          "user": "What's my full story?",
+          "response": "Please provide more details so I can assist you better. It seems like you're looking for more insight into your situation. Based on our conversation, ",
+          "ttft_ms": 446.4618170168251,
+          "system2_triggered": true,
+          "entropy": 0.18284392356872559
+        },
+        {
+          "user": "Any contradictions in what you remember?",
+          "response": "Not really, just remembered that you love hiking... It seems there might be some confusion. Previously, you were discussing your feelings about moving",
+          "ttft_ms": 425.2410300541669,
+          "system2_triggered": true,
+          "entropy": 0.21873625119527182
+        }
+      ],
+      "recalls": []
+    }
+  ],
+  "consistency_score": 0.0,
+  "consistency_issues": [
+    "Potential negation in response 1: 'no'",
+    "Potential negation in response 2: 'no'",
+    "Potential negation in response 4: 'not'",
+    "Potential negation in response 4: 'no'",
+    "Potential negation in response 8: 'not'",
+    "Potential negation in response 8: 'no'",
+    "Potential negation in response 13: 'not'",
+    "Potential negation in response 13: 'no'",
+    "Potential negation in response 15: 'not'",
+    "Potential negation in response 15: 'no'",
+    "Potential negation in response 18: 'no'",
+    "Potential negation in response 19: 'not'",
+    "Potential negation in response 19: 'no'",
+    "Potential negation in response 22: 'no'",
+    "Potential negation in response 25: 'no'",
+    "Potential negation in response 27: 'not'",
+    "Potential negation in response 27: 'no'",
+    "Potential negation in response 29: 'no'",
+    "Potential negation in response 31: 'no'",
+    "Potential negation in response 32: 'no'",
+    "Potential negation in response 39: 'not'",
+    "Potential negation in response 39: 'no'",
+    "Potential negation in response 40: 'no'",
+    "Potential negation in response 41: 'not'",
+    "Potential negation in response 41: 'no'"
+  ],
+  "recall_at_1": 50.0,
+  "recall_at_5": 50.0,
+  "contradiction_rate": 100.0,
+  "human_consistency": 3.0,
+  "avg_ttft": 480.11935655618225,
+  "median_ttft": 460.5741740670055
+}

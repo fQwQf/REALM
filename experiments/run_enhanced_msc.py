@@ -232,7 +232,7 @@ def run_enhanced_msc(sys1_gpu: int = 0, sys2_gpu: int = 1, config: Optional[Dict
         # Initialize REALM with entropy-based routing
         print("\n[1/3] Initializing REALM system...")
         realm_config = config or {
-            'entropy_threshold': 0.75,
+            'entropy_threshold': 0.5,
             'dual_stream': True,
             'homeostasis': True,
         }
@@ -377,12 +377,12 @@ def main():
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     # Run with improved entropy threshold
-    print("\nRunning with entropy_threshold=0.75 (temperature=1.0)...")
+    print("\nRunning with entropy_threshold=0.5 (temperature=1.0)...")
     results = run_enhanced_msc(
         sys1_gpu=0,
         sys2_gpu=1,
         config={
-            'entropy_threshold': 0.75,
+            'entropy_threshold': 0.5,
             'dual_stream': True,
             'homeostasis': True,
             'motivated_retrieval': True,

@@ -319,10 +319,10 @@ Keep responses SHORT (3-6 words) and NATURAL."""
             elif mood_val < 0.3:
                 state_desc = "The user seems stressed or concerned."
         
-        system_prompt = f"""You are a helpful, consistent assistant.
+        system_prompt = f"""You are a helpful, consistent assistant. 
 {state_desc}
-Use the provided context to answer. If context has relevant info, use it.
-If not, say you don't recall. Keep response concise (1-2 sentences)."""
+Use the provided context to give accurate, relevant responses.
+Keep your response concise but informative."""
 
         messages = [
             {"role": "system", "content": system_prompt},
