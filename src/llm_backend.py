@@ -9,7 +9,8 @@ import os
 import sys
 import time
 import torch
-from typing import List, Dict, Optional
+import re
+from typing import List, Dict, Optional, Union
 
 # Set Hugging Face mirror for China
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
@@ -127,10 +128,11 @@ class RealLLMBackend:
         self,
         user_input: str,
         state_vector: Optional[List[float]] = None,
-        max_new_tokens: int = 20,
+        max_new_tokens: int = 30,
         temperature: float = 1.0,
-        return_entropy: bool = False
-    ) -> str:
+        return_entropy: bool = False,
+        return_query_type: bool = False
+    ) -> Union[str, Dict]:
         """Generate bridge using System 1
         
         Args:
@@ -139,9 +141,10 @@ class RealLLMBackend:
             max_new_tokens: Maximum tokens to generate
             temperature: Sampling temperature
             return_entropy: If True, returns dict with 'response' and 'entropy_info'
+            return_query_type: If True, also returns query type classification
         
         Returns:
-            str: Generated response, or dict if return_entropy=True
+            str or dict: Generated response, or dict with metadata
         """
         if self.sys1_model is None or self.sys1_tokenizer is None:
             raise RuntimeError("System 1 not loaded")
@@ -155,17 +158,47 @@ class RealLLMBackend:
             elif mood_val < 0.3:
                 mood = "concerned"
         
-        # Improved prompt: Guide System 1 to generate meaningful bridges
-        system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
+        # Improved prompt: Guide System 1 to generate meaningful bridges AND classify query
+        if return_query_type:
+            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
+
+Your task is to:
+1. Classify the user's query into ONE of these types:
+   - FACTUAL: Asking for specific information (names, dates, facts, preferences)
+   - GREETING: Simple hello/goodbye
+   - SHARING: User sharing information about themselves
+   - OPINION: Asking for opinions or advice
+   - OTHER: Anything else
+
+2. Provide a SHORT bridge response (3-6 words)
+
+CRITICAL: Output in this exact format:
+TYPE: <classification>
+BRIDGE: <your response>
+
+Examples:
+User: "What's my name?"
+TYPE: FACTUAL
+BRIDGE: Let me recall your name...
+
+User: "Hello!"
+TYPE: GREETING
+BRIDGE: Hello! How can I help?
+
+User: "I love hiking."
+TYPE: SHARING
+BRIDGE: Got it, noted. Thanks!"""
+        else:
+            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
 
 Your task is to provide an IMMEDIATE response (bridge) that:
 1. Acknowledges the user's input
 2. Shows you understand what they're asking
 3. Buys time for deeper processing if needed
 
-CRITICAL: Do not provide specific facts or commit to answers. Instead:
+CRITICAL: Do not provide specific facts. Instead:
 - If they ask for information: "Let me recall that...", "Checking what you mentioned..."
-- If they share something: "Got it, noted.", "I see, thanks for sharing."
+- If they share something: "Got it, noted.", "Thanks for sharing."
 - If it's a greeting: "Hello!", "Hi there!"
 
 Keep responses SHORT (3-6 words) and NATURAL."""
@@ -184,7 +217,7 @@ Keep responses SHORT (3-6 words) and NATURAL."""
         inputs = self.sys1_tokenizer([text], return_tensors="pt").to(f"cuda:{self.sys1_gpu}")
         
         with torch.no_grad():
-            if return_entropy:
+            if return_entropy or return_query_type:
                 # Generate with scores for entropy calculation
                 outputs = self.sys1_model.generate(
                     inputs.input_ids,
@@ -215,15 +248,37 @@ Keep responses SHORT (3-6 words) and NATURAL."""
                 # Decode response
                 generated_ids = outputs.sequences[0][inputs.input_ids.shape[1]:]
                 response = self.sys1_tokenizer.decode(generated_ids, skip_special_tokens=True)
+                response = response.strip()
                 
-                return {
-                    'response': response.strip(),
+                result = {
+                    'response': response,
                     'entropy_info': {
                         'avg_first_3': avg_entropy_first_3,
                         'max': max_entropy,
                         'all_entropies': entropies
                     }
                 }
+                
+                # Parse query type if requested
+                if return_query_type:
+                    query_type = "OTHER"
+                    bridge = response
+                    
+                    # Parse TYPE and BRIDGE from response
+                    type_match = re.search(r'TYPE:\s*(\w+)', response, re.IGNORECASE)
+                    bridge_match = re.search(r'BRIDGE:\s*(.+?)(?:\n|$)', response, re.IGNORECASE)
+                    
+                    if type_match:
+                        query_type = type_match.group(1).upper()
+                    if bridge_match:
+                        bridge = bridge_match.group(1).strip()
+                    
+                    result['query_type'] = query_type
+                    result['bridge'] = bridge
+                    # Update response to be just the bridge
+                    result['response'] = bridge
+                
+                return result
             else:
                 # Standard generation without entropy
                 outputs = self.sys1_model.generate(
@@ -239,7 +294,7 @@ Keep responses SHORT (3-6 words) and NATURAL."""
                 response = self.sys1_tokenizer.decode(generated_ids, skip_special_tokens=True)
                 
                 return response.strip()
-
+    
     def generate_system2(
         self,
         user_input: str,

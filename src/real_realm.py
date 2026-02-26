@@ -129,35 +129,37 @@ class RealREALM:
         # With temperature=1.0, entropy typically ranges from 0.1 to 2.0
         # Threshold at 0.5 catches most factual queries while preserving fast path for simple greetings
         tau_H = self.config.get('entropy_threshold', 0.5)
-        # With temperature=1.0, entropy ranges from ~0.1 (confident) to ~2.0 (uncertain)
-        # Threshold at 0.75 provides good separation based on empirical observation
-        tau_H = self.config.get('entropy_threshold', 0.75)
         
         if self.use_real_llm and self.llm_backend:
             try:
-                # Generate System 1 bridge with entropy tracking
+                # Generate System 1 bridge with entropy tracking AND query type classification
                 result = self.llm_backend.generate_system1(
                     user_input,
                     state_vector=current_state,
-                    return_entropy=True
+                    return_entropy=True,
+                    return_query_type=True  # Enable query type classification
                 )
                 
-                bridge = result['response']
+                # Extract information from result
+                bridge = result.get('bridge', result['response'])
                 entropy_info = result['entropy_info']
                 avg_entropy = entropy_info['avg_first_3']
+                query_type = result.get('query_type', 'OTHER')
                 
-                # Log entropy for debugging
-                print(f"[System 1] Bridge: '{bridge}' | Avg Entropy: {avg_entropy:.3f} (threshold: {tau_H})")
+                # Log for debugging
+                print(f"[System 1] Type: {query_type} | Bridge: '{bridge}' | Entropy: {avg_entropy:.3f}")
                 
             except Exception as e:
                 print(f"System 1 error: {e}, using fallback")
                 bridge = self._fallback_bridge(user_input, current_state)
-                avg_entropy = 0.0  # Low entropy for fallback
+                avg_entropy = 0.0
                 entropy_info = {'avg_first_3': 0.0, 'max': 0.0, 'all_entropies': []}
+                query_type = 'OTHER'
         else:
             bridge = self._fallback_bridge(user_input, current_state)
             avg_entropy = 0.0
             entropy_info = {'avg_first_3': 0.0, 'max': 0.0, 'all_entropies': []}
+            query_type = 'OTHER'
         
         ttft_ms = (time.perf_counter() - start_time) * 1000
         metadata['ttft_ms'] = ttft_ms
@@ -165,14 +167,21 @@ class RealREALM:
         metadata['entropy'] = entropy_info
         self.metrics['ttft_values'].append(ttft_ms)
         # 3. Uncertainty-Based Routing: Decide whether to trigger System 2
-        # Pure entropy-based routing (no keyword detection for language independence)
-        # Lower threshold (0.5) ensures most factual queries trigger System 2
-        system2_triggered = avg_entropy >= tau_H
+        # Combine entropy-based routing with query type classification
+        # Trigger System 2 if:
+        # 1. High entropy (uncertain), OR
+        # 2. FACTUAL query type (needs retrieval)
+        
+        is_factual = (query_type == 'FACTUAL')
+        system2_triggered = (avg_entropy >= tau_H) or is_factual
         
         if system2_triggered:
-            print(f"[Routing] High entropy ({avg_entropy:.3f} >= {tau_H}), triggering System 2...")
+            if is_factual:
+                print(f"[Routing] FACTUAL query detected (entropy: {avg_entropy:.3f}), triggering System 2...")
+            else:
+                print(f"[Routing] High entropy ({avg_entropy:.3f} >= {tau_H}), triggering System 2...")
         else:
-            print(f"[Routing] Low entropy ({avg_entropy:.3f} < {tau_H}), using System 1 only")
+            print(f"[Routing] {query_type} query with low entropy ({avg_entropy:.3f}), using System 1 only")
         
         # 4. State-conditioned Retrieval (only if System 2 will be triggered)
         if system2_triggered:
