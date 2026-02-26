@@ -122,13 +122,13 @@ class RealLLMBackend:
             print(f"✗ Failed to load System 2: {e}")
             import traceback
             traceback.print_exc()
-    
+
     def generate_system1(
         self,
         user_input: str,
         state_vector: Optional[List[float]] = None,
         max_new_tokens: int = 20,
-        temperature: float = 1.0,  # Increased to 1.0 for wider entropy separation
+        temperature: float = 1.0,
         return_entropy: bool = False
     ) -> str:
         """Generate bridge using System 1
@@ -156,7 +156,6 @@ class RealLLMBackend:
                 mood = "concerned"
         
         # Improved prompt: Guide System 1 to generate meaningful bridges
-        # that acknowledge the query type without committing to specific facts
         system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
 
 Your task is to provide an IMMEDIATE response (bridge) that:
@@ -173,68 +172,6 @@ Keep responses SHORT (3-6 words) and NATURAL."""
         
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_input}
-        ]
-        if self.sys1_model is None or self.sys1_tokenizer is None:
-            raise RuntimeError("System 1 not loaded")
-        
-        # Detect if query requires factual recall (multilingual support)
-        query_lower = user_input.lower()
-        # English factual indicators
-        factual_keywords_en = ['what', 'where', 'who', 'when', 'which', 'how', 'remember', 'did', 'told', 'said', 'name', 'live', 'work', 'prefer', 'like']
-        # Chinese factual indicators
-        factual_keywords_zh = ['什么', '哪里', '谁', '什么时候', '哪个', '怎么', '记得', '告诉', '说', '名字', '住', '工作', '喜欢', '在']
-        # Combine both languages
-        all_keywords = factual_keywords_en + factual_keywords_zh
-        is_factual_query = any(kw in query_lower for kw in all_keywords)
-        
-        # Also check if query ends with question mark (universal indicator)
-        is_question = '?' in user_input or '？' in user_input
-        is_factual_query = is_factual_query or is_question
-        mood = "neutral"
-        if state_vector is not None:
-            mood_val = state_vector[0]
-            if mood_val > 0.7:
-                mood = "positive"
-            elif mood_val < 0.3:
-                mood = "concerned"
-        
-        # Construct Safe-to-Say prompt with query type awareness
-        mood = "neutral"
-        if state_vector is not None:
-            mood_val = state_vector[0]
-            if mood_val > 0.7:
-                mood = "positive"
-            elif mood_val < 0.3:
-                mood = "concerned"
-        
-        # Detect if query requires factual recall
-        query_lower = user_input.lower()
-        factual_keywords = ['what', 'where', 'who', 'when', 'which', 'how', 'remember', 'did', 'told', 'said']
-        is_factual_query = any(kw in query_lower for kw in factual_keywords)
-        
-        if is_factual_query:
-            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
-
-CRITICAL: Analyze the user's query. If they are asking for specific information (names, locations, facts, preferences), respond with a bridge that ACKNOWLEDGES the need to recall information.
-
-Examples:
-- User: "What's my name?" -> "Let me recall your name..."
-- User: "Where do I live?" -> "Let me check where you mentioned..."
-- User: "What did I say earlier?" -> "Let me look back at what you said..."
-- User: "Who am I?" -> "Let me recall what you've told me..."
-
-If the query is a simple greeting or doesn't require specific facts, provide a short acknowledgment (2-5 words).
-
-Your response should be 3-8 words that indicate you need to retrieve information.", ""
-        else:
-            system_prompt = f"You are a helpful assistant. The current mood is {mood}. Provide a very short acknowledgment (2-5 words). Keep it low-commitment."
-        
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_input}
-        ]
-            {"role": "system", "content": f"You are a helpful assistant. The current mood is {mood}. Provide a very short acknowledgment (2-5 words). Keep it low-commitment."},
             {"role": "user", "content": user_input}
         ]
         
@@ -260,12 +197,11 @@ Your response should be 3-8 words that indicate you need to retrieve information
                 )
                 
                 # Calculate entropy for each generated token
-                scores = outputs.scores  # Tuple of logits for each step
+                scores = outputs.scores
                 entropies = []
                 
                 for score in scores:
                     # Apply temperature scaling to logits BEFORE softmax
-                    # This matches how temperature is used during generation
                     scaled_logits = score[0] / temperature
                     probs = torch.softmax(scaled_logits, dim=-1)
                     # Calculate entropy: -sum(p * log(p))
@@ -303,7 +239,7 @@ Your response should be 3-8 words that indicate you need to retrieve information
                 response = self.sys1_tokenizer.decode(generated_ids, skip_special_tokens=True)
                 
                 return response.strip()
-    
+
     def generate_system2(
         self,
         user_input: str,
