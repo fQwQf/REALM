@@ -321,13 +321,8 @@ Keep responses SHORT (3-6 words) and NATURAL."""
         
         system_prompt = f"""You are a helpful, consistent assistant.
 {state_desc}
-Use the provided context to answer the user's question.
-If the context contains relevant information, incorporate it naturally.
-If the context doesn't have the answer, you may use your general knowledge.
-Keep your response concise but informative."""
-{state_desc}
-Use the provided context to give accurate, relevant responses.
-Keep your response concise but informative."""
+Use the provided context to answer. If context has relevant info, use it.
+If not, say you don't recall. Keep response concise (1-2 sentences)."""
 
         messages = [
             {"role": "system", "content": system_prompt},
