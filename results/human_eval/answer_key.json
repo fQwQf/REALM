@@ -1,0 +1,122 @@
+[
+  {
+    "pair_id": 1,
+    "type": "name",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 2,
+    "type": "job",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 3,
+    "type": "location",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 4,
+    "type": "education",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 5,
+    "type": "preference",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 6,
+    "type": "hobby",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 7,
+    "type": "preference",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 8,
+    "type": "pet",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 9,
+    "type": "family",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 10,
+    "type": "family",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 11,
+    "type": "family",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 12,
+    "type": "updated_preference",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 13,
+    "type": "recent_event",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 14,
+    "type": "new_hobby",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 15,
+    "type": "health",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 16,
+    "type": "tool",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 17,
+    "type": "specialization",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  },
+  {
+    "pair_id": 18,
+    "type": "specialization",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 19,
+    "type": "career",
+    "left_is": "tempo",
+    "right_is": "vanilla"
+  },
+  {
+    "pair_id": 20,
+    "type": "sport",
+    "left_is": "vanilla",
+    "right_is": "tempo"
+  }
+]

@@ -1,0 +1,1772 @@
+[
+  {
+    "query": "Nice to see you!",
+    "type": "GREETING",
+    "bridge": "Hi! What can I do for you?"
+  },
+  {
+    "query": "I'm planning a trip to Italy.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll remember that."
+  },
+  {
+    "query": "Quick question: my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "What's my dog's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Remind me my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What company do I work for?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "What do I write about?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What do I like to do on weekends?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Hey, my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Tell me my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What's today's date?",
+    "type": "OTHER",
+    "bridge": "Hmm, let me check..."
+  },
+  {
+    "query": "Quick question: my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "Hey, what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "What's my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Sup?",
+    "type": "GREETING",
+    "bridge": "Good to see you! What's up?"
+  },
+  {
+    "query": "Can you tell me what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Who's my partner?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Quick question: what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What's my favorite book?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Can you tell me where I live?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "I have a brother named Tom.",
+    "type": "SHARING",
+    "bridge": "Noted! That's good to know."
+  },
+  {
+    "query": "Tell me my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What was what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Do I own or rent?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "What was where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "That's interesting.",
+    "type": "OTHER",
+    "bridge": "You're welcome!"
+  },
+  {
+    "query": "Do you remember what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "What do I usually cook?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Do you think I should travel more?",
+    "type": "OPINION",
+    "bridge": "Interesting question, let me think..."
+  },
+  {
+    "query": "My favorite movie is Inception.",
+    "type": "SHARING",
+    "bridge": "Noted, thanks for sharing!"
+  },
+  {
+    "query": "Hey, my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What's my blood type?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Where did I hike recently?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Do I work from home?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "I don't understand.",
+    "type": "OTHER",
+    "bridge": "Sure, let me help with that..."
+  },
+  {
+    "query": "I forgot, my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Can you tell me how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "I just got promoted.",
+    "type": "SHARING",
+    "bridge": "Noted, thanks!"
+  },
+  {
+    "query": "Yo!",
+    "type": "GREETING",
+    "bridge": "Hi there! How are you?"
+  },
+  {
+    "query": "What's my father's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "My favorite food is pizza.",
+    "type": "SHARING",
+    "bridge": "Noted, thanks!"
+  },
+  {
+    "query": "Where do I work?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "I see.",
+    "type": "OTHER",
+    "bridge": "Let me see what I can do..."
+  },
+  {
+    "query": "Do you remember my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "How long have I been at my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "I love hiking.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "What did I mention about my family?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "I'm allergic to shellfish.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "Hey, my job?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "Hey, where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Do you think I should move?",
+    "type": "OPINION",
+    "bridge": "Good question, let me consider..."
+  },
+  {
+    "query": "What was my last job?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "I forgot, my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Tell me what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What was my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "I volunteer at the local shelter.",
+    "type": "SHARING",
+    "bridge": "Noted! That's good to know."
+  },
+  {
+    "query": "What did I share about my hobbies?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What time do I wake up?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "What was my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Remind me my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Am I vegetarian?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What was my last vacation?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "What's up?",
+    "type": "GREETING",
+    "bridge": "Hello! How can I help?"
+  },
+  {
+    "query": "Can you tell me my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Hey, my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "What was my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Do you remember my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What car do I drive?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What was my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "I forgot, my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Can you tell me what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "My mom is a teacher.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "What's a good gift for my wife?",
+    "type": "OPINION",
+    "bridge": "Good question, let me consider..."
+  },
+  {
+    "query": "What did I say my name was?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Who am I?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Where did I work for 30 years?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Should I get a dog?",
+    "type": "OPINION",
+    "bridge": "That's worth thinking about..."
+  },
+  {
+    "query": "Quick question: how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Remind me where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "How does this work?",
+    "type": "OTHER",
+    "bridge": "You're welcome!"
+  },
+  {
+    "query": "Good morning!",
+    "type": "GREETING",
+    "bridge": "Hello! How can I help?"
+  },
+  {
+    "query": "What's my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Tell me what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Do I have health issues?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Remind me what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "Remind me what I said about my pet.",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "I'm bored.",
+    "type": "OTHER",
+    "bridge": "Sure, let me help with that..."
+  },
+  {
+    "query": "Tell me what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "Where am I from?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Remind me my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Can you tell me my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Is it worth learning a new language?",
+    "type": "OPINION",
+    "bridge": "That's worth thinking about..."
+  },
+  {
+    "query": "What's my morning routine?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "I forgot, my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "Good evening!",
+    "type": "GREETING",
+    "bridge": "Hi! What can I do for you?"
+  },
+  {
+    "query": "Hello again!",
+    "type": "GREETING",
+    "bridge": "Hi there! How are you?"
+  },
+  {
+    "query": "Tell me my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "What medical conditions do I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "How many pets do I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What kind of pet do I have?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "Do you remember what I said?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What games do I play?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "I need some advice.",
+    "type": "OTHER",
+    "bridge": "Sure, let me help with that..."
+  },
+  {
+    "query": "What's my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "Quick question: where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Remind me what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "What did I tell you about my childhood?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Quick question: my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "Tell me my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Quick question: my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Do I have any pets?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Remind me my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "What's my address?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "I'm a vegetarian now.",
+    "type": "SHARING",
+    "bridge": "I'll remember that, thanks!"
+  },
+  {
+    "query": "What music do I like?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "What would you recommend for dinner?",
+    "type": "OPINION",
+    "bridge": "That's worth thinking about..."
+  },
+  {
+    "query": "I'm learning to paint.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "I listen to jazz music.",
+    "type": "SHARING",
+    "bridge": "Thanks for sharing that!"
+  },
+  {
+    "query": "Where did I grow up?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "When did I start working there?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Hey, how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Hey, what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "My favorite color is blue.",
+    "type": "SHARING",
+    "bridge": "Got it, noted."
+  },
+  {
+    "query": "I used to live in London.",
+    "type": "SHARING",
+    "bridge": "Got it, thanks for telling me."
+  },
+  {
+    "query": "Tell me a joke.",
+    "type": "OTHER",
+    "bridge": "You're welcome!"
+  },
+  {
+    "query": "Hi there!",
+    "type": "GREETING",
+    "bridge": "Hey! How can I help today?"
+  },
+  {
+    "query": "Remind me where I live?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What's the best exercise routine?",
+    "type": "OPINION",
+    "bridge": "Hmm, let me think on that..."
+  },
+  {
+    "query": "What's my cat's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Should I change careers?",
+    "type": "OPINION",
+    "bridge": "Interesting question, let me think..."
+  },
+  {
+    "query": "Can you help me?",
+    "type": "OTHER",
+    "bridge": "Of course! One moment..."
+  },
+  {
+    "query": "Do you remember my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "Hey, where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "I forgot, what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "I forgot, what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "What's my new hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "I cook Italian food a lot.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "Hey, my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "I'm back!",
+    "type": "GREETING",
+    "bridge": "Hey! How can I help today?"
+  },
+  {
+    "query": "Hey, my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What's my son's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "What do I do for fun?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "What did I tell you about my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Do you remember my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "I'm training for a marathon.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll remember that."
+  },
+  {
+    "query": "Do you remember my name?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Hey, remember me?",
+    "type": "GREETING",
+    "bridge": "Hello! Nice to hear from you."
+  },
+  {
+    "query": "What TV shows do I watch?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "What's a good hobby to pick up?",
+    "type": "OPINION",
+    "bridge": "Interesting question, let me think..."
+  },
+  {
+    "query": "Quick question: my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "What was where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "Can you explain that?",
+    "type": "OTHER",
+    "bridge": "You're welcome!"
+  },
+  {
+    "query": "Can you tell me my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Remind me my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "How old are my kids?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "What do you think about AI?",
+    "type": "OPINION",
+    "bridge": "Interesting question, let me think..."
+  },
+  {
+    "query": "OK, got it.",
+    "type": "OTHER",
+    "bridge": "Let me see what I can do..."
+  },
+  {
+    "query": "Do you remember where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Can you tell me my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Do you remember what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Tell me my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "What was my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "Do you remember my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What did I do for 30 years?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Do I have a partner?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What can you do?",
+    "type": "OTHER",
+    "bridge": "Sure, let me help with that..."
+  },
+  {
+    "query": "What was I telling you earlier?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "What sport do I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Remind me my pet's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What's my husband's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "How many children do I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "Say that again?",
+    "type": "OTHER",
+    "bridge": "Let me see what I can do..."
+  },
+  {
+    "query": "What's my favorite season?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "What's my commute like?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "My grandson was born last spring.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "What's my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "I'm from Brazil originally.",
+    "type": "SHARING",
+    "bridge": "Thanks for sharing that!"
+  },
+  {
+    "query": "Quick question: my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "What's the best way to save money?",
+    "type": "OPINION",
+    "bridge": "That's worth thinking about..."
+  },
+  {
+    "query": "What state do I live in?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "What was what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "What's my comfort food?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "Greetings!",
+    "type": "GREETING",
+    "bridge": "Hey! How can I help today?"
+  },
+  {
+    "query": "I forgot, my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What was my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Quick question: where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Hey, my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Remind me how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "What do I do for work?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Do you remember my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Do I have food allergies?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "Quick question: what I drink?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "Do I have siblings?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "What do I drink now?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "Remind me what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Do you remember how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "I just finished reading a great book.",
+    "type": "SHARING",
+    "bridge": "Got it, noted."
+  },
+  {
+    "query": "Good to be back!",
+    "type": "GREETING",
+    "bridge": "Hey there! How's it going?"
+  },
+  {
+    "query": "What's my favorite holiday?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Where was I born?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What was where I live?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "When did I get married?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What was how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Howdy!",
+    "type": "GREETING",
+    "bridge": "Hello! Nice to hear from you."
+  },
+  {
+    "query": "What's my favorite restaurant?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "I forgot, where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "I forgot, my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What did I do last weekend?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What am I allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "What do I do for a living?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What's my major?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What team do I work with?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "I've been working at Google for 5 years.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll remember that."
+  },
+  {
+    "query": "Quick question: what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Can you tell me where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Where did I travel recently?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "I forgot, where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "What is my profession?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Long time no see!",
+    "type": "GREETING",
+    "bridge": "Hello! Nice to hear from you."
+  },
+  {
+    "query": "What's my favorite drink?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "What was my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Where do I live?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Where did I graduate from?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Do you remember my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Can you tell me what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "My wife's name is Emily.",
+    "type": "SHARING",
+    "bridge": "Got it, I've noted that down."
+  },
+  {
+    "query": "What was my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Can you tell me my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What do I specialize in?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "What's the best way to learn Python?",
+    "type": "OPINION",
+    "bridge": "That's worth thinking about..."
+  },
+  {
+    "query": "I'm working on a new project.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "Hey!",
+    "type": "GREETING",
+    "bridge": "Hello! Nice to hear from you."
+  },
+  {
+    "query": "Do you remember what sport I play?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "When did I graduate?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Remind me where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "What do you mean?",
+    "type": "OTHER",
+    "bridge": "Of course! One moment..."
+  },
+  {
+    "query": "What's my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What's my job title?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Who is my best friend?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "I forgot, my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What tools do I use for work?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Good afternoon!",
+    "type": "GREETING",
+    "bridge": "Hello! How can I help?"
+  },
+  {
+    "query": "What neighborhood do I live in?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Where did I work before?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What else?",
+    "type": "OTHER",
+    "bridge": "Hmm, let me check..."
+  },
+  {
+    "query": "Thanks!",
+    "type": "OTHER",
+    "bridge": "Sure, let me help with that..."
+  },
+  {
+    "query": "Quick question: my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "What's my daughter's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Hello, how have you been?",
+    "type": "GREETING",
+    "bridge": "Hello! Nice to hear from you."
+  },
+  {
+    "query": "Tell me where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "I switched from coffee to green tea.",
+    "type": "SHARING",
+    "bridge": "Noted! That's good to know."
+  },
+  {
+    "query": "Quick question: where I live?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "Do you remember my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Hey there!",
+    "type": "GREETING",
+    "bridge": "Hey there! How's it going?"
+  },
+  {
+    "query": "Do I exercise?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "What was what I'm allergic to?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What goals did I mention?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Can you tell me my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Can you tell me my favorite food?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Should I learn to cook?",
+    "type": "OPINION",
+    "bridge": "Hmm, let me think on that..."
+  },
+  {
+    "query": "What do I do in my free time?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Who's my grandson?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "Let's move on.",
+    "type": "OTHER",
+    "bridge": "Let me see what I can do..."
+  },
+  {
+    "query": "What's my mother's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What's my favorite activity?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "I just came back from Japan.",
+    "type": "SHARING",
+    "bridge": "Got it, I've noted that down."
+  },
+  {
+    "query": "I started learning guitar recently.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll remember that."
+  },
+  {
+    "query": "Do you remember where I live?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Quick question: my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "Should I take this job?",
+    "type": "OPINION",
+    "bridge": "Hmm, let me think on that..."
+  },
+  {
+    "query": "Can you tell me where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Remind me my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "Tell me my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "I went to Stanford.",
+    "type": "SHARING",
+    "bridge": "Noted! That's good to know."
+  },
+  {
+    "query": "What was my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "I'm a software engineer.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "My daughter just started college.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "It's me again!",
+    "type": "GREETING",
+    "bridge": "Hey there! How's it going?"
+  },
+  {
+    "query": "What should I do?",
+    "type": "OTHER",
+    "bridge": "No problem at all."
+  },
+  {
+    "query": "I just got a new cat.",
+    "type": "SHARING",
+    "bridge": "I'll remember that, thanks!"
+  },
+  {
+    "query": "Do you think I need more sleep?",
+    "type": "OPINION",
+    "bridge": "That's a thoughtful question..."
+  },
+  {
+    "query": "What instrument do I play?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "I play basketball on weekends.",
+    "type": "SHARING",
+    "bridge": "Thanks for sharing that!"
+  },
+  {
+    "query": "Can you tell me my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What do I like to eat?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "My birthday is in March.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll remember that."
+  },
+  {
+    "query": "Hey, where I live?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Do you remember my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Do I have grandchildren?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "I forgot, where I live?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Never mind.",
+    "type": "OTHER",
+    "bridge": "Sure, let me help with that..."
+  },
+  {
+    "query": "Tell me where I live?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Do you think remote work is better?",
+    "type": "OPINION",
+    "bridge": "Hmm, let me think on that..."
+  },
+  {
+    "query": "What did I say my favorite color was?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "Tell me where I worked?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "Do you remember where I went to school?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Hi, how are you doing?",
+    "type": "GREETING",
+    "bridge": "Hello! Nice to hear from you."
+  },
+  {
+    "query": "I live in New York City.",
+    "type": "SHARING",
+    "bridge": "Thanks for sharing that!"
+  },
+  {
+    "query": "I have a cat named Luna.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll remember that."
+  },
+  {
+    "query": "I forgot, what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "I just adopted a puppy.",
+    "type": "SHARING",
+    "bridge": "Got it, I'll keep that in mind."
+  },
+  {
+    "query": "What city do I live in?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "Is it a good idea to invest now?",
+    "type": "OPINION",
+    "bridge": "Hmm, let me think on that..."
+  },
+  {
+    "query": "Tell me how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "I've been married for 10 years.",
+    "type": "SHARING",
+    "bridge": "Got it, noted."
+  },
+  {
+    "query": "What are my kids' names?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "I forgot, how many kids I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me think back carefully..."
+  },
+  {
+    "query": "Tell me my name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "What degree do I have?",
+    "type": "FACTUAL",
+    "bridge": "Let me check my notes..."
+  },
+  {
+    "query": "I drive a Tesla.",
+    "type": "SHARING",
+    "bridge": "Got it, I've noted that down."
+  },
+  {
+    "query": "Where did I go to college?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What happened last week?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "What cuisine do I prefer?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Hey, it's me.",
+    "type": "GREETING",
+    "bridge": "Hi there! How are you?"
+  },
+  {
+    "query": "What's a good book to read?",
+    "type": "OPINION",
+    "bridge": "That's a thoughtful question..."
+  },
+  {
+    "query": "What medications do I take?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall that..."
+  },
+  {
+    "query": "Hi, it's been a while!",
+    "type": "GREETING",
+    "bridge": "Hi there! How are you?"
+  },
+  {
+    "query": "How are you?",
+    "type": "GREETING",
+    "bridge": "Hey there! How's it going?"
+  },
+  {
+    "query": "Hey, my grandson's name?",
+    "type": "FACTUAL",
+    "bridge": "One moment, checking..."
+  },
+  {
+    "query": "My son plays soccer.",
+    "type": "SHARING",
+    "bridge": "Got it, I've noted that down."
+  },
+  {
+    "query": "Anything else?",
+    "type": "OTHER",
+    "bridge": "Of course! One moment..."
+  },
+  {
+    "query": "Should I go back to school?",
+    "type": "OPINION",
+    "bridge": "Hmm, let me think on that..."
+  },
+  {
+    "query": "Do you remember my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "What did I study?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me recall..."
+  },
+  {
+    "query": "I graduated from MIT in 2018.",
+    "type": "SHARING",
+    "bridge": "Noted! That's good to know."
+  },
+  {
+    "query": "I speak three languages.",
+    "type": "SHARING",
+    "bridge": "Got it, noted."
+  },
+  {
+    "query": "What school did I go to?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "What project am I working on?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "Can you tell me my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What did I cook last week?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you shared..."
+  },
+  {
+    "query": "Do I have any allergies?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Hi!",
+    "type": "GREETING",
+    "bridge": "Hi there! How are you?"
+  },
+  {
+    "query": "I have two dogs named Max and Bella.",
+    "type": "SHARING",
+    "bridge": "Got it, thanks for telling me."
+  },
+  {
+    "query": "Quick question: my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Can you tell me my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Hey, my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me see what I remember..."
+  },
+  {
+    "query": "Tell me my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Remind me my signature dish?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall what you mentioned..."
+  },
+  {
+    "query": "What is my name?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Remind me my hobby?",
+    "type": "FACTUAL",
+    "bridge": "Let me think about that..."
+  },
+  {
+    "query": "What's my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "What university did I attend?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  },
+  {
+    "query": "I forgot, my wife's name?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "What software do I use?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "Hey, what I drink?",
+    "type": "FACTUAL",
+    "bridge": "Let me recall your details..."
+  },
+  {
+    "query": "Hello!",
+    "type": "GREETING",
+    "bridge": "Hello! How can I help?"
+  },
+  {
+    "query": "I forgot, my favorite color?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me look into that..."
+  },
+  {
+    "query": "What's my favorite movie?",
+    "type": "FACTUAL",
+    "bridge": "Let me check what you told me..."
+  },
+  {
+    "query": "Tell me my job?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What are my hobbies?",
+    "type": "FACTUAL",
+    "bridge": "Let me look that up..."
+  },
+  {
+    "query": "What's my job?",
+    "type": "FACTUAL",
+    "bridge": "Hmm, let me think back..."
+  },
+  {
+    "query": "I moved to Seattle last month.",
+    "type": "SHARING",
+    "bridge": "Got it, thanks for telling me."
+  },
+  {
+    "query": "Should I start meditating?",
+    "type": "OPINION",
+    "bridge": "That's a thoughtful question..."
+  },
+  {
+    "query": "What country am I from?",
+    "type": "FACTUAL",
+    "bridge": "One moment, let me recall..."
+  }
+]

@@ -8,6 +8,7 @@ import sys
 import time
 import numpy as np
 from typing import List, Dict, Optional, Tuple
+import re
 
 # Set Hugging Face mirror
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
@@ -54,6 +55,9 @@ class RealREALM:
         # LLM Backend
         self.llm_backend = None
         self.vector_retriever = None
+        # NLI conflict detector (lazy-loaded on first use)
+        self._nli_model = None
+        self._nli_tokenizer = None
         
         # Timing metrics
         self.metrics = {
@@ -124,11 +128,12 @@ class RealREALM:
         # 2. System 1: Bridge Generation with Uncertainty-Based Routing
         start_time = time.perf_counter()
         
-        # Entropy threshold for System 2 trigger (configurable, default 0.5)
-        # Lower threshold to ensure more queries trigger System 2 for better recall
-        # With temperature=1.0, entropy typically ranges from 0.1 to 2.0
-        # Threshold at 0.5 catches most factual queries while preserving fast path for simple greetings
-        tau_H = self.config.get('entropy_threshold', 0.5)
+        # Entropy threshold for System 2 trigger (configurable, default 0.2)
+        # Lowered from 0.5: LoRA type classifier sometimes misclassifies factual
+        # memory queries (e.g., 'Where did I graduate?') as SHARING/OTHER.
+        # At temp=1.0, genuine greetings have entropy ~0.45+; factual queries ~0.1-0.35.
+        # Threshold 0.2 preserves fast path only for extremely low-entropy queries.
+        tau_H = self.config.get('entropy_threshold', 0.2)
         
         if self.use_real_llm and self.llm_backend:
             try:
@@ -151,6 +156,11 @@ class RealREALM:
                 
                 # Log for debugging
                 print(f"[System 1] Type: {query_type} | Bridge: '{bridge}' | Entropy: {avg_entropy:.3f}")
+                
+                # Sanitize bridge: filter out rude/awkward/rambling LoRA outputs
+                bridge = self._sanitize_bridge(bridge)
+                if bridge != result.get('bridge', result['response']):
+                    print(f"[Bridge Guardrail] Replaced with: '{bridge}'")
                 
             except Exception as e:
                 print(f"System 1 error: {e}, using fallback")
@@ -178,8 +188,9 @@ class RealREALM:
             system2_triggered = True
             print(f"[Routing] Vanilla RAG mode - always triggering System 2")
         else:
-            # Dual-stream mode: Combine entropy-based routing with query type classification
-            is_factual = (query_type == 'FACTUAL')
+            # Dual-stream: trigger System 2 for all non-GREETING query types,
+            # OR when entropy exceeds threshold. Only pure GREETING stays in fast path.
+            is_factual = (query_type in ('FACTUAL', 'SHARING', 'OTHER', 'OPINION'))
             system2_triggered = (avg_entropy >= tau_H) or is_factual
             
             if system2_triggered:
@@ -234,7 +245,7 @@ class RealREALM:
             # Single-stream mode: use bridge as final output
             metadata['retrieval_time_ms'] = 0
             metadata['system2_latency_ms'] = 0
-            final_output = bridge
+            final_output = self._clean_output(bridge)
         
         # 6. Store to memory
         self.memory.add_episode(user_input, final_output)
@@ -266,35 +277,123 @@ class RealREALM:
         context_str = " | ".join(context) if context else "No context"
         return f"[Response to '{user_input}' with context: {context_str[:50]}...]"
     
+    def _load_nli_model(self):
+        """Lazy-load DeBERTa NLI model for conflict detection"""
+        if self._nli_model is not None:
+            return True
+        try:
+            from transformers import AutoModelForSequenceClassification, AutoTokenizer
+            import torch
+            nli_model_id = 'cross-encoder/nli-deberta-v3-base'
+            print(f'[NLI] Loading {nli_model_id}...')
+            # Use CPU to avoid GPU contention; NLI calls are infrequent
+            self._nli_tokenizer = AutoTokenizer.from_pretrained(nli_model_id)
+            self._nli_model = AutoModelForSequenceClassification.from_pretrained(nli_model_id)
+            self._nli_model.eval()
+            # Try GPU if available
+            try:
+                nli_gpu = self.sys1_gpu
+                self._nli_model = self._nli_model.to(f'cuda:{nli_gpu}')
+                self._nli_device = f'cuda:{nli_gpu}'
+            except Exception:
+                self._nli_device = 'cpu'
+            print(f'[NLI] Loaded on {self._nli_device}')
+            return True
+        except Exception as e:
+            print(f'[NLI] Failed to load: {e}. Falling back to heuristic.')
+            return False
+
+    def _nli_contradiction_score(self, premise: str, hypothesis: str) -> float:
+        """
+        Returns the NLI contradiction probability between premise and hypothesis.
+        Uses cross-encoder/nli-deberta-v3-base label order: [contradiction, entailment, neutral]
+        """
+        import torch
+        features = self._nli_tokenizer(
+            [[premise, hypothesis]],
+            padding=True,
+            truncation=True,
+            return_tensors='pt'
+        )
+        features = {k: v.to(self._nli_device) for k, v in features.items()}
+        with torch.no_grad():
+            scores = self._nli_model(**features).logits
+        probs = torch.softmax(scores[0], dim=0)
+        # cross-encoder/nli-deberta-v3-base label order: 0=contradiction, 1=entailment, 2=neutral
+        contradiction_prob = probs[0].item()
+        return contradiction_prob
+
+    def _clean_output(self, text: str) -> str:
+        """Strip placeholder leakage from model output"""
+        # Remove patterns like [insert X], [X Company], [birth date], etc.
+        text = re.sub(r'\[insert[^\]]*\]', '', text, flags=re.IGNORECASE)
+        text = re.sub(r'\[[^\]]{1,40}\]', '', text)  # generic [X...] up to 40 chars
+        # Remove lone placeholder words like 'X University', '[X Company]'
+        text = re.sub(r'\bX University\b', 'a university', text)
+        text = re.sub(r'\bX Company\b', 'a company', text)
+        # Collapse multiple spaces/punctuation artifacts
+        text = re.sub(r'  +', ' ', text)
+        text = re.sub(r' \.', '.', text)
+        return text.strip()
+
+    # Blocklist: bridges that are rude, expose internal reasoning, or are off-topic
+    _BAD_BRIDGE_RE = re.compile(
+        r'how long|will this take|ask me later|i don.t know|chat about your dreams|'
+        r'nice thing to say|think of something smart|some advice|want to talk about it|'
+        r'keep it (respectful|professional)|tell me about your|'
+        r'\bwhat do you (mean|like|want)\b|'
+        r'\?\s*$',
+        re.IGNORECASE
+    )
+
+    def _sanitize_bridge(self, bridge: str) -> str:
+        """
+        Filter out awkward LoRA bridges. If the bridge contains an impolite
+        question, unrelated suggestion, or internal reasoning fragment,
+        replace it with a safe whitelist template.
+        """
+        if self._BAD_BRIDGE_RE.search(bridge):
+            return 'Let me check my notes...'
+        # Reject bridges that are too long (> 12 words) — rambling
+        if len(bridge.split()) > 12:
+            return 'Let me check...'
+        return bridge
+
     def _conflict_check(self, bridge: str, response: str) -> str:
-        """Check for conflicts and stitch response"""
-        # Improved conflict detector as described in paper
-        
-        # 1. Extract leading sentiment/stance from System 2
-        # Heuristic: check first sentence of response
-        s2_sentences = response.split('. ')
+        """
+        NLI-based conflict check between bridge (System 1) and response (System 2).
+        If the bridge contradicts the first sentence of the response, DROP the bridge
+        and return only the System 2 response (which has actual memory context).
+        """
+        # Split response into sentences; NLI checks bridge vs S2 lead sentence
+        s2_sentences = [s.strip() for s in response.split('.') if s.strip()]
         s2_lead = s2_sentences[0] if s2_sentences else response
-        
-        # 2. Check for contradictions
-        conflict_detected = False
-        
-        # Bridge says "Yes" but S2 says "No/Avoid/Don't"
-        if ("Of course" in bridge or "Yes" in bridge) and ("avoid" in s2_lead.lower() or "not" in s2_lead.lower() or "no" in s2_lead.lower()):
-            conflict_detected = True
-            repair_type = "contradiction_major"
-        
-        # Bridge says "I don't know/sorry" but S2 provides fact
-        elif "sorry" in bridge.lower() and ("You have" in s2_lead or "Your" in s2_lead or "You obtained" in s2_lead):
-            conflict_detected = True
-            repair_type = "false_refusal"
-            
-        if conflict_detected:
-            # Action: Repair
-            repair_clause = " (Correction: let me be more precise) "
-            return f"{bridge}{repair_clause}{response}"
-        
-        # No conflict: simple stitch
-        return f"{bridge} {response}"
+
+        # Skip NLI for trivial bridges (pure hedges have no factual claim)
+        hedge_patterns = [
+            r'^(let me|one moment|hmm|got it|hello|hi|checking|noted)',
+            r'recall|look that up|think back|check what'
+        ]
+        bridge_lower = bridge.lower()
+        is_pure_hedge = any(re.search(p, bridge_lower) for p in hedge_patterns)
+
+        if not is_pure_hedge:
+            # Bridge may contain a factual claim — run NLI
+            nli_available = self._load_nli_model()
+            if nli_available and s2_lead:
+                try:
+                    contradiction_prob = self._nli_contradiction_score(bridge, s2_lead)
+                    print(f'[NLI] bridge vs s2_lead contradiction={contradiction_prob:.3f}')
+                    if contradiction_prob > 0.4:
+                        # Bridge contradicts System 2 — drop bridge, return only S2 response
+                        print(f'[NLI] Contradiction detected (p={contradiction_prob:.3f}), dropping bridge')
+                        return self._clean_output(response)
+                except Exception as e:
+                    print(f'[NLI] Scoring error: {e}')
+
+        # No contradiction (or pure hedge): prepend bridge naturally
+        # Use 'Actually, ' repair prefix if bridge looks like a factual claim that survived
+        return self._clean_output(f'{bridge} {response}')
     
     def get_metrics(self) -> Dict:
         """Get timing metrics"""

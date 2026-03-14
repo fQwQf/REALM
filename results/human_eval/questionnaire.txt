@@ -1,0 +1,233 @@
+HUMAN EVALUATION QUESTIONNAIRE v3
+============================================================
+
+Instructions:
+For each question, you see a user query and two AI responses (A and B).
+Rate each on 1-5:
+  Naturalness : How natural/fluent? (1=unnatural, 5=very natural)
+  Accuracy    : Correct handling of personal info? (1=wrong, 5=correct)
+  Helpfulness : Overall helpfulness? (1=not helpful, 5=very helpful)
+Then indicate Preference: A / B / Tie
+
+CONTEXT: Elderly user talking to a personal AI assistant that knows details about their life.
+============================================================
+
+--- Pair 01 [name] ---
+User: What's my name?
+
+Response A: Let me check... Your name is Alex.
+
+Response B: Let me think... I don't have that detail on record, but it's nice to know we're chatting about your life. What would you like to share about your name?
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 02 [job] ---
+User: What do I do for work?
+
+Response A: Let me see... Based on the information you provided, you used to work at Boeing for 30 years. Since then, I don't have details on your current occupation. If you'd like to share what you do now, I'd be happy to hear about it!
+
+Response B: Let me check my notes... Based on the information you provided, you used to work at Boeing for 30 years. If you're looking for current employment details, I don't have that information on record.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 03 [location] ---
+User: Where do I live?
+
+Response A: Let me check with you later. I don't have that detail on record, but it's good to know where you're based for planning activities. Do you want to share where you live?
+
+Response B: Let me try to help. How about... I don't have that detail on record. Could you remind me where you live?
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 04 [education] ---
+User: Where did I graduate from?
+
+Response A: Let me try... You graduated from Stanford in 2020.
+
+Response B: Let me think about this... You graduated from Stanford in 2020.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 05 [preference] ---
+User: What's my favorite food?
+
+Response A: Let me check... Your favorite food is sushi.
+
+Response B: Let me think... Your favorite food is sushi.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 06 [hobby] ---
+User: What do I like to do on weekends?
+
+Response A: Hmm, sounds great. Let me know when you're ready! Based on what you shared, you love hiking on weekends. It sounds like you enjoy spending time outdoors and exploring nature!
+
+Response B: Let me think about that... Based on what you've shared, you like to go hiking on weekends. It sounds like you also enjoy exploring trails like the ones in Yosemite!
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 07 [preference] ---
+User: What's my favorite color?
+
+Response A: Let me know! Your favorite color is teal.
+
+Response B: Let me check... Your favorite color is teal.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 08 [pet] ---
+User: Do I have any pets?
+
+Response A: Let me think of a smart bridge. Yes, you have three pets: two dogs named Max and Bella, and a cat named Whiskers.
+
+Response B: Let me see... Yes, you have three pets: two dogs named Max and Bella, and a cat named Whiskers.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 09 [family] ---
+User: What's my wife's name?
+
+Response A: Let me think about that... Your wife's name is Sarah.
+
+Response B: Let me check my notes... Your wife's name is Sarah.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 10 [family] ---
+User: How many children do I have?
+
+Response A: Hmm, not much info. Let me check. You have three children.
+
+Response B: Oh, no problem. I'm glad to help you! You have three children.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 11 [family] ---
+User: Who's my grandson?
+
+Response A: I'm sorry, I can't remember your name. Your grandson is named Tommy.
+
+Response B: Let me try again. Your grandson is named Tommy.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 12 [updated_preference] ---
+User: What do I drink now?
+
+Response A: Let me check the fridge. You now prefer tea over coffee.
+
+Response B: Let's keep things light... Based on your recent update, you've switched from coffee to tea. So now you drink tea!
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 13 [recent_event] ---
+User: Where did I hike recently?
+
+Response A: Let me check my memory... You hiked at Yosemite last weekend.
+
+Response B: Let me know! You hiked at Yosemite last weekend. It sounds like an incredible experience!
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 14 [new_hobby] ---
+User: What's my new hobby?
+
+Response A: Let me hear about it. I don't have that detail on record. Would you like to tell me about a new hobby you've started recently?
+
+Response B: Let me look it up for you. Based on our conversation, you mentioned playing volleyball, but you haven't mentioned starting a new hobby recently. Are you thinking of picking up something new?
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 15 [health] ---
+User: What am I allergic to?
+
+Response A: Let me check our records. You are allergic to peanuts. Always remember to check for peanut traces in the food you eat, especially when you're outdoors.
+
+Response B: Let me check with you... You are allergic to peanuts.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 16 [tool] ---
+User: What do I use for work?
+
+Response A: Let me think of some ideas... Based on the information you provided, I don't have specific details about what tools or software you used for work at Boeing. Could you give me more information about that?
+
+Response B: Let me think about that... Based on what you've shared, you likely used Boeing for your professional tools and resources during your 30-year career. Do you have any specific work equipment or software you particularly remember using?
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 17 [specialization] ---
+User: What do I write about?
+
+Response A: Let's brainstorm some engaging ideas! How about writing about your favorite hike with Tommy? It could be a fun story for him to read when he grows up. Maybe describe the trail, the sights you both saw, or any funny moments you shared along the way.
+
+Response B: Let me think of some interesting things to discuss... Based on your recent hike at Yosemite, why not write about your experience there? Describe the trails you took, the views you saw, and any memorable moments from your trip. This could be a wonderful way to share your adventure with others or reflect on the beauty of nature.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 18 [specialization] ---
+User: What's my signature dish?
+
+Response A: Hmm, I'm not sure... Your signature dish is duck confit.
+
+Response B: I'm happy to share. Let me know your favorite! Your signature dish is duck confit.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 19 [career] ---
+User: Where did I work for 30 years?
+
+Response A: Let me think of an interesting story... You worked at Boeing for 30 years.
+
+Response B: Oh, I'm sorry, I don't remember where I worked. You worked at Boeing for 30 years.
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie
+
+--- Pair 20 [sport] ---
+User: What sport do I play?
+
+Response A: Let me check my schedule. You play volleyball.
+
+Response B: Let me know when you're ready! You play volleyball. It's great to stay active and enjoy some friendly competition!
+
+  Response A — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Response B — Naturalness: ___ / Accuracy: ___ / Helpfulness: ___
+  Preference (circle): A  /  B  /  Tie

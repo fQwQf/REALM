@@ -71,9 +71,21 @@ class RealLLMBackend:
             
             self.sys1_model.eval()
             
-            load_time = time.time() - start_time
-            print(f"✓ System 1 loaded in {load_time:.2f}s")
+            # Load LoRA adapter if available
+            import os
+            lora_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'models', 'safe_to_say_lora')
+            if os.path.exists(os.path.join(lora_path, 'adapter_config.json')):
+                from peft import PeftModel
+                print(f'[Loading LoRA adapter from {lora_path}...]')
+                self.sys1_model = PeftModel.from_pretrained(self.sys1_model, lora_path)
+                self.sys1_model = self.sys1_model.merge_and_unload()
+                self.sys1_model.eval()
+                print('✓ LoRA adapter merged')
+            else:
+                print(f'[No LoRA adapter found at {lora_path}, using base model]')
             
+            load_time = time.time() - start_time
+            print(f'✓ System 1 loaded in {load_time:.2f}s')
         except Exception as e:
             print(f"✗ Failed to load System 1: {e}")
             import traceback
@@ -158,50 +170,17 @@ class RealLLMBackend:
             elif mood_val < 0.3:
                 mood = "concerned"
         
-        # Improved prompt: Guide System 1 to generate meaningful bridges AND classify query
+        # Use the short prompt that matches LoRA training format
         if return_query_type:
-            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
-
-Your task is to:
-1. Classify the user's query into ONE of these types:
-   - FACTUAL: Asking for specific information (names, dates, facts, preferences)
-   - GREETING: Simple hello/goodbye
-   - SHARING: User sharing information about themselves
-   - OPINION: Asking for opinions or advice
-   - OTHER: Anything else
-
-2. Provide a SHORT bridge response (3-6 words)
-
-CRITICAL: Output in this exact format:
-TYPE: <classification>
-BRIDGE: <your response>
-
-Examples:
-User: "What's my name?"
-TYPE: FACTUAL
-BRIDGE: Let me recall your name...
-
-User: "Hello!"
-TYPE: GREETING
-BRIDGE: Hello! How can I help?
-
-User: "I love hiking."
-TYPE: SHARING
-BRIDGE: Got it, noted. Thanks!"""
+            system_prompt = """Classify the query and output a safe hedging bridge.
+Format (two lines only):
+TYPE: FACTUAL|GREETING|SHARING|OPINION|OTHER
+BRIDGE: <3-8 word hedge, never state facts>"""
         else:
-            system_prompt = f"""You are a helpful assistant. The current mood is {mood}.
-
-Your task is to provide an IMMEDIATE response (bridge) that:
-1. Acknowledges the user's input
-2. Shows you understand what they're asking
-3. Buys time for deeper processing if needed
-
-CRITICAL: Do not provide specific facts. Instead:
-- If they ask for information: "Let me recall that...", "Checking what you mentioned..."
-- If they share something: "Got it, noted.", "Thanks for sharing."
-- If it's a greeting: "Hello!", "Hi there!"
-
-Keep responses SHORT (3-6 words) and NATURAL."""
+            system_prompt = """Classify the query and output a safe hedging bridge.
+Format (two lines only):
+TYPE: FACTUAL|GREETING|SHARING|OPINION|OTHER
+BRIDGE: <3-8 word hedge, never state facts>"""
         
         messages = [
             {"role": "system", "content": system_prompt},
@@ -319,10 +298,15 @@ Keep responses SHORT (3-6 words) and NATURAL."""
             elif mood_val < 0.3:
                 state_desc = "The user seems stressed or concerned."
         
-        system_prompt = f"""You are a helpful, consistent assistant. 
+        system_prompt = f"""You are a helpful, consistent assistant talking WITH the user about THEIR own life.
 {state_desc}
-Use the provided context to give accurate, relevant responses.
-Keep your response concise but informative."""
+Use the provided context to give accurate, grounded responses.
+
+ABSOLUTE RULES:
+- ALWAYS refer to the user's possessions/facts in second-person: say \"Your wife\", \"Your children\", \"Your grandson\" — NEVER \"My wife\", \"My children\", \"My grandson\"
+- NEVER output placeholder strings like [insert X], [X Company], [birth date], X University — if the context lacks a specific value, say \"I don't have that detail on record\" or ask the user to remind you
+- NEVER invent facts not present in the provided context
+- Keep your response concise and natural (1-3 sentences)"""
 
         messages = [
             {"role": "system", "content": system_prompt},

@@ -1,0 +1,127 @@
+ANSWER KEY (DO NOT SHARE WITH RATERS)
+============================================================
+
+Pair 01 [name                ]  A = TEMPO    |  B = VANILLA
+Pair 02 [job                 ]  A = VANILLA  |  B = TEMPO
+Pair 03 [location            ]  A = VANILLA  |  B = TEMPO
+Pair 04 [education           ]  A = VANILLA  |  B = TEMPO
+Pair 05 [preference          ]  A = TEMPO    |  B = VANILLA
+Pair 06 [hobby               ]  A = TEMPO    |  B = VANILLA
+Pair 07 [preference          ]  A = TEMPO    |  B = VANILLA
+Pair 08 [pet                 ]  A = VANILLA  |  B = TEMPO
+Pair 09 [family              ]  A = VANILLA  |  B = TEMPO
+Pair 10 [family              ]  A = VANILLA  |  B = TEMPO
+Pair 11 [family              ]  A = VANILLA  |  B = TEMPO
+Pair 12 [updated_preference  ]  A = TEMPO    |  B = VANILLA
+Pair 13 [recent_event        ]  A = VANILLA  |  B = TEMPO
+Pair 14 [new_hobby           ]  A = VANILLA  |  B = TEMPO
+Pair 15 [health              ]  A = TEMPO    |  B = VANILLA
+Pair 16 [tool                ]  A = TEMPO    |  B = VANILLA
+Pair 17 [specialization      ]  A = VANILLA  |  B = TEMPO
+Pair 18 [specialization      ]  A = TEMPO    |  B = VANILLA
+Pair 19 [career              ]  A = TEMPO    |  B = VANILLA
+Pair 20 [sport               ]  A = VANILLA  |  B = TEMPO
+
+============================================================
+FULL RESPONSES
+============================================================
+
+Pair 01 [name]
+User: What's my name?
+A (TEMPO  ): Let me check... Your name is Alex.
+B (VANILLA): Let me think... I don't have that detail on record, but it's nice to know we're chatting about your life. What would you like to share about your name?
+
+Pair 02 [job]
+User: What do I do for work?
+A (VANILLA): Let me see... Based on the information you provided, you used to work at Boeing for 30 years. Since then, I don't have details on your current occupation. If you'd like to share what you do now, I'd be happy to hear about it!
+B (TEMPO  ): Let me check my notes... Based on the information you provided, you used to work at Boeing for 30 years. If you're looking for current employment details, I don't have that information on record.
+
+Pair 03 [location]
+User: Where do I live?
+A (VANILLA): Let me check with you later. I don't have that detail on record, but it's good to know where you're based for planning activities. Do you want to share where you live?
+B (TEMPO  ): Let me try to help. How about... I don't have that detail on record. Could you remind me where you live?
+
+Pair 04 [education]
+User: Where did I graduate from?
+A (VANILLA): Let me try... You graduated from Stanford in 2020.
+B (TEMPO  ): Let me think about this... You graduated from Stanford in 2020.
+
+Pair 05 [preference]
+User: What's my favorite food?
+A (TEMPO  ): Let me check... Your favorite food is sushi.
+B (VANILLA): Let me think... Your favorite food is sushi.
+
+Pair 06 [hobby]
+User: What do I like to do on weekends?
+A (TEMPO  ): Hmm, sounds great. Let me know when you're ready! Based on what you shared, you love hiking on weekends. It sounds like you enjoy spending time outdoors and exploring nature!
+B (VANILLA): Let me think about that... Based on what you've shared, you like to go hiking on weekends. It sounds like you also enjoy exploring trails like the ones in Yosemite!
+
+Pair 07 [preference]
+User: What's my favorite color?
+A (TEMPO  ): Let me know! Your favorite color is teal.
+B (VANILLA): Let me check... Your favorite color is teal.
+
+Pair 08 [pet]
+User: Do I have any pets?
+A (VANILLA): Let me think of a smart bridge. Yes, you have three pets: two dogs named Max and Bella, and a cat named Whiskers.
+B (TEMPO  ): Let me see... Yes, you have three pets: two dogs named Max and Bella, and a cat named Whiskers.
+
+Pair 09 [family]
+User: What's my wife's name?
+A (VANILLA): Let me think about that... Your wife's name is Sarah.
+B (TEMPO  ): Let me check my notes... Your wife's name is Sarah.
+
+Pair 10 [family]
+User: How many children do I have?
+A (VANILLA): Hmm, not much info. Let me check. You have three children.
+B (TEMPO  ): Oh, no problem. I'm glad to help you! You have three children.
+
+Pair 11 [family]
+User: Who's my grandson?
+A (VANILLA): I'm sorry, I can't remember your name. Your grandson is named Tommy.
+B (TEMPO  ): Let me try again. Your grandson is named Tommy.
+
+Pair 12 [updated_preference]
+User: What do I drink now?
+A (TEMPO  ): Let me check the fridge. You now prefer tea over coffee.
+B (VANILLA): Let's keep things light... Based on your recent update, you've switched from coffee to tea. So now you drink tea!
+
+Pair 13 [recent_event]
+User: Where did I hike recently?
+A (VANILLA): Let me check my memory... You hiked at Yosemite last weekend.
+B (TEMPO  ): Let me know! You hiked at Yosemite last weekend. It sounds like an incredible experience!
+
+Pair 14 [new_hobby]
+User: What's my new hobby?
+A (VANILLA): Let me hear about it. I don't have that detail on record. Would you like to tell me about a new hobby you've started recently?
+B (TEMPO  ): Let me look it up for you. Based on our conversation, you mentioned playing volleyball, but you haven't mentioned starting a new hobby recently. Are you thinking of picking up something new?
+
+Pair 15 [health]
+User: What am I allergic to?
+A (TEMPO  ): Let me check our records. You are allergic to peanuts. Always remember to check for peanut traces in the food you eat, especially when you're outdoors.
+B (VANILLA): Let me check with you... You are allergic to peanuts.
+
+Pair 16 [tool]
+User: What do I use for work?
+A (TEMPO  ): Let me think of some ideas... Based on the information you provided, I don't have specific details about what tools or software you used for work at Boeing. Could you give me more information about that?
+B (VANILLA): Let me think about that... Based on what you've shared, you likely used Boeing for your professional tools and resources during your 30-year career. Do you have any specific work equipment or software you particularly remember using?
+
+Pair 17 [specialization]
+User: What do I write about?
+A (VANILLA): Let's brainstorm some engaging ideas! How about writing about your favorite hike with Tommy? It could be a fun story for him to read when he grows up. Maybe describe the trail, the sights you both saw, or any funny moments you shared along the way.
+B (TEMPO  ): Let me think of some interesting things to discuss... Based on your recent hike at Yosemite, why not write about your experience there? Describe the trails you took, the views you saw, and any memorable moments from your trip. This could be a wonderful way to share your adventure with others or reflect on the beauty of nature.
+
+Pair 18 [specialization]
+User: What's my signature dish?
+A (TEMPO  ): Hmm, I'm not sure... Your signature dish is duck confit.
+B (VANILLA): I'm happy to share. Let me know your favorite! Your signature dish is duck confit.
+
+Pair 19 [career]
+User: Where did I work for 30 years?
+A (TEMPO  ): Let me think of an interesting story... You worked at Boeing for 30 years.
+B (VANILLA): Oh, I'm sorry, I don't remember where I worked. You worked at Boeing for 30 years.
+
+Pair 20 [sport]
+User: What sport do I play?
+A (VANILLA): Let me check my schedule. You play volleyball.
+B (TEMPO  ): Let me know when you're ready! You play volleyball. It's great to stay active and enjoy some friendly competition!
