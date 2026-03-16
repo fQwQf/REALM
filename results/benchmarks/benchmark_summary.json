@@ -1,0 +1,28 @@
+{
+  "locomo": {
+    "benchmark": "locomo",
+    "n_questions": 200,
+    "avg_f1": 0.0816,
+    "avg_em": 0.005,
+    "avg_latency_ms": 1688.9,
+    "per_category_f1": {
+      "1": 0.092,
+      "2": 0.031,
+      "3": 0.073,
+      "4": 0.117,
+      "5": 0.103
+    }
+  },
+  "longmemeval_s": {
+    "benchmark": "longmemeval_s",
+    "n_questions": 200,
+    "avg_f1": 0.0719,
+    "avg_em": 0.0,
+    "avg_latency_ms": 1881.2,
+    "per_qtype_f1": {
+      "single-session-user": 0.054,
+      "multi-session": 0.058,
+      "single-session-preference": 0.16
+    }
+  }
+}

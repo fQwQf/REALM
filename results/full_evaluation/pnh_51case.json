@@ -1,0 +1,420 @@
+{
+  "experiment": "pnh_51case",
+  "n_cases": 51,
+  "passed": 41,
+  "recall_ok": 44,
+  "state_ok": 46,
+  "accuracy_pct": 80.4,
+  "recall_pct": 86.3,
+  "state_pct": 90.2,
+  "details": [
+    {
+      "id": "pnh_001",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You prefer to be called Alex. I'll make sure to use that name from now on. Is there anything specific you'd like to discuss or any assistance you need today, Alex?",
+      "trigger": "What name do I prefer again?"
+    },
+    {
+      "id": "pnh_002",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Yes, I promised to keep your data private. Rest assured that your information is secure with me. Is there anything else you'd like to know or discuss?",
+      "trigger": "Did you promise to keep my data private?"
+    },
+    {
+      "id": "pnh_003",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on what you've shared, it seems that painting landscapes is one of your favorite ways to relax and unwind. Engaging in this activity can help shift your focus away from stress and allow you to e",
+      "trigger": "What do I like to do to relax?"
+    },
+    {
+      "id": "pnh_004",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": false,
+      "response": "I understand that you're not comfortable discussing your family matters right now. Let's focus on something else instead. Would you like some recommendations for books or perhaps we could talk about a",
+      "trigger": "Can you tell me about my parents?"
+    },
+    {
+      "id": "pnh_005",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "These days, you're really into jazz! It seems like your musical tastes have evolved, and you're enjoying the unique rhythms and improvisational aspects that jazz offers. If you're looking for more pla",
+      "trigger": "What kind of music am I into these days?"
+    },
+    {
+      "id": "pnh_006",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Yes, I remember your privacy requirements. I will not store or retain any medical information you share, and I respect your need for confidentiality. If you ever need to discuss any concerns or need a",
+      "trigger": "Do you remember my privacy requirements?"
+    },
+    {
+      "id": "pnh_007",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent conversation and your stated preference, you prefer asynchronous communication. This means you value having time to process information and respond at your own pace, rather than b",
+      "trigger": "What communication style do I prefer?"
+    },
+    {
+      "id": "pnh_008",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You are trying to learn Python programming, which is a beginner-friendly language often used in web development, data analysis, artificial intelligence, and more. Your goal is to gain foundational kno",
+      "trigger": "What am I trying to learn?"
+    },
+    {
+      "id": "pnh_009",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Given your peanut allergy and your current anxious state, it's important to avoid any foods that might contain peanuts or peanut products. Here are some common items to watch out for:\n\n1. **Baked Good",
+      "trigger": "Any foods I should avoid?"
+    },
+    {
+      "id": "pnh_010",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Just tell me what you think, and don't worry about being too gentle. If you find something confusing or problematic, let me know directly.",
+      "trigger": "How should I give you feedback?"
+    },
+    {
+      "id": "pnh_005",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on what you've shared, your favorite music genre is folk. Is there anything specific about folk music you'd like to discuss or explore further?",
+      "trigger": "What's my favorite music genre?"
+    },
+    {
+      "id": "pnh_015",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "It seems like you're proud of your graduation from MIT! MIT is renowned for its rigorous academic programs and innovative research across various fields. Your education there likely provided you with ",
+      "trigger": "What do you know about my graduated?"
+    },
+    {
+      "id": "pnh_008",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, your favorite movie genre is comedy. Comedy movies can be a great way to lighten your mood and provide some relief from stress. If you're ever looking for a recommendat",
+      "trigger": "What's my favorite movie genre?"
+    },
+    {
+      "id": "pnh_032",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, you are currently working on learning Python programming. If you need any specific help or have any questions while you're learning, feel free to ask! Whether it's unde",
+      "trigger": "What am I currently working on?"
+    },
+    {
+      "id": "pnh_041",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, you prefer direct communication. This means you appreciate straightforward and to-the-point exchanges without much unnecessary detail or elaboration. If there's anythin",
+      "trigger": "How do I prefer to communicate?"
+    },
+    {
+      "id": "pnh_030",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Yes, you mentioned that you are lactose intolerant. This means you should avoid dairy products and foods that contain lactose to prevent discomfort or symptoms like bloating, gas, or stomach pain. Som",
+      "trigger": "Any dietary restrictions I have?"
+    },
+    {
+      "id": "pnh_035",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, you're currently working on learning Japanese. Is there anything specific you'd like help with, such as vocabulary, grammar, or perhaps finding resources to practice?",
+      "trigger": "What am I currently working on?"
+    },
+    {
+      "id": "pnh_010",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": true,
+      "response": "I promised you that I would not share your personal information. Is there something specific you'd like to know or discuss further?",
+      "trigger": "What did you promise me?"
+    },
+    {
+      "id": "pnh_023",
+      "passed": false,
+      "recall_ok": true,
+      "state_ok": false,
+      "response": "I understand that you prefer not to discuss religion. Let's focus on other topics instead. Do you have any interests or areas you'd like to chat about?",
+      "trigger": "Can we talk about prefer not to talk about religion?"
+    },
+    {
+      "id": "pnh_024",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": false,
+      "response": "Of course, let's focus on other topics that might be more comfortable for you. Perhaps we could discuss your interests, hobbies, or any recent news or events that you find intriguing. What areas are y",
+      "trigger": "Can we talk about avoid discussing salary?"
+    },
+    {
+      "id": "pnh_003",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Your favorite season is autumn! Just like you, I find the changing colors of the leaves, cooler temperatures, and the overall sense of coziness quite appealing. How about we plan something enjoyable f",
+      "trigger": "What's my favorite season?"
+    },
+    {
+      "id": "pnh_017",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "I know that you live in San Francisco. While I don't have many specific details beyond that, living in San Francisco can offer a vibrant and diverse experience. The city is known for its unique cultur",
+      "trigger": "What do you know about my lives?"
+    },
+    {
+      "id": "pnh_039",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You prefer brief communication and appreciate concise responses. Is there something specific you'd like to discuss or get advice on? I can keep my answers short and to the point.",
+      "trigger": "How do I prefer to communicate?"
+    },
+    {
+      "id": "pnh_037",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent preference, you prefer email communication. So, I will proceed with that format for our interaction moving forward. If you have any questions or need further assistance, feel free",
+      "trigger": "How do I prefer to communicate?"
+    },
+    {
+      "id": "pnh_011",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": true,
+      "response": "I promised to remind you about important deadlines. Is there a specific deadline or type of reminder you're concerned about? It would help me assist you better if you could provide some details.",
+      "trigger": "What did you promise me?"
+    },
+    {
+      "id": "pnh_012",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "I promised to help you with your project. Is there anything specific you need assistance with regarding your project?",
+      "trigger": "What did you promise me?"
+    },
+    {
+      "id": "pnh_029",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Yes, you mentioned that you're gluten intolerant. This means you should avoid foods containing gluten, which are primarily found in grains like wheat, barley, and rye. It's important to read food labe",
+      "trigger": "Any dietary restrictions I have?"
+    },
+    {
+      "id": "pnh_016",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the memory note provided, I can tell you that your works as a software engineer likely involve developing, testing, and maintaining software applications. This could include everything from d",
+      "trigger": "What do you know about my works?"
+    },
+    {
+      "id": "pnh_021",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, it seems like you might be referring to your studies in computer science. While I don't have specific details about your studies, I can certainly discuss general topics",
+      "trigger": "What do you know about my studied?"
+    },
+    {
+      "id": "pnh_022",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": true,
+      "response": "Of course, let's focus on other topics that might be more interesting or relevant to you. What areas are you passionate about or curious to learn more about? Whether it's technology, science, art, lit",
+      "trigger": "Can we talk about don't want to discuss politics?"
+    },
+    {
+      "id": "pnh_026",
+      "passed": false,
+      "recall_ok": true,
+      "state_ok": false,
+      "response": "I understand that you prefer not to discuss family matters right now. Let's focus on something else if you'd like. Perhaps we could talk about your interests, hobbies, or any other topics that might b",
+      "trigger": "Can we talk about keep family matters private?"
+    },
+    {
+      "id": "pnh_025",
+      "passed": false,
+      "recall_ok": true,
+      "state_ok": false,
+      "response": "I understand that you prefer not to discuss work details, and I respect that. Perhaps we could explore other topics that interest you or that you feel comfortable talking about? Maybe we could discuss",
+      "trigger": "Can we talk about don't share work details?"
+    },
+    {
+      "id": "pnh_018",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the information in your memory note, you have two siblings. If you'd like to discuss more about your siblings or any related topics, feel free to share! How can I assist you further?",
+      "trigger": "What do you know about my has?"
+    },
+    {
+      "id": "pnh_034",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You are currently working on writing a book. How can I assist you with that? Whether you need advice on plot development, character creation, or any other aspect of writing, feel free to share more de",
+      "trigger": "What am I currently working on?"
+    },
+    {
+      "id": "pnh_036",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You're currently working on starting a business. It sounds like you're in the early stages and might be considering various aspects such as business ideas, market research, planning, or even just gath",
+      "trigger": "What am I currently working on?"
+    },
+    {
+      "id": "pnh_004",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the information in your memory note, your favorite sport is tennis. It sounds like you enjoy tennis, and it might be a great way to stay active and competitive. Do you have any specific quest",
+      "trigger": "What's my favorite sport?"
+    },
+    {
+      "id": "pnh_019",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the information in your memory note, it seems like \"my\" refers to you and indicates that you speak three languages. While I don't have specific details about which languages you speak, it's q",
+      "trigger": "What do you know about my speaks?"
+    },
+    {
+      "id": "pnh_001",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Your favorite color is blue, as you mentioned earlier. It's a calming and peaceful hue that many people enjoy. Is there anything else you'd like to talk about or any questions you have?",
+      "trigger": "What's my favorite color?"
+    },
+    {
+      "id": "pnh_007",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, your favorite animal is dogs.",
+      "trigger": "What's my favorite animal?"
+    },
+    {
+      "id": "pnh_027",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, you mentioned being allergic to peanuts. This means you should avoid foods that contain peanuts or peanut products to prevent an allergic reaction. Are there any other ",
+      "trigger": "Any dietary restrictions I have?"
+    },
+    {
+      "id": "pnh_006",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement and considering your memory note, your preferred drink is tea. If you're looking for some recommendations, I can suggest trying different types of tea such as black tea,",
+      "trigger": "What's my preferred drink?"
+    },
+    {
+      "id": "pnh_040",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statement, you prefer asynchronous communication. This means you prefer to communicate at your own pace and convenience, rather than in real-time. Is there a specific reason or si",
+      "trigger": "How do I prefer to communicate?"
+    },
+    {
+      "id": "pnh_014",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the information in my memory, I know that your birthday is in March. While I don't have the exact date, knowing it's in March means your birthday could be any day from March 1st to March 31st",
+      "trigger": "What do you know about my birthday?"
+    },
+    {
+      "id": "pnh_028",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Absolutely, one of your dietary restrictions is definitely shellfish. It's important to always check ingredients lists and avoid dishes that might contain shellfish or cross-contamination. How are you",
+      "trigger": "Any dietary restrictions I have?"
+    },
+    {
+      "id": "pnh_002",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the information in your memory, your favorite food is pizza. It seems like a comforting and delicious choice! Is there anything specific about pizza that you enjoy the most?",
+      "trigger": "What's my favorite food?"
+    },
+    {
+      "id": "pnh_038",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent statements, you prefer detailed communication. You appreciate when information is provided in depth and with thorough explanations. Is there something specific you'd like to discu",
+      "trigger": "How do I prefer to communicate?"
+    },
+    {
+      "id": "pnh_033",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You are currently working on training for a marathon. This involves a combination of physical training, such as running at different intensities and distances, as well as possibly incorporating streng",
+      "trigger": "What am I currently working on?"
+    },
+    {
+      "id": "pnh_031",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Given your condition as a diabetic, it's important to manage your diet carefully. Here are some general dietary restrictions and recommendations:\n\n1. **Carbohydrate Management**: Focus on choosing com",
+      "trigger": "Any dietary restrictions I have?"
+    },
+    {
+      "id": "pnh_020",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on the information in your memory note, it seems like there might be a small typo or misunderstanding in your statement. It sounds like you meant to say \"I grew up in Boston.\" If that's correct,",
+      "trigger": "What do you know about my grew?"
+    },
+    {
+      "id": "pnh_009",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": true,
+      "response": "I promised to keep your secrets confidential. Is there something specific you'd like to share that you want to keep private?",
+      "trigger": "What did you promise me?"
+    },
+    {
+      "id": "pnh_013",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": true,
+      "response": "I promised you that I'll be available during work hours. Is there anything specific you need help with or discuss during your work time?",
+      "trigger": "What did you promise me?"
+    }
+  ]
+}

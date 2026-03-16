@@ -1,0 +1,42 @@
+{
+  "expert_raters": {
+    "n_raters": 5,
+    "n_pairs": 20,
+    "n_decisions": 100,
+    "tempo_wins": 51,
+    "vanilla_wins": 25,
+    "ties": 24,
+    "win_rate_excl_ties_pct": 67.1,
+    "binomial_p": 0.0019,
+    "naturalness_tempo": 4.04,
+    "naturalness_vanilla": 3.31,
+    "accuracy_tempo": 4.79,
+    "accuracy_vanilla": 4.14,
+    "helpfulness_tempo": 4.51,
+    "helpfulness_vanilla": 3.95,
+    "naturalness_t": 3.84,
+    "naturalness_p": 0.0002,
+    "accuracy_t": 4.707,
+    "accuracy_p": 0.0,
+    "helpfulness_t": 5.116,
+    "helpfulness_p": 0.0
+  },
+  "volunteer_raters": {
+    "n_raters": 15,
+    "n_decisions": 300,
+    "tempo_wins": 199,
+    "vanilla_wins": 53,
+    "ties": 48,
+    "win_rate_excl_ties_pct": 79.0
+  },
+  "all_raters_combined": {
+    "n_raters": 20,
+    "n_decisions": 400,
+    "tempo_wins": 250,
+    "vanilla_wins": 78,
+    "ties": 72,
+    "win_rate_excl_ties_pct": 76.2,
+    "win_rate_incl_ties_pct": 62.5,
+    "binomial_p": 0.0
+  }
+}

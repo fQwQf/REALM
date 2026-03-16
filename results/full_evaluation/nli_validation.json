@@ -1,0 +1,58 @@
+{
+  "experiment": "nli_validation",
+  "model": "cross-encoder/nli-deberta-v3-base",
+  "n_pairs": 7,
+  "correct": 6,
+  "accuracy_pct": 85.7,
+  "details": [
+    {
+      "bridge": "Let me check your notes...",
+      "response": "I found the information you requested.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "correct": true
+    },
+    {
+      "bridge": "Based on your memory...",
+      "response": "According to what you told me earlier, your meeting is at 3pm.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "correct": true
+    },
+    {
+      "bridge": "I recall you mentioned...",
+      "response": "You said your sister is visiting next week.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "correct": true
+    },
+    {
+      "bridge": "Let me think about that...",
+      "response": "That is an interesting question.",
+      "gold": "neutral",
+      "pred": "neutral",
+      "correct": true
+    },
+    {
+      "bridge": "Hmm...",
+      "response": "I am not sure how to respond to that.",
+      "gold": "neutral",
+      "pred": "contradiction",
+      "correct": false
+    },
+    {
+      "bridge": "You told me you love coffee.",
+      "response": "I have no information about your beverage preferences.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "correct": true
+    },
+    {
+      "bridge": "Your notes say you are vegetarian.",
+      "response": "I cannot find any dietary information about you.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "correct": true
+    }
+  ]
+}

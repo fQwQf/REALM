@@ -1,0 +1,1818 @@
+{
+  "summary": {
+    "benchmark": "locomo",
+    "n_questions": 200,
+    "avg_f1": 0.0816,
+    "avg_em": 0.005,
+    "avg_latency_ms": 1688.9,
+    "per_category_f1": {
+      "1": 0.092,
+      "2": 0.031,
+      "3": 0.073,
+      "4": 0.117,
+      "5": 0.103
+    }
+  },
+  "details": [
+    {
+      "question": "When did Caroline go to the LGBTQ support group?",
+      "answer": "7 May 2023",
+      "prediction": "Caroline didn't go to the LGBTQ support group; she learned about Melanie attending one and discussed its positive impact on Melanie.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2489.5445900037885,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie paint a sunrise?",
+      "answer": "2022",
+      "prediction": "Melanie painted a sunrise last year, according to her conversation with Caroline.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1115.318758878857,
+      "category": 2
+    },
+    {
+      "question": "What fields would Caroline be likely to pursue in her educaton?",
+      "answer": "Psychology, counseling certification",
+      "prediction": "Caroline is interested in pursuing counseling or working in mental health, where she hopes to support individuals with similar issues.",
+      "f1": 0.08695652173913045,
+      "em": 0.0,
+      "latency_ms": 1406.7349252291024,
+      "category": 3
+    },
+    {
+      "question": "What did Caroline research?",
+      "answer": "Adoption agencies",
+      "prediction": "Caroline researched adoption agencies to find one that would help her give a loving home to kids in need.",
+      "f1": 0.19999999999999998,
+      "em": 0.0,
+      "latency_ms": 1351.9358932971954,
+      "category": 1
+    },
+    {
+      "question": "What is Caroline's identity?",
+      "answer": "Transgender woman",
+      "prediction": "Caroline appears to be a supportive friend to Melanie, showing interest in Melanie's personal and professional development, and discussing topics related to mental health, LGBTQ+ rights, and adoption. There is no explicit mention of Caroline's identity beyond her role as a friend.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2479.3236311525106,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie run a charity race?",
+      "answer": "The sunday before 25 May 2023",
+      "prediction": "Melanie ran a charity race for mental health last Saturday, as mentioned in her message on May 25, 2023.",
+      "f1": 0.2608695652173913,
+      "em": 0.0,
+      "latency_ms": 1646.6770828701556,
+      "category": 2
+    },
+    {
+      "question": "When is Melanie planning on going camping?",
+      "answer": "June 2023",
+      "prediction": "Melanie mentioned that she and her family are thinking about going camping next month during their conversation on May 25, 2023.",
+      "f1": 0.08695652173913042,
+      "em": 0.0,
+      "latency_ms": 1683.9166963472962,
+      "category": 2
+    },
+    {
+      "question": "What is Caroline's relationship status?",
+      "answer": "Single",
+      "prediction": "Caroline is single and is considering adoption to start a family.",
+      "f1": 0.18181818181818182,
+      "em": 0.0,
+      "latency_ms": 1040.836192201823,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline give a speech at a school?",
+      "answer": "The week before 9 June 2023",
+      "prediction": "Caroline did not give a speech at a school in the conversation provided. However, Melanie discussed her own speech at a charity race where she talked about her transgender journey and encouraged students to get involved in the LGBTQ community.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2199.182359036058,
+      "category": 2
+    },
+    {
+      "question": "When did Caroline meet up with her friends, family, and mentors?",
+      "answer": "The week before 9 June 2023",
+      "prediction": "According to the conversation, Melanie and Caroline met up last week, as mentioned in their recent exchange on June 9, 2023.",
+      "f1": 0.32000000000000006,
+      "em": 0.0,
+      "latency_ms": 1727.9022792354226,
+      "category": 2
+    },
+    {
+      "question": "How long has Caroline had her current group of friends for?",
+      "answer": "4 years",
+      "prediction": "Caroline has had her current group of friends for 4 years, since she moved from her home country to Melanie's location.",
+      "f1": 0.17391304347826084,
+      "em": 0.0,
+      "latency_ms": 1530.525968875736,
+      "category": 2
+    },
+    {
+      "question": "Where did Caroline move from 4 years ago?",
+      "answer": "Sweden",
+      "prediction": "Caroline moved from her home country, Sweden, 4 years ago.",
+      "f1": 0.18181818181818182,
+      "em": 0.0,
+      "latency_ms": 1113.2594938389957,
+      "category": 1
+    },
+    {
+      "question": "How long ago was Caroline's 18th birthday?",
+      "answer": "10 years ago",
+      "prediction": "Caroline's 18th birthday was ten years ago, based on her mentioning that her hand-painted bowl, made for her 18th birthday, is ten years old.",
+      "f1": 0.14814814814814814,
+      "em": 0.0,
+      "latency_ms": 1927.710416726768,
+      "category": 2
+    },
+    {
+      "question": "What career path has Caroline decided to persue?",
+      "answer": "counseling or mental health for Transgender people",
+      "prediction": "Caroline is interested in pursuing careers in counseling or working in mental health, where she hopes to support individuals with similar issues.",
+      "f1": 0.27586206896551724,
+      "em": 0.0,
+      "latency_ms": 1428.9106498472393,
+      "category": 1
+    },
+    {
+      "question": "Would Caroline still want to pursue counseling as a career if she hadn't received support growing up?",
+      "answer": "Likely no",
+      "prediction": "Given Caroline's current enthusiasm and the support she has found, it's likely that even without prior support, she would still be drawn to counseling due to her empathy and desire to help others, though her journey might have been different.",
+      "f1": 0.048780487804878044,
+      "em": 0.0,
+      "latency_ms": 2234.7507691010833,
+      "category": 3
+    },
+    {
+      "question": "What activities does Melanie partake in?",
+      "answer": "pottery, camping, painting, swimming",
+      "prediction": "Melanie participates in various activities including attending LGBTQ support groups, running, reading, playing the violin, and engaging in outdoor activities like camping and hiking. She also runs charity races and gives talks about her transgender journey to raise awareness and encourage inclusivity.",
+      "f1": 0.04444444444444444,
+      "em": 0.0,
+      "latency_ms": 2442.023005336523,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie sign up for a pottery class?",
+      "answer": "2 July 2023",
+      "prediction": "The conversation does not mention Melanie signing up for a pottery class.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1077.5250913575292,
+      "category": 2
+    },
+    {
+      "question": "When is Caroline going to the transgender conference?",
+      "answer": "July 2023",
+      "prediction": "Caroline does not mention any plans to attend a transgender conference in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1163.1219116970897,
+      "category": 2
+    },
+    {
+      "question": "Where has Melanie camped?",
+      "answer": "beach, mountains, forest",
+      "prediction": "Melanie and her family camped in the mountains.",
+      "f1": 0.2,
+      "em": 0.0,
+      "latency_ms": 951.0759548284113,
+      "category": 1
+    },
+    {
+      "question": "What do Melanie's kids like?",
+      "answer": "dinosaurs, nature",
+      "prediction": "From the conversation, it's not explicitly stated what Melanie's kids like, but Melanie mentions that her kids are excited about the upcoming summer break and that they are thinking about going camping next month together.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2000.4305648617446,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie go to the museum?",
+      "answer": "5 July 2023",
+      "prediction": "The conversation does not mention Melanie going to a museum. There is no information provided about Melanie visiting a museum in the given dialogue.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1520.8842321299016,
+      "category": 2
+    },
+    {
+      "question": "When did Caroline have a picnic?",
+      "answer": "The week before 6 July 2023",
+      "prediction": "Caroline did not mention having a picnic in the conversation. She mentioned going camping in the mountains with her family, but not a picnic specifically.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1575.3171471878886,
+      "category": 2
+    },
+    {
+      "question": "Would Caroline likely have Dr. Seuss books on her bookshelf?",
+      "answer": "Yes, since she collects classic children's books",
+      "prediction": "Based on the conversation, there is no mention of Dr. Seuss books, so it's not clear whether Caroline would have them on her bookshelf. However, since the conversation focuses on personal experiences and interests like painting, adoption, and family time, it seems less likely that Dr. Seuss books would be a",
+      "f1": 0.07272727272727272,
+      "em": 0.0,
+      "latency_ms": 2892.584974411875,
+      "category": 3
+    },
+    {
+      "question": "What books has Melanie read?",
+      "answer": "\"Nothing is Impossible\", \"Charlotte's Web\"",
+      "prediction": "Based on the conversation, Melanie did not mention reading any specific books.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1116.8824881315231,
+      "category": 1
+    },
+    {
+      "question": "What does Melanie do to destress?",
+      "answer": "Running, pottery",
+      "prediction": "Melanie destresses by engaging in activities such as running, reading, playing her violin, and spending time with her family. She also finds relaxation through painting and swimming with her kids.",
+      "f1": 0.0625,
+      "em": 0.0,
+      "latency_ms": 1940.4414310120046,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline go to the LGBTQ conference?",
+      "answer": "10 July 2023",
+      "prediction": "There is no mention of Caroline attending an LGBTQ conference in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1120.9802418015897,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie read the book \"nothing is impossible\"?",
+      "answer": "2022",
+      "prediction": "The conversation does not mention Melanie reading the book \"Nothing is Impossible.\" There is no information provided about Melanie reading this specific book.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1503.7950230762362,
+      "category": 2
+    },
+    {
+      "question": "Would Caroline pursue writing as a career option?",
+      "answer": "LIkely no; though she likes reading, she wants to be a counselor",
+      "prediction": "Based on the conversation, there is no mention of Caroline considering writing as a career option. The discussion focuses on Melanie's experiences and interests, particularly in counseling, mental health, and adoption.",
+      "f1": 0.05128205128205127,
+      "em": 0.0,
+      "latency_ms": 1944.9508059769869,
+      "category": 3
+    },
+    {
+      "question": "When did Caroline go to the adoption meeting?",
+      "answer": "The friday before 15 July 2023",
+      "prediction": "Caroline did not mention going to any specific adoption meeting in the conversation provided. She discussed her interest in adoption and the adoption agency she is researching, but there is no mention of attending a meeting.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2014.7996279411018,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie go to the pottery workshop?",
+      "answer": "The Friday before 15 July 2023",
+      "prediction": "The conversation does not mention Melanie attending a pottery workshop.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 984.3046348541975,
+      "category": 2
+    },
+    {
+      "question": "Would Melanie be considered a member of the LGBTQ community?",
+      "answer": "Likely no, she does not refer to herself as part of it",
+      "prediction": "Yes, Melanie would be considered a member of the LGBTQ community, specifically the transgender community, as she mentions attending an LGBTQ support group and discussing her transgender journey.",
+      "f1": 0.16666666666666666,
+      "em": 0.0,
+      "latency_ms": 1741.865910589695,
+      "category": 3
+    },
+    {
+      "question": "When did Melanie go camping in June?",
+      "answer": "The week before 27 June 2023",
+      "prediction": "Melanie went camping in the mountains with her family last week in June, which was around June 9th based on the conversation timeline.",
+      "f1": 0.15384615384615385,
+      "em": 0.0,
+      "latency_ms": 1595.8816101774573,
+      "category": 2
+    },
+    {
+      "question": "What LGBTQ+ events has Caroline participated in?",
+      "answer": "Pride parade, school speech, support group",
+      "prediction": "Caroline participated in a charity race for mental health, which aimed to raise awareness and support for mental health issues within the LGBTQ+ community.",
+      "f1": 0.07142857142857144,
+      "em": 0.0,
+      "latency_ms": 1596.6971111483872,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline go to a pride parade during the summer?",
+      "answer": "The week before 3 July 2023",
+      "prediction": "Caroline did not mention attending a pride parade during the summer in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1182.4800879694521,
+      "category": 2
+    },
+    {
+      "question": "What events has Caroline participated in to help children?",
+      "answer": "Mentoring program, school speech",
+      "prediction": "Caroline is researching adoption agencies to give a loving home to kids in need, aiming to become a single parent and provide a safe and supportive environment for them.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1728.3468847163022,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie go camping in July?",
+      "answer": "two weekends before 17 July 2023",
+      "prediction": "Melanie mentioned camping in the mountains with her family last week, which would be around June 27, 2023, based on the conversation timeline. There is no specific mention of camping in July in the provided conversation.",
+      "f1": 0.10256410256410256,
+      "em": 0.0,
+      "latency_ms": 2313.6871750466526,
+      "category": 2
+    },
+    {
+      "question": "When did Caroline join a mentorship program?",
+      "answer": "The weekend before 17 July 2023",
+      "prediction": "The conversation does not mention Caroline joining a mentorship program. There is no information provided about Caroline joining any mentorship program in the given dialogue.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1622.169273905456,
+      "category": 2
+    },
+    {
+      "question": "What did Melanie paint recently?",
+      "answer": "sunset",
+      "prediction": "Melanie painted a lake sunrise last year, which she finds relaxing and a great way to express her feelings.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1375.5640774033964,
+      "category": 1
+    },
+    {
+      "question": "What activities has Melanie done with her family?",
+      "answer": "Pottery, painting, camping, museum, swimming, hiking",
+      "prediction": "Melanie has taken her family camping in the mountains, where they explored nature, roasted marshmallows around the campfire, and went on a hike.",
+      "f1": 0.07692307692307691,
+      "em": 0.0,
+      "latency_ms": 1712.0429738424718,
+      "category": 1
+    },
+    {
+      "question": "In what ways is Caroline participating in the LGBTQ community?",
+      "answer": "Joining activist group, going to pride parades, participating in an art show, mentoring program",
+      "prediction": "Caroline is participating in the LGBTQ community by researching adoption agencies to adopt children, specifically ones that support LGBTQ+ folks with adoption, and by attending a charity race for mental health awareness, which aligns with the goals of supporting and advocating for the LGBTQ+ community.",
+      "f1": 0.1111111111111111,
+      "em": 0.0,
+      "latency_ms": 2548.70959604159,
+      "category": 1
+    },
+    {
+      "question": "How many times has Melanie gone to the beach in 2023?",
+      "answer": "2",
+      "prediction": "Based on the conversation, Melanie did not mention going to the beach in 2023.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1330.195065587759,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline join a new activist group?",
+      "answer": "The Tuesday before 20 July 2023",
+      "prediction": "Caroline did not join a new activist group in the conversation provided. The discussion mainly revolves around Melanie joining a LGBTQ support group and her activities, while Caroline shares her experiences and goals, including her involvement in a charity race and her interest in adoption.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2415.5492330901325,
+      "category": 2
+    },
+    {
+      "question": "Would Melanie be more interested in going to a national park or a theme park?",
+      "answer": "National park; she likes the outdoors",
+      "prediction": "Given that Melanie enjoyed the camping trip in the mountains and the activities like hiking and roasting marshmallows, she would likely be more interested in going to a national park rather than a theme park.",
+      "f1": 0.17142857142857143,
+      "em": 0.0,
+      "latency_ms": 2047.6486710831523,
+      "category": 3
+    },
+    {
+      "question": "What kind of art does Caroline make?",
+      "answer": "abstract art",
+      "prediction": "Caroline enjoys painting, as evidenced by her painting of a lake sunrise and her hand-painted bowl from ten years ago.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1465.8133299089968,
+      "category": 1
+    },
+    {
+      "question": "When is Melanie's daughter's birthday?",
+      "answer": "13 August",
+      "prediction": "The conversation does not provide a specific date for Melanie's daughter's birthday.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1117.8531870245934,
+      "category": 2
+    },
+    {
+      "question": "When did Caroline attend a pride parade in August?",
+      "answer": "The Friday before 14 August 2023",
+      "prediction": "The conversation does not mention Caroline attending a pride parade in August.",
+      "f1": 0.13333333333333333,
+      "em": 0.0,
+      "latency_ms": 1037.332059815526,
+      "category": 2
+    },
+    {
+      "question": "Would Melanie be considered an ally to the transgender community?",
+      "answer": "Yes, she is supportive",
+      "prediction": "Yes, Melanie would be considered an ally to the transgender community. She actively participates in LGBTQ+ support groups, runs charity races for mental health awareness, and shares her journey to inspire others, showing support and advocacy for the transgender community.",
+      "f1": 0.0975609756097561,
+      "em": 0.0,
+      "latency_ms": 2317.8300950676203,
+      "category": 3
+    },
+    {
+      "question": "Who supports Caroline when she has a negative experience?",
+      "answer": "Her mentors, family, and friends",
+      "prediction": "Caroline mentions that her friends, family, and mentors support her, providing her with the strength to push through tough times.",
+      "f1": 0.4166666666666667,
+      "em": 0.0,
+      "latency_ms": 1540.100438054651,
+      "category": 1
+    },
+    {
+      "question": "What types of pottery have Melanie and her kids made?",
+      "answer": "bowls, cup",
+      "prediction": "The conversation does not mention Melanie and her kids making any specific types of pottery together.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1172.6860064081848,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline and Melanie go to a pride fesetival together?",
+      "answer": "2022",
+      "prediction": "The conversation does not mention Caroline and Melanie going to a pride festival together. They discuss various topics including support groups, careers, self-care, adoption, and personal journeys, but there is no mention of attending a pride festival together.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2254.327055066824,
+      "category": 2
+    },
+    {
+      "question": "What would Caroline's political leaning likely be?",
+      "answer": "Liberal",
+      "prediction": "Based on the conversation, Caroline seems to be supportive of LGBTQ+ rights and adoption for children in need, which suggests she likely leans towards progressive or liberal political views.",
+      "f1": 0.0689655172413793,
+      "em": 0.0,
+      "latency_ms": 1805.1063353195786,
+      "category": 3
+    },
+    {
+      "question": "What has Melanie painted?",
+      "answer": "Horse, sunset, sunrise",
+      "prediction": "Melanie has painted a lake sunrise, which she considers special to her and a fun way to express her feelings and relax.",
+      "f1": 0.08695652173913045,
+      "em": 0.0,
+      "latency_ms": 1443.0767623707652,
+      "category": 1
+    },
+    {
+      "question": "What are Melanie's pets' names?",
+      "answer": "Oliver, Luna, Bailey",
+      "prediction": "The conversation does not mention any of Melanie's pets' names.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1092.9155070334673,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline apply to adoption agencies?",
+      "answer": "The week of 23 August 2023",
+      "prediction": "Caroline mentioned she is researching adoption agencies and has chosen one that helps LGBTQ+ folks with adoption, indicating she has started the process but hasn't explicitly stated when she applied to these agencies.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1975.730079691857,
+      "category": 2
+    },
+    {
+      "question": "When did Caroline draw a self-portrait?",
+      "answer": "The week before 23 August 2023",
+      "prediction": "There is no mention of Caroline drawing a self-portrait in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1176.9054969772696,
+      "category": 2
+    },
+    {
+      "question": "What subject have Caroline and Melanie both painted?",
+      "answer": "Sunsets",
+      "prediction": "Caroline and Melanie have both painted a lake sunrise.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 963.9373910613358,
+      "category": 1
+    },
+    {
+      "question": "What symbols are important to Caroline?",
+      "answer": "Rainbow flag, transgender symbol",
+      "prediction": "Caroline values symbols of love, faith, and strength, represented by her grandmother's necklace from Sweden, and treasures handmade items like her hand-painted bowl from a friend.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1866.6727412492037,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline encounter people on a hike and have a negative experience?",
+      "answer": "The week before 25 August 2023",
+      "prediction": "There is no mention of Caroline encountering people on a hike or having a negative experience in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1342.055147048086,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie make a plate in pottery class?",
+      "answer": "24 August 2023",
+      "prediction": "The conversation does not mention Melanie making a plate in pottery class.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1027.7877962216735,
+      "category": 2
+    },
+    {
+      "question": "Would Caroline be considered religious?",
+      "answer": "Somewhat, but not extremely religious",
+      "prediction": "Based on the conversation, there is no direct indication that Caroline is religious. The discussion focuses on personal growth, family, and support networks without mentioning any religious beliefs or practices.",
+      "f1": 0.06060606060606061,
+      "em": 0.0,
+      "latency_ms": 1842.8978798910975,
+      "category": 3
+    },
+    {
+      "question": "What instruments does Melanie play?",
+      "answer": "clarinet and violin",
+      "prediction": "According to the conversation, Melanie plays the violin.",
+      "f1": 0.2222222222222222,
+      "em": 0.0,
+      "latency_ms": 920.7133180461824,
+      "category": 1
+    },
+    {
+      "question": "What musical artists/bands has Melanie seen?",
+      "answer": "Summer Sounds, Matt Patterson",
+      "prediction": "Based on the conversation, Melanie did not mention seeing any specific musical artists or bands.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1155.5903679691255,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie go to the park?",
+      "answer": "27 August 2023",
+      "prediction": "Melanie did not mention going to a park in the conversation. She talked about running a charity race, attending a support group, and going camping, but there is no mention of visiting a park.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2079.719725996256,
+      "category": 2
+    },
+    {
+      "question": "When is Caroline's youth center putting on a talent show?",
+      "answer": "September 2023",
+      "prediction": "The conversation does not mention Caroline's youth center putting on a talent show. There is no information provided about such an event.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1526.6045862808824,
+      "category": 2
+    },
+    {
+      "question": "Would Melanie likely enjoy the song \"The Four Seasons\" by Vivaldi?",
+      "answer": "Yes; it's classical music",
+      "prediction": "Given Melanie's appreciation for art and self-expression through activities like painting and her interest in nature, it's likely that she would enjoy the dynamic and vivid \"The Four Seasons\" by Vivaldi, which is known for its descriptive and emotional qualities.",
+      "f1": 0.04761904761904762,
+      "em": 0.0,
+      "latency_ms": 2439.057328272611,
+      "category": 3
+    },
+    {
+      "question": "What are some changes Caroline has faced during her transition journey?",
+      "answer": "Changes to her body, losing unsupportive friends",
+      "prediction": "Caroline has been involved in various activities and decisions related to her transition journey, including participating in a charity race for mental health, researching adoption agencies to give a loving home to children in need, and sharing her transgender journey at a school event to inspire others and promote inclusivity.",
+      "f1": 0.07407407407407407,
+      "em": 0.0,
+      "latency_ms": 2646.600851789117,
+      "category": 1
+    },
+    {
+      "question": "What does Melanie do with her family on hikes?",
+      "answer": "Roast marshmallows, tell stories",
+      "prediction": "During hikes, Melanie and her family explore nature, enjoy the outdoors, and spend quality time together.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1327.1968681365252,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline go biking with friends?",
+      "answer": "The weekend before 13 September 2023",
+      "prediction": "The conversation does not mention Caroline going biking with friends. There is no information provided about Caroline biking with friends in the given dialogue.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1511.9564752094448,
+      "category": 2
+    },
+    {
+      "question": "How long has Melanie been practicing art?",
+      "answer": "Since 2016",
+      "prediction": "Based on the conversation, Melanie has been practicing art for at least a few years, as she mentioned painting a lake sunrise last year and having a hand-painted bowl from ten years ago.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1935.2708831429482,
+      "category": 2
+    },
+    {
+      "question": "What personality traits might Melanie say Caroline has?",
+      "answer": "Thoughtful, authentic, driven",
+      "prediction": "Melanie might say that Caroline has a caring, compassionate, and courageous personality, as evidenced by her dedication to supporting the LGBTQ community, her efforts in adoption, and her willingness to share her experiences to inspire others.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2201.0877071879804,
+      "category": 3
+    },
+    {
+      "question": "What transgender-specific events has Caroline attended?",
+      "answer": "Poetry reading, conference",
+      "prediction": "Caroline attended a LGBTQ support group where she heard inspiring transgender stories, and she participated in a charity race for mental health that ran for mental health awareness.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1751.9219196401536,
+      "category": 1
+    },
+    {
+      "question": "What book did Melanie read from Caroline's suggestion?",
+      "answer": "\"Becoming Nicole\"",
+      "prediction": "The conversation does not mention Melanie reading any specific book from Caroline's suggestion.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1116.5878982283175,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie's friend adopt a child?",
+      "answer": "2022",
+      "prediction": "Based on the conversation, Melanie's friend Caroline is currently researching adoption agencies and hopes to adopt a child to give a loving home to kids in need, but there is no mention of her having adopted a child yet.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2148.5905665904284,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie get hurt?",
+      "answer": "September 2023",
+      "prediction": "There is no mention of Melanie getting hurt in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1068.6264229007065,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie's family go on a roadtrip?",
+      "answer": "The weekend before 20 October 2023",
+      "prediction": "Melanie mentioned that she and her family went camping in the mountains last week, which can be considered a type of road trip.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1524.963608942926,
+      "category": 2
+    },
+    {
+      "question": "How many children does Melanie have?",
+      "answer": "3",
+      "prediction": "Based on the conversation, Melanie mentions having kids but does not specify the number. Given the context of her discussing family activities and support from her husband and kids, it can be inferred that Melanie has at least one child, likely a spouse and children rather than just children.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2552.411146927625,
+      "category": 1
+    },
+    {
+      "question": "When did Melanie go on a hike after the roadtrip?",
+      "answer": "19 October 2023",
+      "prediction": "After exploring nature and roasting marshmallows around the campfire, Melanie and her family went on a hike during their camping trip in the mountains.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1710.0779679603875,
+      "category": 1
+    },
+    {
+      "question": "Would Melanie go on another roadtrip soon?",
+      "answer": "Likely no; since this one went badly",
+      "prediction": "Based on the conversation, Melanie mentioned they just finished camping in the mountains with their family, so it's unlikely she would plan another road trip soon, at least not immediately.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1863.3022271096706,
+      "category": 3
+    },
+    {
+      "question": "What items has Melanie bought?",
+      "answer": "Figurines, shoes",
+      "prediction": "Based on the conversation, Melanie did not mention buying any specific items. She discussed her necklace, a hand-painted bowl, and a family camping trip, but there is no mention of any purchases she made.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2122.946315910667,
+      "category": 1
+    },
+    {
+      "question": "When did Caroline pass the adoption interview?",
+      "answer": "The Friday before 22 October 2023",
+      "prediction": "The conversation does not provide a specific date or mention when Caroline passed the adoption interview.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1216.9174537993968,
+      "category": 2
+    },
+    {
+      "question": "When did Melanie buy the figurines?",
+      "answer": "21 October 2023",
+      "prediction": "The conversation does not mention when Melanie bought the figurines, so there is no information provided to answer this question.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1391.2109383381903,
+      "category": 2
+    },
+    {
+      "question": "Would Caroline want to move back to her home country soon?",
+      "answer": "No; she's in the process of adopting children.",
+      "prediction": "Based on the conversation, there is no indication that Caroline wants to move back to her home country soon. She mentions her support system includes friends from her home country, Sweden, but there are no plans or expressions of wanting to return there.",
+      "f1": 0.08163265306122448,
+      "em": 0.0,
+      "latency_ms": 2299.1602099500597,
+      "category": 3
+    },
+    {
+      "question": "What did the charity race raise awareness for?",
+      "answer": "mental health",
+      "prediction": "The charity race raised awareness for mental health.",
+      "f1": 0.4444444444444445,
+      "em": 0.0,
+      "latency_ms": 917.9277587682009,
+      "category": 4
+    },
+    {
+      "question": "What did Melanie realize after the charity race?",
+      "answer": "self-care is important",
+      "prediction": "After the charity race, Melanie realized that self-care is really important and that taking care of herself helps her better take care of her family.",
+      "f1": 0.2222222222222222,
+      "em": 0.0,
+      "latency_ms": 1575.5134457722306,
+      "category": 4
+    },
+    {
+      "question": "How does Melanie prioritize self-care?",
+      "answer": "by carving out some me-time each day for activities like running, reading, or playing the violin",
+      "prediction": "Melanie prioritizes self-care by carving out time each day for activities she enjoys, such as running, reading, or playing her violin, which helps refresh her and allows her to better care for her family.",
+      "f1": 0.489795918367347,
+      "em": 0.0,
+      "latency_ms": 2141.0510218702257,
+      "category": 4
+    },
+    {
+      "question": "What are Caroline's plans for the summer?",
+      "answer": "researching adoption agencies",
+      "prediction": "Caroline is researching adoption agencies to give a loving home to kids in need. She is excited about this new chapter in her life.",
+      "f1": 0.23076923076923078,
+      "em": 0.0,
+      "latency_ms": 1641.3427493534982,
+      "category": 4
+    },
+    {
+      "question": "What type of individuals does the adoption agency Caroline is considering support?",
+      "answer": "LGBTQ+ individuals",
+      "prediction": "The adoption agency Caroline is considering supports LGBTQ+ folks with adoption, focusing on inclusivity and providing support to the LGBTQ+ community.",
+      "f1": 0.09523809523809525,
+      "em": 0.0,
+      "latency_ms": 1564.1775797121227,
+      "category": 4
+    },
+    {
+      "question": "Why did Caroline choose the adoption agency?",
+      "answer": "because of their inclusivity and support for LGBTQ+ individuals",
+      "prediction": "Caroline chose the adoption agency because they help LGBTQ+ folks with adoption, valuing their inclusivity and support.",
+      "f1": 0.4800000000000001,
+      "em": 0.0,
+      "latency_ms": 1409.4012659043074,
+      "category": 4
+    },
+    {
+      "question": "What is Caroline excited about in the adoption process?",
+      "answer": "creating a family for kids who need one",
+      "prediction": "Caroline is excited about the opportunity to make a family for kids who need a loving home and is looking forward to the challenge of being a single parent while providing a safe and stable environment.",
+      "f1": 0.2702702702702703,
+      "em": 0.0,
+      "latency_ms": 1953.472635243088,
+      "category": 4
+    },
+    {
+      "question": "What does Melanie think about Caroline's decision to adopt?",
+      "answer": "she thinks Caroline is doing something amazing and will be an awesome mom",
+      "prediction": "Melanie thinks highly of Caroline's decision to adopt, believing it to be a kind and compassionate choice that will provide a loving home to children in need.",
+      "f1": 0.21621621621621623,
+      "em": 0.0,
+      "latency_ms": 1713.1884088739753,
+      "category": 4
+    },
+    {
+      "question": "How long have Mel and her husband been married?",
+      "answer": "Mel and her husband have been married for 5 years.",
+      "prediction": "Mel and her husband have been married for 5 years.",
+      "f1": 1.0,
+      "em": 1.0,
+      "latency_ms": 995.6487971358001,
+      "category": 4
+    },
+    {
+      "question": "What does Caroline's necklace symbolize?",
+      "answer": "love, faith, and strength",
+      "prediction": "Caroline's necklace symbolizes love, faith, and strength, serving as a reminder of her roots and the love and support she receives from her family, particularly from her grandmother in Sweden.",
+      "f1": 0.25,
+      "em": 0.0,
+      "latency_ms": 1921.7351460829377,
+      "category": 4
+    },
+    {
+      "question": "What country is Caroline's grandma from?",
+      "answer": "Sweden",
+      "prediction": "Caroline's grandma is from Sweden, as mentioned in the conversation where Caroline talks about a necklace gifted by her grandma that stands for love, faith, and strength and is from her home country, Sweden.",
+      "f1": 0.06060606060606061,
+      "em": 0.0,
+      "latency_ms": 2112.857165746391,
+      "category": 4
+    },
+    {
+      "question": "What was grandma's gift to Caroline?",
+      "answer": "necklace",
+      "prediction": "Caroline's grandma gave her a necklace that stands for love, faith, and strength, and it's a reminder of her roots and the love and support she gets from her family.",
+      "f1": 0.07142857142857142,
+      "em": 0.0,
+      "latency_ms": 1979.6854476444423,
+      "category": 4
+    },
+    {
+      "question": "What is Melanie's hand-painted bowl a reminder of?",
+      "answer": "art and self-expression",
+      "prediction": "Melanie's hand-painted bowl is a reminder of her art and self-expression, as it was made by a friend for her 18th birthday ten years ago.",
+      "f1": 0.23076923076923078,
+      "em": 0.0,
+      "latency_ms": 1881.5587190911174,
+      "category": 4
+    },
+    {
+      "question": "What did Melanie and her family do while camping?",
+      "answer": "explored nature, roasted marshmallows, and went on a hike",
+      "prediction": "While camping, Melanie and her family explored nature, roasted marshmallows around the campfire, and went on a hike.",
+      "f1": 0.6666666666666666,
+      "em": 0.0,
+      "latency_ms": 1478.6174152977765,
+      "category": 4
+    },
+    {
+      "question": "What kind of counseling and mental health services is Caroline interested in pursuing?",
+      "answer": "working with trans people, helping them accept themselves and supporting their mental health",
+      "prediction": "Caroline is interested in pursuing counseling or working in mental health, specifically focusing on supporting individuals with LGBTQ+ issues, drawn by her empathy and understanding.",
+      "f1": 0.3157894736842105,
+      "em": 0.0,
+      "latency_ms": 1663.6029109358788,
+      "category": 4
+    },
+    {
+      "question": "What workshop did Caroline attend recently?",
+      "answer": "LGBTQ+ counseling workshop",
+      "prediction": "There is no mention of Caroline attending any specific workshop in the conversation provided.",
+      "f1": 0.125,
+      "em": 0.0,
+      "latency_ms": 1107.3670899495482,
+      "category": 4
+    },
+    {
+      "question": "What was discussed in the LGBTQ+ counseling workshop?",
+      "answer": "therapeutic methods and how to best work with trans people",
+      "prediction": "The conversation did not mention any specific details about an LGBTQ+ counseling workshop. Instead, Melanie shared her experience at an LGBTQ support group where she found inspiration in the transgender stories and felt supported.",
+      "f1": 0.05,
+      "em": 0.0,
+      "latency_ms": 1922.0843156799674,
+      "category": 4
+    },
+    {
+      "question": "What motivated Caroline to pursue counseling?",
+      "answer": "her own journey and the support she received, and how counseling improved her life",
+      "prediction": "Caroline was motivated to pursue counseling because she wants to support individuals with similar issues and believes her empathy and understanding will help her in this role.",
+      "f1": 0.35000000000000003,
+      "em": 0.0,
+      "latency_ms": 1661.6695020347834,
+      "category": 4
+    },
+    {
+      "question": "What kind of place does Caroline want to create for people?",
+      "answer": "a safe and inviting place for people to grow",
+      "prediction": "Caroline wants to create a loving and inclusive home for children in need through adoption, providing them with a stable and supportive environment.",
+      "f1": 0.20689655172413796,
+      "em": 0.0,
+      "latency_ms": 1544.5778700523078,
+      "category": 4
+    },
+    {
+      "question": "Did Melanie make the black and white bowl in the photo?",
+      "answer": "Yes",
+      "prediction": "No, Melanie mentioned that her hand-painted bowl was made by a friend for her 18th birthday, not that she made it herself.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1687.721632886678,
+      "category": 4
+    },
+    {
+      "question": "What kind of books does Caroline have in her library?",
+      "answer": "kids' books - classics, stories from different cultures, educational books",
+      "prediction": "The conversation does not mention any specific books in Caroline's library, so the answer cannot be provided based on the given information.",
+      "f1": 0.07142857142857142,
+      "em": 0.0,
+      "latency_ms": 1494.136483874172,
+      "category": 4
+    },
+    {
+      "question": "What was Melanie's favorite book from her childhood?",
+      "answer": "\"Charlotte's Web\"",
+      "prediction": "The conversation does not mention Melanie's favorite book from her childhood, so there is no information provided to answer this question.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1444.726771209389,
+      "category": 4
+    },
+    {
+      "question": "What book did Caroline recommend to Melanie?",
+      "answer": "\"Becoming Nicole\"",
+      "prediction": "Based on the conversation provided, there is no mention of Caroline recommending a specific book to Melanie.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1258.9937690645456,
+      "category": 4
+    },
+    {
+      "question": "What did Caroline take away from the book \"Becoming Nicole\"?",
+      "answer": "Lessons on self-acceptance and finding support",
+      "prediction": "Caroline didn't mention anything specific about taking away insights or lessons from the book \"Becoming Nicole\" in the conversation provided.",
+      "f1": 0.08333333333333333,
+      "em": 0.0,
+      "latency_ms": 1560.0290107540786,
+      "category": 4
+    },
+    {
+      "question": "What are the new shoes that Melanie got used for?",
+      "answer": "Running",
+      "prediction": "The conversation does not mention what new shoes Melanie got or for what purpose.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1115.3950658626854,
+      "category": 4
+    },
+    {
+      "question": "What is Melanie's reason for getting into running?",
+      "answer": "To de-stress and clear her mind",
+      "prediction": "Melanie mentions that she is carving out some me-time each day to run, which refreshes her and helps her stay present for her family, indicating that her reason for getting into running is for self-care and to manage her stress while still being there for her family.",
+      "f1": 0.11320754716981131,
+      "em": 0.0,
+      "latency_ms": 2584.6075820736587,
+      "category": 4
+    },
+    {
+      "question": "What does Melanie say running has been great for?",
+      "answer": "Her mental health",
+      "prediction": "Melanie says that running has been great for her because it refreshes her and helps her stay present for her family.",
+      "f1": 0.08333333333333333,
+      "em": 0.0,
+      "latency_ms": 1495.4131888225675,
+      "category": 4
+    },
+    {
+      "question": "What did Mel and her kids make during the pottery workshop?",
+      "answer": "pots",
+      "prediction": "The conversation does not mention Mel and her kids attending a pottery workshop or making anything specific during one.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1306.0297910124063,
+      "category": 4
+    },
+    {
+      "question": "What kind of pot did Mel and her kids make with clay?",
+      "answer": "a cup with a dog face on it",
+      "prediction": "The conversation does not mention Mel and her kids making a pot with clay. There is no information provided about them creating any pottery together.",
+      "f1": 0.06896551724137931,
+      "em": 0.0,
+      "latency_ms": 1558.6232440546155,
+      "category": 4
+    },
+    {
+      "question": "What creative project do Mel and her kids do together besides pottery?",
+      "answer": "painting",
+      "prediction": "From their conversation, it doesn't specifically mention another creative project besides pottery that Mel and her kids do together. However, they do share that Mel enjoys painting and finds it relaxing, suggesting a possible creative activity they might engage in together.",
+      "f1": 0.04878048780487806,
+      "em": 0.0,
+      "latency_ms": 2286.8022839538753,
+      "category": 4
+    },
+    {
+      "question": "What did Mel and her kids paint in their latest project in July 2023?",
+      "answer": "a sunset with a palm tree",
+      "prediction": "The conversation does not mention any specific painting project that Mel and her kids worked on in July 2023.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1466.2452582269907,
+      "category": 4
+    },
+    {
+      "question": "What did Caroline see at the council meeting for adoption?",
+      "answer": "many people wanting to create loving homes for children in need",
+      "prediction": "Caroline saw a presentation from an adoption agency that focuses on supporting LGBTQ+ individuals in the adoption process.",
+      "f1": 0.07692307692307691,
+      "em": 0.0,
+      "latency_ms": 1324.892224278301,
+      "category": 4
+    },
+    {
+      "question": "What do sunflowers represent according to Caroline?",
+      "answer": "warmth and happiness",
+      "prediction": "According to the conversation, there is no mention of what sunflowers represent for Caroline.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1160.305208992213,
+      "category": 4
+    },
+    {
+      "question": "Why are flowers important to Melanie?",
+      "answer": "They remind her to appreciate the small moments and were a part of her wedding decor",
+      "prediction": "Flowers are not specifically mentioned as important to Melanie in the conversation provided. If you have additional context about flowers being important to Melanie, please provide it so I can give an accurate answer.",
+      "f1": 0.043478260869565216,
+      "em": 0.0,
+      "latency_ms": 2120.0273782014847,
+      "category": 4
+    },
+    {
+      "question": "What inspired Caroline's painting for the art show?",
+      "answer": "visiting an LGBTQ center and wanting to capture unity and strength",
+      "prediction": "The conversation does not provide specific details about what inspired Caroline's painting for the art show. It only mentions that Melanie showed a painting by Caroline and commented on it, without discussing its inspiration.",
+      "f1": 0.04878048780487805,
+      "em": 0.0,
+      "latency_ms": 2028.258752077818,
+      "category": 4
+    },
+    {
+      "question": "How often does Melanie go to the beach with her kids?",
+      "answer": "once or twice a year",
+      "prediction": "Based on the conversation, Melanie does not mention going to the beach with her kids, so it's not possible to determine how often she goes to the beach with them.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1865.6723191961646,
+      "category": 4
+    },
+    {
+      "question": "What did Melanie and her family see during their camping trip last year?",
+      "answer": "Perseid meteor shower",
+      "prediction": "During their camping trip in the mountains last year, Melanie and her family explored nature, roasted marshmallows around the campfire, and went on a hike.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1760.3026921860874,
+      "category": 4
+    },
+    {
+      "question": "How did Melanie feel while watching the meteor shower?",
+      "answer": "in awe of the universe",
+      "prediction": "The conversation does not mention Melanie watching a meteor shower, so there is no information to determine how Melanie felt while watching one.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1482.1515018120408,
+      "category": 4
+    },
+    {
+      "question": "Whose birthday did Melanie celebrate recently?",
+      "answer": "Melanie's daughter",
+      "prediction": "Melanie celebrated her own birthday recently, as she mentioned taking her family camping and enjoying outdoor activities together.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1335.6523951515555,
+      "category": 4
+    },
+    {
+      "question": "Who performed at the concert at Melanie's daughter's birthday?",
+      "answer": "Matt Patterson",
+      "prediction": "Based on the conversation, there is no mention of a concert at Melanie's daughter's birthday. The conversation does not include any information about a concert performance.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1705.997901968658,
+      "category": 4
+    },
+    {
+      "question": "Why did Melanie choose to use colors and patterns in her pottery project?",
+      "answer": "She wanted to catch the eye and make people smile.",
+      "prediction": "Melanie used colors and patterns in her pottery project to express herself artistically and connect with her heritage, as evidenced by her mention of a hand-painted bowl given to her by a friend that reminds her of art and self-expression.",
+      "f1": 0.0851063829787234,
+      "em": 0.0,
+      "latency_ms": 2252.389722969383,
+      "category": 4
+    },
+    {
+      "question": "What pet does Caroline have?",
+      "answer": "guinea pig",
+      "prediction": "The conversation does not mention Caroline having any pets.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 965.8326064236462,
+      "category": 4
+    },
+    {
+      "question": "What pets does Melanie have?",
+      "answer": "Two cats and a dog",
+      "prediction": "The conversation does not mention any pets that Melanie has.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 969.032249879092,
+      "category": 4
+    },
+    {
+      "question": "Where did Oliver hide his bone once?",
+      "answer": "In Melanie's slipper",
+      "prediction": "The conversation does not mention anyone named Oliver or him hiding a bone. There is not enough information to answer the question.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1464.8673487827182,
+      "category": 4
+    },
+    {
+      "question": "What activity did Caroline used to do with her dad?",
+      "answer": "Horseback riding",
+      "prediction": "The conversation does not mention any specific activity that Caroline used to do with her dad.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1193.1543806567788,
+      "category": 4
+    },
+    {
+      "question": "What did Caroline make for a local church?",
+      "answer": "a stained glass window",
+      "prediction": "The conversation does not mention Caroline making anything for a local church. There is no information provided about Caroline creating items for a church in the given dialogue.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1676.0839959606528,
+      "category": 4
+    },
+    {
+      "question": "What did Caroline find in her neighborhood during her walk?",
+      "answer": "a rainbow sidewalk",
+      "prediction": "The conversation does not mention Caroline finding anything in her neighborhood during a walk. There is no information provided about Caroline taking a walk or finding something specific in her neighborhood.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1773.4832298010588,
+      "category": 4
+    },
+    {
+      "question": "Which song motivates Caroline to be courageous?",
+      "answer": "Brave by Sara Bareilles",
+      "prediction": "The conversation does not mention any specific song that motivates Caroline to be courageous.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1144.0217243507504,
+      "category": 4
+    },
+    {
+      "question": "Which  classical musicians does Melanie enjoy listening to?",
+      "answer": "Bach and Mozart",
+      "prediction": "Based on the conversation, Melanie enjoys listening to classical musicians, though specific names are not mentioned.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1260.6353731825948,
+      "category": 4
+    },
+    {
+      "question": "Who is Melanie a fan of in terms of modern music?",
+      "answer": "Ed Sheeran",
+      "prediction": "Based on the conversation, Melanie does not mention being a fan of any specific modern musician or band.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1273.5106670297682,
+      "category": 4
+    },
+    {
+      "question": "How long has Melanie been creating art?",
+      "answer": "7 years",
+      "prediction": "Based on the conversation, Melanie has been creating art for at least a few years, as she mentioned painting a lake sunrise last year and having a hand-painted bowl from ten years ago.",
+      "f1": 0.06451612903225806,
+      "em": 0.0,
+      "latency_ms": 1960.1081409491599,
+      "category": 4
+    },
+    {
+      "question": "What precautionary sign did Melanie see at the caf\u00e9?",
+      "answer": "A sign stating that someone is not being able to leave",
+      "prediction": "The conversation does not mention Melanie seeing any precautionary sign at a caf\u00e9. There is no relevant information provided about such an incident.",
+      "f1": 0.2,
+      "em": 0.0,
+      "latency_ms": 1535.7068818993866,
+      "category": 4
+    },
+    {
+      "question": "What advice does Caroline give for getting started with adoption?",
+      "answer": "Do research, find an adoption agency or lawyer, gather necessary documents, and prepare emotionally.",
+      "prediction": "Caroline doesn't specifically give advice on getting started with adoption in the conversation provided, but she expresses support and encouragement, saying \"Taking in kids in need - you're so kind. Your future family is gonna be so lucky to have you!\" and \"Good luck!\"",
+      "f1": 0.07272727272727272,
+      "em": 0.0,
+      "latency_ms": 2548.7299086526036,
+      "category": 4
+    },
+    {
+      "question": "What setback did Melanie face in October 2023?",
+      "answer": "She got hurt and had to take a break from pottery.",
+      "prediction": "The conversation provided does not include any information about a setback Melanie faced in October 2023.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1349.9038247391582,
+      "category": 4
+    },
+    {
+      "question": "What does Melanie do to keep herself busy during her pottery break?",
+      "answer": "Read a book and paint.",
+      "prediction": "During her pottery breaks, Melanie seems to use the time for activities like running, reading, or playing her violin to refresh herself and stay present for her family.",
+      "f1": 0.06451612903225806,
+      "em": 0.0,
+      "latency_ms": 1716.7322263121605,
+      "category": 4
+    },
+    {
+      "question": "What painting did Melanie show to Caroline on October 13, 2023?",
+      "answer": "A painting inspired by sunsets with a pink sky.",
+      "prediction": "Based on the conversation provided, there is no mention of Melanie showing Caroline a painting on October 13, 2023. The conversation details events and discussions from May and June 2023, but does not include any information about a painting shown on the specified date.",
+      "f1": 0.043478260869565216,
+      "em": 0.0,
+      "latency_ms": 2692.6673110574484,
+      "category": 4
+    },
+    {
+      "question": "What kind of painting did Caroline share with Melanie on October 13, 2023?",
+      "answer": "An abstract painting with blue streaks on a wall.",
+      "prediction": "There is no painting shared by Caroline with Melanie on October 13, 2023 in the provided conversation. The conversation ends on June 27, 2023, and does not include any mention of a painting shared on October 13, 2023.",
+      "f1": 0.14285714285714285,
+      "em": 0.0,
+      "latency_ms": 2867.657417897135,
+      "category": 4
+    },
+    {
+      "question": "What was the poetry reading that Caroline attended about?",
+      "answer": "It was a transgender poetry reading where transgender people shared their stories.",
+      "prediction": "The conversation does not mention Caroline attending a poetry reading. There is no information provided about Caroline attending or participating in a poetry reading event.",
+      "f1": 0.12121212121212123,
+      "em": 0.0,
+      "latency_ms": 1584.982078988105,
+      "category": 4
+    },
+    {
+      "question": "What did the posters at the poetry reading say?",
+      "answer": "\"Trans Lives Matter\"",
+      "prediction": "Based on the provided conversation, there is no mention of any poetry reading or its posters. Therefore, there is no information available to answer the question about what the posters at the poetry reading said.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1998.0329270474613,
+      "category": 4
+    },
+    {
+      "question": "What does Caroline's drawing symbolize for her?",
+      "answer": "Freedom and being true to herself.",
+      "prediction": "Caroline's painting of the lake sunrise symbolizes relaxation, expression of feelings, and a way to unwind after a long day.",
+      "f1": 0.1739130434782609,
+      "em": 0.0,
+      "latency_ms": 1530.727633740753,
+      "category": 4
+    },
+    {
+      "question": "How do Melanie and Caroline describe their journey through life together?",
+      "answer": "An ongoing adventure of learning and growing.",
+      "prediction": "Melanie and Caroline describe their journeys as supportive and inspiring, with both sharing their personal growth, challenges, and the importance of self-care and community support. They motivate each other through their experiences and advocate for inclusivity and acceptance, particularly within the LGBTQ+ community.",
+      "f1": 0.0851063829787234,
+      "em": 0.0,
+      "latency_ms": 2472.874904051423,
+      "category": 4
+    },
+    {
+      "question": "What happened to Melanie's son on their road trip?",
+      "answer": "He got into an accident",
+      "prediction": "The conversation does not mention anything specific about Melanie's son on their road trip. There is no information provided about any incident involving Melanie's son during their camping trip in the mountains.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1897.749770898372,
+      "category": 4
+    },
+    {
+      "question": "How did Melanie's son handle the accident?",
+      "answer": "He was scared but reassured by his family",
+      "prediction": "The conversation does not mention Melanie's son handling an accident. There is no information provided about an accident involving Melanie's son.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1444.9216746725142,
+      "category": 4
+    },
+    {
+      "question": "How did Melanie feel about her family after the accident?",
+      "answer": "They are important and mean the world to her",
+      "prediction": "Based on the conversation, Melanie did not mention feeling a specific way about her family after an accident. The conversation focuses on her involvement in a charity race, her journey in the LGBTQ+ community, her plans for the future, and her recent family camping trip, without reference to an accident.",
+      "f1": 0.12,
+      "em": 0.0,
+      "latency_ms": 2717.4977068789303,
+      "category": 4
+    },
+    {
+      "question": "How did Melanie's children handle the accident?",
+      "answer": "They were scared but resilient",
+      "prediction": "The conversation does not mention any accident involving Melanie's children. There is no information provided about an accident or how Melanie's children handled one.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1634.1348770074546,
+      "category": 4
+    },
+    {
+      "question": "How did Melanie feel after the accident?",
+      "answer": "Grateful and thankful for her family",
+      "prediction": "There is no mention of an accident in the conversation. Melanie discusses her involvement in a charity race, talks about her support group, her plans for education and career, her interest in adoption, and her experiences with public speaking and family activities.",
+      "f1": 0.17777777777777778,
+      "em": 0.0,
+      "latency_ms": 2352.104688063264,
+      "category": 4
+    },
+    {
+      "question": "What was Melanie's reaction to her children enjoying the Grand Canyon?",
+      "answer": "She was happy and thankful",
+      "prediction": "The conversation does not mention Melanie's reaction to her children enjoying the Grand Canyon. There is no information provided about a visit to the Grand Canyon in the given dialogue.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1817.3430529423058,
+      "category": 4
+    },
+    {
+      "question": "What do Melanie's family give her?",
+      "answer": "Strength and motivation",
+      "prediction": "Melanie's family, including her husband and kids, provide her with motivation and love, which keeps her going through her journey. They also support her in her personal and professional endeavors, such as her efforts in adopting children and her involvement in the LGBTQ+ community.",
+      "f1": 0.08695652173913045,
+      "em": 0.0,
+      "latency_ms": 2568.7833982519805,
+      "category": 4
+    },
+    {
+      "question": "How did Melanie feel about her family supporting her?",
+      "answer": "She appreciated them a lot",
+      "prediction": "Melanie felt very supported and motivated by her family, particularly her husband and kids, who kept her inspired and gave her love and encouragement throughout her journey.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1754.0278229862452,
+      "category": 4
+    },
+    {
+      "question": "What did Melanie do after the road trip to relax?",
+      "answer": "Went on a nature walk or hike",
+      "prediction": "After the road trip, Melanie went swimming with her kids to relax.",
+      "f1": 0.11764705882352942,
+      "em": 0.0,
+      "latency_ms": 1119.225564878434,
+      "category": 4
+    },
+    {
+      "question": "Did Caroline make the black and white bowl in the photo?",
+      "answer": "No",
+      "prediction": "No, the bowl mentioned in the conversation was hand-painted by a friend for Caroline's 18th birthday, not made by Caroline herself.",
+      "f1": 0.10526315789473684,
+      "em": 0.0,
+      "latency_ms": 1704.9067290499806,
+      "category": 5
+    },
+    {
+      "question": "Is Oscar Melanie's pet?",
+      "answer": "No",
+      "prediction": "No, Oscar is not mentioned as Melanie's pet in the conversation. There is no information provided about Oscar being a pet.",
+      "f1": 0.1,
+      "em": 0.0,
+      "latency_ms": 1516.7436599731445,
+      "category": 5
+    },
+    {
+      "question": "When Jon has lost his job as a banker?",
+      "answer": "19 January, 2023",
+      "prediction": "Jon lost his job as a banker yesterday, according to the conversation.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1143.7125010415912,
+      "category": 2
+    },
+    {
+      "question": "When Gina has lost her job at Door Dash?",
+      "answer": "January, 2023",
+      "prediction": "Gina lost her job at Door Dash this month, as mentioned in their conversation.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1249.5785257779062,
+      "category": 2
+    },
+    {
+      "question": "How do Jon and Gina both like to destress?",
+      "answer": "by dancing",
+      "prediction": "Both Jon and Gina enjoy dancing as their primary method of destressing.",
+      "f1": 0.14285714285714285,
+      "em": 0.0,
+      "latency_ms": 1122.3536520265043,
+      "category": 4
+    },
+    {
+      "question": "What do Jon and Gina both have in common?",
+      "answer": "They lost their jobs and decided to start their own businesses.",
+      "prediction": "Both Jon and Gina share a passion for dance and entrepreneurship, using their love for dance to inspire their business ventures.",
+      "f1": 0.25806451612903225,
+      "em": 0.0,
+      "latency_ms": 1460.760721936822,
+      "category": 1
+    },
+    {
+      "question": "Why did Jon decide to start his dance studio?",
+      "answer": "He lost his job and decided to start his own business to share his passion.",
+      "prediction": "Jon decided to start his dance studio because he has been passionate about dancing since childhood and wants to share that joy with others by teaching dance.",
+      "f1": 0.38095238095238093,
+      "em": 0.0,
+      "latency_ms": 1653.7911747582257,
+      "category": 4
+    },
+    {
+      "question": "What Jon thinks the ideal dance studio should look like?",
+      "answer": "By the water, with natural light and Marley flooring",
+      "prediction": "Jon thinks the ideal dance studio should have Marley flooring for safety and comfort, be located in a convenient downtown area with plenty of natural light, and be spacious enough to accommodate a good dance floor.",
+      "f1": 0.2926829268292683,
+      "em": 0.0,
+      "latency_ms": 2071.8232467770576,
+      "category": 1
+    },
+    {
+      "question": "When is Jon's group performing at a festival?",
+      "answer": "February, 2023",
+      "prediction": "Jon mentioned that he performed at a festival and it was awesome, with many people complimenting his dance moves, but he did not specify when the performance took place.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1899.7315373271704,
+      "category": 2
+    },
+    {
+      "question": "When did Gina launch an ad campaign for her store?",
+      "answer": "29 January, 2023",
+      "prediction": "Gina launched an ad campaign for her clothing store around 29 January, 2023, as mentioned in their conversation.",
+      "f1": 0.3,
+      "em": 0.0,
+      "latency_ms": 1676.8951681442559,
+      "category": 2
+    },
+    {
+      "question": "When was Jon in Paris?",
+      "answer": "28 January 2023",
+      "prediction": "Jon mentioned he went to Paris yesterday, as of 29 January 2023.",
+      "f1": 0.26666666666666666,
+      "em": 0.0,
+      "latency_ms": 1364.5190098322928,
+      "category": 2
+    },
+    {
+      "question": "Which city have both Jean and John visited?",
+      "answer": "Rome",
+      "prediction": "Both Jean and John have visited Paris. Jean mentioned visiting Paris recently, and Jeanne recalled that she had only been to Rome once.",
+      "f1": 0.08333333333333333,
+      "em": 0.0,
+      "latency_ms": 1614.1959107480943,
+      "category": 1
+    },
+    {
+      "question": "When did Gina team up with a local artist for some cool designs?",
+      "answer": "February, 2023",
+      "prediction": "Gina mentioned she has been working hard on her online store and just teamed up with a local artist for some cool designs, but the exact date of the partnership was not specified in the conversation.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2065.4159667901695,
+      "category": 2
+    },
+    {
+      "question": "When did Gina get her tattoo?",
+      "answer": "A few years ago",
+      "prediction": "The conversation does not mention Gina getting a tattoo at any point. There is no information provided about when Gina got a tattoo.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1569.4680232554674,
+      "category": 2
+    },
+    {
+      "question": "When did Jon start to go to the gym?",
+      "answer": "March, 2023",
+      "prediction": "The conversation does not mention Jon starting to go to the gym. There is no information provided about Jon starting a gym routine.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1546.4381938800216,
+      "category": 2
+    },
+    {
+      "question": "When did Gina open her online clothing store?",
+      "answer": "16 March, 2023",
+      "prediction": "The conversation does not specify an exact date when Gina opened her online clothing store. However, it mentions that she has been working hard on her online store and recently teamed up with a local wholesaler, indicating that the online store is relatively new but the exact opening date is not provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2789.867992978543,
+      "category": 2
+    },
+    {
+      "question": "When did Jon start expanding his studio's social media presence?",
+      "answer": "April, 2023",
+      "prediction": "The conversation does not provide a specific date or mention when Jon started expanding his studio's social media presence.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1450.6849399767816,
+      "category": 2
+    },
+    {
+      "question": "When did Jon host a dance competition?",
+      "answer": "May, 2023",
+      "prediction": "Jon did not host a dance competition; he participated in one. He mentioned he was getting ready for a dance comp near him the following month where he hoped to showcase his skills and potentially receive recognition from the dance community.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2290.516078006476,
+      "category": 2
+    },
+    {
+      "question": "When did Jon go to a fair to get more exposure for his dance studio?",
+      "answer": "24 April, 2023",
+      "prediction": "Jon did not go to a fair to get more exposure for his dance studio. However, he mentioned attending a festival where he performed and received compliments on his dance moves, which brought him joy and reminded him of his passion for dancing.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2395.7580430433154,
+      "category": 2
+    },
+    {
+      "question": "Why did Gina decide to start her own clothing store?",
+      "answer": "She always loved fashion trends and finding unique pieces and she lost her job so decided it was time to start her own business.",
+      "prediction": "Gina decided to start her own clothing store to grow her business and bring her vision to life, inspired by her passion for fashion and desire to connect more closely with her customers.",
+      "f1": 0.3508771929824562,
+      "em": 0.0,
+      "latency_ms": 1994.4683341309428,
+      "category": 1
+    },
+    {
+      "question": "Do Jon and Gina start businesses out of what they love?",
+      "answer": "Yes",
+      "prediction": "Yes, both Jon and Gina start their businesses based on their passions. Jon starts a dance studio because he loves dancing, while Gina launches a clothing store and later expands her clothing line, driven by her love for fashion and dance.",
+      "f1": 0.05,
+      "em": 0.0,
+      "latency_ms": 2320.6575135700405,
+      "category": 1
+    },
+    {
+      "question": "When did Gina interview for a design internship?",
+      "answer": "10 May, 2023",
+      "prediction": "There is no mention of Gina interviewing for a design internship in the provided conversation.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1286.8334371596575,
+      "category": 2
+    },
+    {
+      "question": "When did Gina get accepted for the design internship?",
+      "answer": "27 May, 2023",
+      "prediction": "The conversation does not mention Gina getting accepted for a design internship.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1086.7354478687048,
+      "category": 2
+    },
+    {
+      "question": "When did Jon start reading \"The Lean Startup\"?",
+      "answer": "May, 2023",
+      "prediction": "The conversation does not mention Jon starting to read \"The Lean Startup\". There is no information provided about Jon reading this specific book.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1571.6368849389255,
+      "category": 2
+    },
+    {
+      "question": "When did Gina develop a video presentation to teach how to style her fashion pieces?",
+      "answer": "June, 2023",
+      "prediction": "There is no mention of Gina developing a video presentation to teach how to style her fashion pieces in the provided conversation.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1465.1774000376463,
+      "category": 2
+    },
+    {
+      "question": "How did Gina promote her clothes store?",
+      "answer": "worked with an artist to make unique fashion pieces, made limited-edition sweatshirts, got some new offers and promotions for online store, developed a video presentation showing how to style her pieces",
+      "prediction": "Gina promoted her clothes store by launching an ad campaign, which she hoped would help grow her business.",
+      "f1": 0.08695652173913043,
+      "em": 0.0,
+      "latency_ms": 1390.7875269651413,
+      "category": 1
+    },
+    {
+      "question": "Which events has Jon participated in to promote his business venture?",
+      "answer": "fair, networking events, dance competition",
+      "prediction": "Jon has been searching for a suitable location for his dance studio and has been working on creating a special experience for his future customers. He has also been preparing for a dance competition to showcase his skills and potentially gain recognition from the dance community.",
+      "f1": 0.0851063829787234,
+      "em": 0.0,
+      "latency_ms": 2390.8723993226886,
+      "category": 1
+    },
+    {
+      "question": "What does Jon's dance studio offer?",
+      "answer": "one-on-one metoring and training to dancers,  workshops and classes to local schools and centers",
+      "prediction": "Jon's dance studio offers a space for teaching various dance styles, with a focus on contemporary dance, to students of all ages and levels, aiming to share the joy and benefits of dancing.",
+      "f1": 0.18181818181818182,
+      "em": 0.0,
+      "latency_ms": 2036.6442250087857,
+      "category": 1
+    },
+    {
+      "question": "When did Jon receive mentorship to promote his venture?",
+      "answer": "15 June, 2023",
+      "prediction": "Jon received mentorship and encouragement throughout the conversation, particularly from Gina, who supported him in finding the right location for his dance studio and reminded him to stay positive and persistent in pursuing his dreams.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2082.0984630845487,
+      "category": 2
+    },
+    {
+      "question": "Did Jon and Gina both participate in dance competitions?",
+      "answer": "Yes",
+      "prediction": "Yes, both Jon and Gina participated in dance competitions. Gina mentioned competing in a few dance competitions and winning first place at a regional competition at age fifteen. Jon, on the other hand, is preparing for a dance competition near him and is passionate about sharing his love for dancing through his dance studio.",
+      "f1": 0.0392156862745098,
+      "em": 0.0,
+      "latency_ms": 2899.730368051678,
+      "category": 1
+    },
+    {
+      "question": "When was Jon in Rome?",
+      "answer": "June 2023",
+      "prediction": "Jon mentioned he went to Paris recently but never had the chance to visit Rome.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1247.6782128214836,
+      "category": 2
+    },
+    {
+      "question": "Which cities has Jon visited?",
+      "answer": "Paris, Rome",
+      "prediction": "Jon visited Paris and mentioned he has been to Rome once.",
+      "f1": 0.3076923076923077,
+      "em": 0.0,
+      "latency_ms": 1054.7594330273569,
+      "category": 1
+    },
+    {
+      "question": "When Jon is planning to open his dance studio?",
+      "answer": "20 June, 2023",
+      "prediction": "Jon is still searching for the right location to open his dance studio and hasn't found it yet, but he remains determined to make it happen.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1712.8914729692042,
+      "category": 2
+    },
+    {
+      "question": "How long did it take for Jon to open his studio?",
+      "answer": "six months",
+      "prediction": "From the conversation, it's not explicitly stated how long it took for Jon to open his dance studio. However, Jon mentions he is still searching for a place to open his dance studio, indicating it has not yet opened.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2286.4435580559075,
+      "category": 1
+    },
+    {
+      "question": "When did Gina design a limited collection of hoodies?",
+      "answer": "June 2023",
+      "prediction": "The conversation does not provide a specific date or time when Gina designed a limited collection of hoodies.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1376.346804201603,
+      "category": 2
+    },
+    {
+      "question": "When did Jon visit networking events for his store?",
+      "answer": "20 June, 2023",
+      "prediction": "There is no mention of Jon visiting networking events for his store in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1228.6623800173402,
+      "category": 2
+    },
+    {
+      "question": "When did Gina start being recognized by fashion editors?",
+      "answer": "July 2023",
+      "prediction": "The conversation does not provide specific information about when Gina started being recognized by fashion editors.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1210.459659807384,
+      "category": 2
+    },
+    {
+      "question": "When did Jon start learning marketing and analytics tools?",
+      "answer": "July, 2023",
+      "prediction": "The conversation does not provide any information about when Jon started learning marketing and analytics tools.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1241.5470723062754,
+      "category": 2
+    },
+    {
+      "question": "When did Jon and Gina decide to collaborate to create dance content?",
+      "answer": "21 July 2023",
+      "prediction": "From the conversation, there is no specific mention of Jon and Gina deciding to collaborate to create dance content together. They discussed their shared passion for dance and supported each other's endeavors but did not plan a joint project.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2246.225611772388,
+      "category": 2
+    },
+    {
+      "question": "When did Gina mention Shia Labeouf?",
+      "answer": "23 July, 2023",
+      "prediction": "Gina did not mention Shia Labeouf in the conversation provided.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1206.8024151958525,
+      "category": 2
+    },
+    {
+      "question": "When did Gina go to a dance class with a group of friends?",
+      "answer": "21 July 2023",
+      "prediction": "The conversation does not mention Gina going to a dance class with a group of friends. They discussed planning a dance session together but did not specify if it happened or included other friends.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1970.3959203325212,
+      "category": 2
+    },
+    {
+      "question": "What is Gina's favorite style of dance?",
+      "answer": "Contemporary",
+      "prediction": "Gina loves all types of dances but her favorite style is contemporary, which she finds expressive and graceful.",
+      "f1": 0.10526315789473684,
+      "em": 0.0,
+      "latency_ms": 1403.9144883863628,
+      "category": 4
+    },
+    {
+      "question": "What is Jon's favorite style of dance?",
+      "answer": "Contemporary",
+      "prediction": "Jon's favorite style of dance is contemporary, which he finds expressive and powerful.",
+      "f1": 0.14285714285714288,
+      "em": 0.0,
+      "latency_ms": 1202.5029677897692,
+      "category": 4
+    },
+    {
+      "question": "What was Gina's favorite dancing memory?",
+      "answer": "Winning first place at a regionals dance competition",
+      "prediction": "Gina's favorite dancing memory was winning first place at a regional competition at age fifteen with her team's contemporary dance performance called \"Finding Freedom.\"",
+      "f1": 0.4,
+      "em": 0.0,
+      "latency_ms": 1692.6006460562348,
+      "category": 4
+    },
+    {
+      "question": "What kind of dance piece did Gina's team perform to win first place?",
+      "answer": "\"Finding Freedom\"",
+      "prediction": "Gina's team performed a contemporary dance piece called \"Finding Freedom,\" which was emotional and powerful, and it helped them win first place at a regional competition when she was fifteen.",
+      "f1": 0.13333333333333333,
+      "em": 0.0,
+      "latency_ms": 1940.9844251349568,
+      "category": 4
+    },
+    {
+      "question": "What do the dancers in the photo represent?",
+      "answer": "They are performing at the festival",
+      "prediction": "The dancers in the photo represent the dance crew that won first place in a local competition, symbolizing their achievement and passion for dance.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 1643.2417728938162,
+      "category": 4
+    },
+    {
+      "question": "What does Gina say about the dancers in the photo?",
+      "answer": "They look graceful",
+      "prediction": "Gina says that the photo is from when her dance crew took home first place in a local competition the previous year, and she's excited to spread that intensity with others at her new dance studio.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2130.569889675826,
+      "category": 4
+    },
+    {
+      "question": "What is Jon's attitude towards being part of the dance festival?",
+      "answer": "Glad",
+      "prediction": "Jon seems very positive and joyful about his performance at the dance festival, finding it fulfilling and a reminder of his passion for dancing. He enjoyed the compliments from the audience and felt great about sharing his dance moves on stage.",
+      "f1": 0.0,
+      "em": 0.0,
+      "latency_ms": 2311.2755799666047,
+      "category": 4
+    }
+  ]
+}

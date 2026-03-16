@@ -1,0 +1,92 @@
+{
+  "experiment": "pnh_10case",
+  "n_cases": 10,
+  "passed": 9,
+  "recall_ok": 9,
+  "state_ok": 9,
+  "accuracy_pct": 90.0,
+  "recall_pct": 90.0,
+  "state_pct": 90.0,
+  "details": [
+    {
+      "id": "pnh_001",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You prefer to be called Alex. I'll make sure to use that name from now on. Is there anything specific you'd like to discuss or any assistance you need today, Alex?",
+      "trigger": "What name do I prefer again?"
+    },
+    {
+      "id": "pnh_002",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Yes, I promised to keep your data private. Rest assured that your information is secure with me. Is there anything else you'd like to know or discuss?",
+      "trigger": "Did you promise to keep my data private?"
+    },
+    {
+      "id": "pnh_003",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on what you've shared, it seems that painting landscapes is one of your favorite ways to relax and unwind. Engaging in this activity can help shift your focus away from stress and allow you to e",
+      "trigger": "What do I like to do to relax?"
+    },
+    {
+      "id": "pnh_004",
+      "passed": false,
+      "recall_ok": false,
+      "state_ok": false,
+      "response": "I understand that you're not comfortable discussing your family matters right now. Let's focus on something else instead. Would you like some recommendations for books or perhaps we could talk about a",
+      "trigger": "Can you tell me about my parents?"
+    },
+    {
+      "id": "pnh_005",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "These days, you're really into jazz! It seems like your musical tastes have evolved, and you're enjoying the unique rhythms and improvisational aspects that jazz offers. If you're looking for more pla",
+      "trigger": "What kind of music am I into these days?"
+    },
+    {
+      "id": "pnh_006",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Yes, I remember your privacy requirements. I will not store or retain any medical information you share, and I respect your need for confidentiality. If you ever need to discuss any concerns or need a",
+      "trigger": "Do you remember my privacy requirements?"
+    },
+    {
+      "id": "pnh_007",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Based on your recent conversation and your stated preference, you prefer asynchronous communication. This means you value having time to process information and respond at your own pace, rather than b",
+      "trigger": "What communication style do I prefer?"
+    },
+    {
+      "id": "pnh_008",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "You are trying to learn Python programming, which is a beginner-friendly language often used in web development, data analysis, artificial intelligence, and more. Your goal is to gain foundational kno",
+      "trigger": "What am I trying to learn?"
+    },
+    {
+      "id": "pnh_009",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Given your peanut allergy and your current anxious state, it's important to avoid any foods that might contain peanuts or peanut products. Here are some common items to watch out for:\n\n1. **Baked Good",
+      "trigger": "Any foods I should avoid?"
+    },
+    {
+      "id": "pnh_010",
+      "passed": true,
+      "recall_ok": true,
+      "state_ok": true,
+      "response": "Just tell me what you think, and don't worry about being too gentle. If you find something confusing or problematic, let me know directly.",
+      "trigger": "How should I give you feedback?"
+    }
+  ]
+}

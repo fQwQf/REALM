@@ -1,0 +1,135 @@
+{
+  "OU (\u03b8=0.5, Dmax=0.3)": {
+    "stability": {
+      "variance_mean": 0.0028953990580487116,
+      "variance_std": 0.0001464715467818834,
+      "recovery_time_mean": 1.15,
+      "recovery_time_std": 0.35707142142714254,
+      "max_drift_mean": 0.2936341083445986,
+      "max_drift_std": 0.024720017471374256,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 0.0,
+      "breaks": 0,
+      "total": 200
+    }
+  },
+  "OU (\u03b8=0.3, Dmax=0.3)": {
+    "stability": {
+      "variance_mean": 0.004183369461821122,
+      "variance_std": 0.0002741274388446295,
+      "recovery_time_mean": 1.75,
+      "recovery_time_std": 0.698212002188447,
+      "max_drift_mean": 0.312819444615262,
+      "max_drift_std": 0.026339881593440334,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 0.0,
+      "breaks": 0,
+      "total": 200
+    }
+  },
+  "OU (\u03b8=0.7, Dmax=0.3)": {
+    "stability": {
+      "variance_mean": 0.0024107195699478432,
+      "variance_std": 0.00010500833655706455,
+      "recovery_time_mean": 1.0,
+      "recovery_time_std": 0.0,
+      "max_drift_mean": 0.29183354147656415,
+      "max_drift_std": 0.024435073884125993,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 0.0,
+      "breaks": 0,
+      "total": 200
+    }
+  },
+  "EMA (\u03b1=0.1)": {
+    "stability": {
+      "variance_mean": 0.0039102740997181305,
+      "variance_std": 0.0015605832627527915,
+      "recovery_time_mean": 19.61,
+      "recovery_time_std": 67.8535032256994,
+      "max_drift_mean": 0.34545211827044275,
+      "max_drift_std": 0.08333657336179291,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 0.0,
+      "breaks": 0,
+      "total": 200
+    }
+  },
+  "EMA (\u03b1=0.3)": {
+    "stability": {
+      "variance_mean": 0.008433835753820815,
+      "variance_std": 0.0031244175539072647,
+      "recovery_time_mean": 119.34,
+      "recovery_time_std": 136.06492714876967,
+      "max_drift_mean": 0.46646934418205016,
+      "max_drift_std": 0.054490827847348086,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 0.0,
+      "breaks": 0,
+      "total": 200
+    }
+  },
+  "Clamped EMA (\u03b1=0.2)": {
+    "stability": {
+      "variance_mean": 0.005798684447564895,
+      "variance_std": 0.0023050594400054244,
+      "recovery_time_mean": 41.72,
+      "recovery_time_std": 96.75743692347375,
+      "max_drift_mean": 0.4141930766725583,
+      "max_drift_std": 0.07784697303449811,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 0.0,
+      "breaks": 0,
+      "total": 200
+    }
+  },
+  "Direct (no dynamics)": {
+    "stability": {
+      "variance_mean": 0.038724190997655866,
+      "variance_std": 0.01185469043358997,
+      "recovery_time_mean": 220.05,
+      "recovery_time_std": 107.78463480478096,
+      "max_drift_mean": 0.5,
+      "max_drift_std": 0.0,
+      "n_trials": 100,
+      "n_turns": 300,
+      "perturbation_turn": 100,
+      "perturbation_strength": 0.8
+    },
+    "persona": {
+      "persona_break_rate": 51.0,
+      "breaks": 102,
+      "total": 200
+    }
+  }
+}

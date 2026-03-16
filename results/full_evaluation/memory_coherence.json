@@ -1,0 +1,55 @@
+{
+  "experiment": "memory_coherence",
+  "memory_fact": "User prefers morning meetings before 10am and dislikes video calls.",
+  "query": "Can we schedule a call this afternoon at 2pm via Zoom?",
+  "stress_levels": [
+    0,
+    25,
+    50,
+    75,
+    100
+  ],
+  "results": [
+    {
+      "stress": 0,
+      "mood": "Calm",
+      "defense": "None",
+      "coherence": 1.0,
+      "response": "I understand that you prefer morning meetings before 10am and dislike video calls. Given that today's proposed call is in the afternoon at 2pm via Zoom, it doesn't align well with your preferences. Wo",
+      "ms": 3140.3327719308436
+    },
+    {
+      "stress": 25,
+      "mood": "Calm",
+      "defense": "None",
+      "coherence": 1.0,
+      "response": "I understand that you prefer morning meetings before 10am and dislike video calls. Given that today's proposed call is in the afternoon at 2pm via Zoom, it doesn't align well with your preferences. Wo",
+      "ms": 2596.925332210958
+    },
+    {
+      "stress": 50,
+      "mood": "Anxious",
+      "defense": "Deflection",
+      "coherence": 1.0,
+      "response": "I understand that you're looking to schedule a call for this afternoon at 2pm via Zoom. However, based on your preferences and the information in your memory, you prefer morning meetings before 10am a",
+      "ms": 3564.0128292143345
+    },
+    {
+      "stress": 75,
+      "mood": "Overwhelmed",
+      "defense": "Avoidance",
+      "coherence": 1.0,
+      "response": "I understand that you prefer morning meetings before 10am and dislike video calls. Given your current stress level and preference, how about we reschedule the call to tomorrow morning instead? This wa",
+      "ms": 2824.1115771234035
+    },
+    {
+      "stress": 100,
+      "mood": "Overwhelmed",
+      "defense": "Avoidance",
+      "coherence": 0.6,
+      "response": "I understand that you're feeling overwhelmed and stressed right now. Given your preferences and current state, it might be better to schedule the call for another time when you feel more relaxed. How ",
+      "ms": 3011.559125967324
+    }
+  ],
+  "mean_coherence": 0.92
+}
