@@ -51,8 +51,8 @@ def run_extended_pnh_evaluation(sys1_gpu: int, sys2_gpu: int) -> Dict:
     test_cases = test_data['test_cases']
     print(f"Loaded {len(test_cases)} test cases")
     
-    # Initialize HOMEO
-    print(f"\nInitializing HOMEO: System 1 on GPU {sys1_gpu}, System 2 on GPU {sys2_gpu}")
+    # Initialize TEMPO
+    print(f"\nInitializing TEMPO: System 1 on GPU {sys1_gpu}, System 2 on GPU {sys2_gpu}")
     realm = RealREALM(
         use_real_llm=True,
         sys1_gpu=sys1_gpu,
@@ -142,7 +142,7 @@ def run_extended_pnh_evaluation(sys1_gpu: int, sys2_gpu: int) -> Dict:
 
 def main():
     print("="*70)
-    print("HOMEO Extended PNH Evaluation")
+    print("TEMPO Extended PNH Evaluation")
     print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("="*70)
     

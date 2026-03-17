@@ -15,7 +15,7 @@ TEMPO addresses the **latency-coherence dilemma** in personalized dialogue agent
 - **Dual-Stream Architecture**: System 1 (Reflex, 0.5B) provides instant low-commitment bridges while System 2 (Reflection, 7B/14B) performs state-conditioned retrieval and reasoning
 - **Safe-to-Say Mechanism**: LoRA-steered generation that suppresses implicit commitments (promises, apologies, stance lock-in) during latency masking
 - **NLI-Based Stream Stitching**: Entailment-based conflict detection and repair at the bridge–response boundary
-- **Bounded OU Homeostasis**: Ornstein–Uhlenbeck process for mean-reverting psychological state dynamics (Mood, Stress, Defense mechanisms)
+- **Bounded OU Tempostasis**: Ornstein–Uhlenbeck process for mean-reverting psychological state dynamics (Mood, Stress, Defense mechanisms)
 - **Accordion Memory**: Constant-cap episodic memory with Hot/Warm/Cold tiers and state-motivated retrieval
 
 **Key Results**:
@@ -76,7 +76,7 @@ python experiments/train_lora_system1.py \
 
 ```bash
 # Launch terminal interface
-python tui/homeo_tui.py
+python tui/tempo_tui.py
 
 # Or use the demo client
 python demo_tui.py
@@ -135,7 +135,7 @@ REALM/
 │   ├── full_evaluation/     # Main results (MASTER_SUMMARY.json)
 │   └── human_eval/          # Human evaluation data
 ├── tui/                     # Terminal UI
-│   └── homeo_tui.py         # Interactive interface
+│   └── tempo_tui.py         # Interactive interface
 └── scripts/                 # Utility scripts
     └── fix_paths.py         # Path normalization
 ```

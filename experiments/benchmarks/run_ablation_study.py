@@ -23,7 +23,7 @@ class AblationStudy:
     
     Based on Table 2 in the paper (tab:ablation-matrix):
     - Dual-Stream (Reflex)
-    - Homeostasis (OU/NDP)
+    - Tempostasis (OU/NDP)
     - Motivated Retrieval
     - Accordion Memory
     - Parametric Subconscious
@@ -44,7 +44,7 @@ class AblationStudy:
             },
             {
                 'id': 2,
-                'name': 'w/o Homeostasis',
+                'name': 'w/o Tempostasis',
                 'dual_stream': True,
                 'homeostasis': False,
                 'motivated_retrieval': False,

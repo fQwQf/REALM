@@ -261,7 +261,7 @@ def create_extended_pnh_dataset():
     
     # Create dataset
     dataset = {
-        "name": "Extended PNH Test Dataset for HOMEO",
+        "name": "Extended PNH Test Dataset for TEMPO",
         "description": "Psychological Needle-in-Haystack test cases for evaluating state-dependent recall",
         "version": "2.0",
         "created": datetime.now().isoformat(),

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fair comparison: w/o Dual-Stream vs Full HOMEO
+Fair comparison: w/o Dual-Stream vs Full TEMPO
 ==============================================
 This measures TTFT for a single-stream system that still has:
 - State management
@@ -50,13 +50,13 @@ def measure_single_stream_with_retrieval(
 ) -> Dict:
     """
     Measure TTFT for single-stream configuration with retrieval.
-    This is a fair comparison to HOMEO's dual-stream.
+    This is a fair comparison to TEMPO's dual-stream.
     """
     from src.real_realm import RealREALM
     
     print(f"\n{'='*60}")
     print(f"Measuring TTFT for Single-Stream with Retrieval")
-    print(f"(Fair comparison to HOMEO dual-stream)")
+    print(f"(Fair comparison to TEMPO dual-stream)")
     print(f"{'='*60}")
     
     # Create REALM instance but configure for single-stream
@@ -141,12 +141,12 @@ def measure_single_stream_with_retrieval(
 
 def main():
     print("="*70)
-    print("Fair TTFT Comparison: w/o Dual-Stream vs HOMEO")
+    print("Fair TTFT Comparison: w/o Dual-Stream vs TEMPO")
     print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("="*70)
     
     results = {
-        "experiment": "w/o Dual-Stream vs HOMEO TTFT Comparison",
+        "experiment": "w/o Dual-Stream vs TEMPO TTFT Comparison",
         "timestamp": datetime.now().isoformat(),
     }
     
@@ -161,7 +161,7 @@ def main():
     print(f"\n{'='*40}")
     print("Final Comparison:")
     print(f"{'='*40}")
-    print(f"  HOMEO (Dual-Stream):  ~{dual_stream_ttft}ms TTFT")
+    print(f"  TEMPO (Dual-Stream):  ~{dual_stream_ttft}ms TTFT")
     print(f"  w/o Dual-Stream:      ~{single_stream_ttft:.0f}ms TTFT")
     
     if single_stream_ttft > dual_stream_ttft:
@@ -170,7 +170,7 @@ def main():
         print(f"  Dual-stream provides {factor:.1f}x speedup for TTFT")
     else:
         factor = dual_stream_ttft / single_stream_ttft
-        print(f"\n  Note: HOMEO dual-stream is slower due to system overhead")
+        print(f"\n  Note: TEMPO dual-stream is slower due to system overhead")
         print(f"  But it provides: latency masking + Safe-to-Say + consistency")
     
     # Save results

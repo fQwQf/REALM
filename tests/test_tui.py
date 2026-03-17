@@ -1,5 +1,5 @@
 """
-Tests for HOMEO TUI Application
+Tests for TEMPO TUI Application
 
 Run with: python -m pytest tests/test_tui.py -v
 """
@@ -11,22 +11,22 @@ from pathlib import Path
 # Add parent to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from homeo_client import HOMEOClient, ExperimentType, PsychologicalState, MemoryStats, InferenceResult
+from tempo_client import TEMPOClient, ExperimentType, PsychologicalState, MemoryStats, InferenceResult
 
 
-class TestHOMEOClient:
-    """Test HOMEO Client API"""
+class TestTEMPOClient:
+    """Test TEMPO Client API"""
     
     @pytest.fixture
     def client(self):
         """Create initialized client fixture with test mode"""
-        client = HOMEOClient(sys1_gpu=2, sys2_gpus=[4,5,6,7], test_mode=True)
+        client = TEMPOClient(sys1_gpu=2, sys2_gpus=[4,5,6,7], test_mode=True)
         client.initialize()
         return client
     
     def test_client_initialization(self):
         """Test client can be initialized with test mode"""
-        client = HOMEOClient(sys1_gpu=2, sys2_gpus=[4,5,6,7], test_mode=True)
+        client = TEMPOClient(sys1_gpu=2, sys2_gpus=[4,5,6,7], test_mode=True)
         assert not client.is_initialized()
         
         success = client.initialize()
@@ -141,17 +141,17 @@ class TestTUIImports:
     def test_tui_import(self):
         """Test TUI module can be imported"""
         try:
-            from tui.homeo_tui import HOMEOApp, DashboardScreen, ChatScreen
+            from tui.tempo_tui import TEMPOApp, DashboardScreen, ChatScreen
             assert True
         except ImportError as e:
             pytest.fail(f"Failed to import TUI: {e}")
     
     def test_tui_app_creation(self):
         """Test TUI app can be created"""
-        from tui.homeo_tui import HOMEOApp
+        from tui.tempo_tui import TEMPOApp
         
         # Note: We don't run the app, just create it
-        app = HOMEOApp()
+        app = TEMPOApp()
         assert app is not None
 
 

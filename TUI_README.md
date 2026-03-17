@@ -1,12 +1,12 @@
-# HOMEO TUI - Terminal User Interface
+# TEMPO TUI - Terminal User Interface
 
-A modern, interactive terminal interface for the HOMEO (Human-like Organization of Memory and Executive Oversight) dual-stream memory agent system.
+A modern, interactive terminal interface for the TEMPO (Timed Engagement with Memory and Persona Orchestration) dual-stream memory agent system.
 
 ## Overview
 
-The HOMEO TUI provides an intuitive way to interact with the dual-stream memory agent system, featuring:
+The TEMPO TUI provides an intuitive way to interact with the dual-stream memory agent system, featuring:
 
-- **Interactive Chat**: Real-time conversation with the HOMEO agent
+- **Interactive Chat**: Real-time conversation with the TEMPO agent
 - **Dashboard**: System status, performance metrics, and statistics
 - **Memory Browser**: View and manage episodic memory (Hot/Warm/Cold tiers)
 - **State Visualizer**: Monitor psychological state (Mood, Stress, Defense, etc.)
@@ -23,7 +23,7 @@ The TUI requires the `textual` library, which is already installed in the realm 
 conda activate realm
 
 # Or use the direct Python path (adjust to your conda installation)
-python tui/homeo_tui.py
+python tui/tempo_tui.py
 ```
 
 ## Usage
@@ -32,13 +32,13 @@ python tui/homeo_tui.py
 
 ```bash
 # Method 1: Run as module
-python -m tui.homeo_tui
+python -m tui.tempo_tui
 
 # Method 2: Run directly
-python tui/homeo_tui.py
+python tui/tempo_tui.py
 
 # Method 3: Use realm environment explicitly
-conda run -n realm python tui/homeo_tui.py
+conda run -n realm python tui/tempo_tui.py
 ```
 
 ### Keyboard Shortcuts
@@ -75,7 +75,7 @@ The dashboard provides an overview of the system:
 Interactive conversation interface:
 - Type messages in the input field and press Enter or click Send
 - View System 1 bridge responses (if enabled)
-- See full HOMEO responses with metadata (TTFT, latency)
+- See full TEMPO responses with metadata (TTFT, latency)
 - Conversation history is maintained and stored in memory
 
 ### Memory Browser
@@ -121,13 +121,13 @@ Adjust system parameters:
 
 ## API Usage
 
-The TUI is built on top of a clean Python API (`homeo_client.py`):
+The TUI is built on top of a clean Python API (`tempo_client.py`):
 
 ```python
-from homeo_client import HOMEOClient, ExperimentType
+from tempo_client import TEMPOClient, ExperimentType
 
 # Initialize client
-client = HOMEOClient(use_real_llm=False)
+client = TEMPOClient(use_real_llm=False)
 client.initialize()
 
 # Chat
@@ -156,7 +156,7 @@ Run the test suite:
 python -m pytest tests/test_tui.py -v
 
 # Run specific test class
-python -m pytest tests/test_tui.py::TestHOMEOClient -v
+python -m pytest tests/test_tui.py::TestTEMPOClient -v
 ```
 
 ## Architecture
@@ -165,17 +165,17 @@ The TUI is built with [Textual](https://textual.textualize.io/), a modern Python
 
 ```
 tui/
-├── homeo_tui.py          # Main TUI application
+├── tempo_tui.py          # Main TUI application
 └── __init__.py           # Package init
 
-homeo_client.py           # Clean API layer
+tempo_client.py           # Clean API layer
 tests/test_tui.py         # Test suite
 ```
 
 ### Key Components
 
-- **HOMEOClient**: High-level API for the HOMEO system
-- **HOMEOApp**: Main TUI application class
+- **TEMPOClient**: High-level API for the TEMPO system
+- **TEMPOApp**: Main TUI application class
 - **DashboardScreen**: System overview
 - **ChatScreen**: Interactive conversation
 - **MemoryScreen**: Memory browser
@@ -212,7 +212,7 @@ The TUI runs with a simulated backend by default. For real LLM inference:
 
 ## License
 
-Part of the HOMEO research project.
+Part of the TEMPO research project.
 
 ## See Also
 

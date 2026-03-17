@@ -81,7 +81,7 @@ results = {
                 },
                 {
                     "id": 2,
-                    "name": "w/o Homeostasis",
+                    "name": "w/o Tempostasis",
                     "config": {"dual_stream": True, "homeostasis": False, "motivated_retrieval": False},
                     "measured": {"ttft_ms": 285, "pnh_acc_percent": 67, "task_score": 0.70},
                     "expected": {"ttft_ms": 190, "pnh_acc_percent": 65, "task_score": 0.65},
@@ -192,7 +192,7 @@ report.append("")
 report.append("| # | Variant | TTFT (ms) | PNH (%) | Task Score | Paper TTFT | Paper PNH |")
 report.append("|---|---------|-----------|---------|------------|------------|-----------|")
 report.append("| 1 | Vanilla RAG | 336 | 67 | 0.67 | 520 | 54 |")
-report.append("| 2 | w/o Homeostasis | 285 | 67 | 0.70 | 190 | 65 |")
+report.append("| 2 | w/o Tempostasis | 285 | 67 | 0.70 | 190 | 65 |")
 report.append("| 3 | w/o Dual-Stream | 289 | 67 | 0.70 | 560 | 78 |")
 report.append("| 4 | w/o Motivated Retrieval | 308 | 67 | 0.69 | 210 | 68 |")
 report.append("| 7 | REALM (Full) | 322 | 67* | 0.67 | 210 | 76 |")

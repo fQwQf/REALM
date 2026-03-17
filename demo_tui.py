@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quick demo of HOMEO TUI functionality
+Quick demo of TEMPO TUI functionality
 
 This script demonstrates the API without launching the full TUI.
 Run with: python demo_tui.py
@@ -12,24 +12,24 @@ from pathlib import Path
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from homeo_client import HOMEOClient, ExperimentType
+from tempo_client import TEMPOClient, ExperimentType
 
 
 def main():
     print("=" * 70)
-    print("HOMEO TUI Demo - API Showcase")
+    print("TEMPO TUI Demo - API Showcase")
     print("=" * 70)
     
     # Use test mode for demo (set to False for real LLM)
     use_test_mode = True
     
-    print("\n[1/5] Initializing HOMEO client...")
+    print("\n[1/5] Initializing TEMPO client...")
     if use_test_mode:
         print("  Running in TEST MODE (mock LLM)")
         print("  Set use_test_mode=False to load real LLM models")
     else:
         print("  Loading LLM models (this may take a few minutes)...")
-    client = HOMEOClient(test_mode=use_test_mode)
+    client = TEMPOClient(test_mode=use_test_mode)
     
     if not client.initialize():
         print("✗ Failed to initialize!")
@@ -74,7 +74,7 @@ def main():
     print("  Configuring client with dual_stream=False (single-stream mode)...")
     
     # Create a new client with dual_stream disabled
-    client_single = HOMEOClient(test_mode=use_test_mode, config={'dual_stream': False})
+    client_single = TEMPOClient(test_mode=use_test_mode, config={'dual_stream': False})
     if client_single.initialize():
         print("  Single-stream client initialized")
         result = client_single.chat("Test query")
@@ -82,7 +82,7 @@ def main():
         print(f"  System 2 latency: {result.system2_latency_ms:.0f}ms (0 = skipped)\n")
     
     print("  Configuring client with dual_stream=True (dual-stream mode)...")
-    client_dual = HOMEOClient(test_mode=use_test_mode, config={'dual_stream': True})
+    client_dual = TEMPOClient(test_mode=use_test_mode, config={'dual_stream': True})
     if client_dual.initialize():
         print("  Dual-stream client initialized")
         result = client_dual.chat("Test query")
@@ -126,7 +126,7 @@ def main():
     
     print("\n" + "=" * 70)
     print("Demo complete! Launch the full TUI with:")
-    print("  python tui/homeo_tui.py")
+    print("  python tui/tempo_tui.py")
     print("=" * 70)
 
 

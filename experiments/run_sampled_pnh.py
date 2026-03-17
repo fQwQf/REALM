@@ -73,8 +73,8 @@ def run_sampled_pnh_evaluation(sys1_gpu: int, sys2_gpu: int, sample_size: int = 
     
     print(f"Sampled {len(sampled_cases)} test cases from {len(all_cases)} total")
     
-    # Initialize HOMEO once and run all tests
-    print(f"\nInitializing HOMEO: System 1 on GPU {sys1_gpu}, System 2 on GPU {sys2_gpu}")
+    # Initialize TEMPO once and run all tests
+    print(f"\nInitializing TEMPO: System 1 on GPU {sys1_gpu}, System 2 on GPU {sys2_gpu}")
     realm = RealREALM(
         use_real_llm=True,
         sys1_gpu=sys1_gpu,
@@ -155,7 +155,7 @@ def main():
     random.seed(42)  # For reproducibility
     
     print("="*70)
-    print("HOMEO Sampled PNH Evaluation")
+    print("TEMPO Sampled PNH Evaluation")
     print(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("="*70)
     

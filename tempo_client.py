@@ -1,15 +1,15 @@
 """
-HOMEO Client API - Clean interface for the dual-stream memory agent system
+TEMPO Client API - Clean interface for the dual-stream memory agent system
 
-This module provides a high-level, user-friendly API for interacting with the HOMEO
+This module provides a high-level, user-friendly API for interacting with the TEMPO
 (Human-like Organization of Memory and Executive Oversight) system. It abstracts the
 complexity of dual-stream inference, memory management, and state dynamics.
 
 Example Usage:
-    >>> from homeo_client import HOMEOClient
+    >>> from tempo_client import TEMPOClient
     >>> 
     >>> # Initialize the client (loads LLM models automatically)
-    >>> client = HOMEOClient()
+    >>> client = TEMPOClient()
     >>> if not client.initialize():
     ...     print("Failed to initialize - check GPU memory and model availability")
     ...
@@ -161,9 +161,9 @@ class MetricsSnapshot:
         )
 
 
-class HOMEOClient:
+class TEMPOClient:
     """
-    High-level client for the HOMEO dual-stream memory agent system.
+    High-level client for the TEMPO dual-stream memory agent system.
     
     This class provides a clean, intuitive interface for:
     - Interactive conversations
@@ -202,7 +202,7 @@ class HOMEOClient:
         
     def initialize(self) -> bool:
         """
-        Initialize the HOMEO system.
+        Initialize the TEMPO system.
         
         Returns:
             True if initialization successful, False otherwise
@@ -220,7 +220,7 @@ class HOMEOClient:
             self._initialized = True
             return True
         except Exception as e:
-            print(f"Failed to initialize HOMEO: {e}")
+            print(f"Failed to initialize TEMPO: {e}")
             self._initialized = False
             return False
     
@@ -278,7 +278,7 @@ class HOMEOClient:
     
     def chat(self, message: str) -> InferenceResult:
         """
-        Send a message and get a response from HOMEO.
+        Send a message and get a response from TEMPO.
         
         Args:
             message: User input message
@@ -290,7 +290,7 @@ class HOMEOClient:
             RuntimeError: If system not initialized
         """
         if not self.is_initialized():
-            raise RuntimeError("HOMEO not initialized. Call initialize() first.")
+            raise RuntimeError("TEMPO not initialized. Call initialize() first.")
         
         with self._lock:
             response, metadata = self._realm.step(message)
@@ -330,7 +330,7 @@ class HOMEOClient:
             InferenceResult containing response and metadata
         """
         if not self.is_initialized():
-            raise RuntimeError("HOMEO not initialized. Call initialize() first.")
+            raise RuntimeError("TEMPO not initialized. Call initialize() first.")
         
         with self._lock:
             # Use step() which includes entropy-based routing
@@ -667,7 +667,7 @@ class HOMEOClient:
         # This is a simplified version
         variants = [
             {'name': 'Full System', 'config': {}},
-            {'name': 'w/o Homeostasis', 'config': {'homeostasis': False}},
+            {'name': 'w/o Tempostasis', 'config': {'homeostasis': False}},
             {'name': 'w/o Dual-Stream', 'config': {'dual_stream': False}},
         ]
         
@@ -770,17 +770,17 @@ class HOMEOClient:
 
 
 # Convenience functions for quick usage
-def create_client(test_mode: bool = False) -> HOMEOClient:
-    """Create and initialize a HOMEO client"""
-    client = HOMEOClient(test_mode=test_mode)
+def create_client(test_mode: bool = False) -> TEMPOClient:
+    """Create and initialize a TEMPO client"""
+    client = TEMPOClient(test_mode=test_mode)
     client.initialize()
     return client
 
 
 if __name__ == "__main__":
     # Simple test with test mode (no LLM loading)
-    print("Testing HOMEO Client API...")
-    client = HOMEOClient(test_mode=True)
+    print("Testing TEMPO Client API...")
+    client = TEMPOClient(test_mode=True)
     
     if client.initialize():
         print("✓ Client initialized")

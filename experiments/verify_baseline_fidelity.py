@@ -126,7 +126,7 @@ BASELINE_SPECS = {
         },
         "fidelity_notes": [
             "Standard RAG implementation",
-            "Uses same embedding model as HOMEO",
+            "Uses same embedding model as TEMPO",
             "No psychological state modeling"
         ]
     }
@@ -181,7 +181,7 @@ def verify_baseline_fidelity() -> Dict:
     # Add summary notes
     results["summary"]["notes"] = [
         "All baselines use matched backbone models (Qwen2.5-7B)",
-        "No dual-stream architecture in baselines (only HOMEO has this)",
+        "No dual-stream architecture in baselines (only TEMPO has this)",
         "State tracking mechanisms differ in implementation details",
         "Memory management varies across baselines but achieves similar goals"
     ]
@@ -236,7 +236,7 @@ def main():
     print("\nImportant limitations:")
     print("  • Baselines are 'strong approximations' not exact re-implementations")
     print("  • Core mechanisms preserved but implementation details differ")
-    print("  • All baselines lack dual-stream architecture (HOMEO's key contribution)")
+    print("  • All baselines lack dual-stream architecture (TEMPO's key contribution)")
     
     # Save results
     output_dir = "results/baseline_verification"

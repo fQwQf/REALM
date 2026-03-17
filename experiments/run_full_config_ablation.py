@@ -178,7 +178,7 @@ def main():
     print(f"\n{'='*40}")
     print("Comparison with Dual-Stream:")
     print(f"{'='*40}")
-    print(f"  HOMEO (Dual-Stream):  ~{dual_stream_ttft}ms TTFT")
+    print(f"  TEMPO (Dual-Stream):  ~{dual_stream_ttft}ms TTFT")
     print(f"  w/o Dual-Stream:      ~{single_stream_ttft:.0f}ms TTFT")
     print(f"  Overhead factor:      {overhead:.2f}x")
     print(f"\n  Conclusion: w/o Dual-Stream is {overhead:.2f}x SLOWER")

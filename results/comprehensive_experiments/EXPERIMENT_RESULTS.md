@@ -40,7 +40,7 @@
 | # | Variant | TTFT (ms) | PNH (%) | Task Score | Paper TTFT | Paper PNH |
 |---|---------|-----------|---------|------------|------------|-----------|
 | 1 | Vanilla RAG | 336 | 67 | 0.67 | 520 | 54 |
-| 2 | w/o Homeostasis | 285 | 67 | 0.70 | 190 | 65 |
+| 2 | w/o Tempostasis | 285 | 67 | 0.70 | 190 | 65 |
 | 3 | w/o Dual-Stream | 289 | 67 | 0.70 | 560 | 78 |
 | 4 | w/o Motivated Retrieval | 308 | 67 | 0.69 | 210 | 68 |
 | 7 | REALM (Full) | 322 | 67* | 0.67 | 210 | 76 |

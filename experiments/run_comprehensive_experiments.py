@@ -363,7 +363,7 @@ class ComprehensiveExperimentRunner:
                 'expected': {'ttft': 520, 'pnh_acc': 54, 'task_score': 0.62}
             },
             {
-                'id': 2, 'name': 'w/o Homeostasis',
+                'id': 2, 'name': 'w/o Tempostasis',
                 'dual_stream': True, 'homeostasis': False,
                 'motivated_retrieval': False, 'accordion_memory': True, 'parametric_subconscious': True,
                 'expected': {'ttft': 190, 'pnh_acc': 65, 'task_score': 0.65}

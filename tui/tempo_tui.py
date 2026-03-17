@@ -1,14 +1,14 @@
 """
-HOMEO TUI - Terminal User Interface for the HOMEO system
+TEMPO TUI - Terminal User Interface for the TEMPO system
 
-A modern, interactive TUI built with Textual for the HOMEO dual-stream
+A modern, interactive TUI built with Textual for the TEMPO dual-stream
 memory agent system.
 
 Usage:
-    python -m tui.homeo_tui
+    python -m tui.tempo_tui
     
 Or:
-    python tui/homeo_tui.py
+    python tui/tempo_tui.py
 """
 
 import json
@@ -28,10 +28,10 @@ from textual.reactive import reactive
 from textual.worker import Worker, get_current_worker
 from textual.binding import Binding
 
-# Import HOMEO client
+# Import TEMPO client
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from homeo_client import HOMEOClient, ExperimentType, InferenceResult
+from tempo_client import TEMPOClient, ExperimentType, InferenceResult
 
 
 class StatusBar(Static):
@@ -50,7 +50,7 @@ class DashboardScreen(Container):
     
     def compose(self) -> ComposeResult:
         with Container(id="dashboard"):
-            yield Label("🏠 HOMEO Dashboard", id="dashboard-title", classes="title")
+            yield Label("🏠 TEMPO Dashboard", id="dashboard-title", classes="title")
             
             with Grid(id="dashboard-grid"):
                 # System Status Card
@@ -81,7 +81,7 @@ class ChatScreen(Container):
     
     def compose(self) -> ComposeResult:
         with Container(id="chat-screen"):
-            yield Label("💬 Chat with HOMEO", id="chat-title", classes="title")
+            yield Label("💬 Chat with TEMPO", id="chat-title", classes="title")
             
             with Container(id="chat-history-container"):
                 yield RichLog(id="chat-history", highlight=True, markup=True, auto_scroll=True, wrap=True)
@@ -248,7 +248,7 @@ class ConfigScreen(Container):
                         Switch(id="config-dual-stream", value=True)
                     )
                     yield Horizontal(
-                        Label("Homeostasis:"),
+                        Label("Tempostasis:"),
                         Switch(id="config-homeostasis", value=True)
                     )
                 
@@ -268,8 +268,8 @@ class ConfigScreen(Container):
                     yield Button("Save Config", id="btn-save-config", variant="default")
 
 
-class HOMEOApp(App):
-    """Main HOMEO TUI Application"""
+class TEMPOApp(App):
+    """Main TEMPO TUI Application"""
     
     CSS = """
     Screen {
@@ -408,7 +408,7 @@ class HOMEOApp(App):
     
     def __init__(self):
         super().__init__()
-        self.client: Optional[HOMEOClient] = None
+        self.client: Optional[TEMPOClient] = None
         self._initialized = False
         self._state_history = []
     
@@ -436,29 +436,29 @@ class HOMEOApp(App):
     
     def on_mount(self):
         """Called when app is mounted"""
-        self.title = "HOMEO - Human-like Organization of Memory and Executive Oversight"
+        self.title = "TEMPO - Human-like Organization of Memory and Executive Oversight"
         self.sub_title = "Dual-Stream Memory Agent System"
         
         # Initialize client
         self.run_worker(self._initialize_client(), exclusive=True)
     
     async def _initialize_client(self):
-        """Initialize HOMEO client in background"""
-        self.notify("Initializing HOMEO system...", severity="information")
+        """Initialize TEMPO client in background"""
+        self.notify("Initializing TEMPO system...", severity="information")
         
         try:
-            self.client = HOMEOClient()
+            self.client = TEMPOClient()
             success = await asyncio.get_event_loop().run_in_executor(
                 None, self.client.initialize
             )
             
             if success:
                 self._initialized = True
-                self.notify("HOMEO system initialized successfully!", severity="success")
+                self.notify("TEMPO system initialized successfully!", severity="success")
                 self._update_status_bar()
                 self._refresh_dashboard()
             else:
-                self.notify("Failed to initialize HOMEO system", severity="error")
+                self.notify("Failed to initialize TEMPO system", severity="error")
         except Exception as e:
             self.notify(f"Initialization error: {e}", severity="error")
     
@@ -641,7 +641,7 @@ class HOMEOApp(App):
     def _show_response_complete(self, chat_history, response: str, metadata: dict):
         """Show final System 2 response when complete"""
         # Show final response
-        chat_history.write(f"[b green]HOMEO:[/b green] {response}")
+        chat_history.write(f"[b green]TEMPO:[/b green] {response}")
         
         # Show metadata including entropy info
         sys2_ms = metadata.get('system2_latency_ms', 0)
@@ -850,7 +850,7 @@ class HOMEOApp(App):
 
 def main():
     """Entry point"""
-    app = HOMEOApp()
+    app = TEMPOApp()
     app.run()
 
 
