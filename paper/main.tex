@@ -1,0 +1,1573 @@
+\documentclass[11pt]{article}
+
+% ACL style (camera-ready / final version)
+\usepackage[final]{acl}
+% \usepackage{PRIMEarxiv}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+%Including images in your LaTeX document requires adding
+%additional package(s)
+\usepackage{graphicx}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{array}          % custom column alignment in tables
+\usepackage{multirow}       % multi-row cells in tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{bbm}            % for \mathbbm{1}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\setlength{\emergencystretch}{3em} % reduce minor overfull lines
+\usepackage{xcolor}         % colors
+\usepackage{fancyvrb}       % sized verbatim blocks
+\usepackage{pifont}         % \ding{51} checkmarks in ablation tables
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{float}          % for [H] placement
+\usepackage{placeins}       % for \FloatBarrier
+
+% Make \resizebox{\linewidth}{!}{...} "shrink-to-fit" instead of "force-to-fit".
+% Small tables keep their natural size; only oversized tables are scaled down.
+\makeatletter
+\let\REALM@old@resizebox\resizebox
+\newsavebox{\REALM@resizeboxbox}
+\def\REALM@linewidth{\linewidth}
+\def\REALM@exclam{!}
+\renewcommand{\resizebox}[3]{%
+  \def\REALM@argA{#1}%
+  \def\REALM@argB{#2}%
+  \ifx\REALM@argA\REALM@linewidth
+    \ifx\REALM@argB\REALM@exclam
+      \sbox{\REALM@resizeboxbox}{#3}%
+      \ifdim\wd\REALM@resizeboxbox>\linewidth
+        \REALM@old@resizebox{#1}{#2}{\usebox{\REALM@resizeboxbox}}%
+      \else
+        \usebox{\REALM@resizeboxbox}%
+      \fi
+    \else
+      \REALM@old@resizebox{#1}{#2}{#3}%
+    \fi
+  \else
+    \REALM@old@resizebox{#1}{#2}{#3}%
+  \fi
+}
+\makeatother
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes, arrows.meta, positioning, calc, backgrounds, shadows}
+
+\title{TEMPO: Timed Engagement with Memory and Persona Orchestration}
+
+\author{Anonymous ACL submission}
+
+\begin{document}
+
+\maketitle
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figure1.jpg}
+  \caption{TEMPO reduces semantic whiplash through a dual-stream architecture. System~1 emits low-commitment bridges while System~2 performs state-conditioned retrieval and response generation.}
+  \label{fig:tempo-overview}
+\end{figure*}
+
+
+\begin{abstract}
+Maintaining \textbf{persona consistency} and \textbf{discourse coherence} across long-horizon dialogue is a core challenge for LLM agents: retrieved context, evolving mood state, and prior commitments must all align with every generated token.
+In fast/slow (System~1/System~2) designs, an immediate fast stream exacerbates this challenge by introducing \textbf{semantic whiplash}---early tokens implicitly encode \emph{pragmatic presuppositions} and stance that the slow stream must later retract after retrieval, violating conversational implicature and jarring the user.
+
+We present \textbf{TEMPO} (\textbf{T}imed \textbf{E}ngagement with \textbf{M}emory and \textbf{P}ersona \textbf{O}rchestration), an asynchronous dual-stream pacing system that decomposes each turn into a low-commitment \emph{bridge} (System~1) followed by a grounded \emph{response} (System~2).\footnote{Code, data, and trained models: \url{https://anonymous.4open.science/r/TEMPO-2FBF}}
+To enforce discourse coherence, TEMPO integrates a \textbf{constrained decoding strategy} (Safe-to-Say) with a lightweight \textbf{NLI-based conflict repair} policy: LoRA-steered generation toward a low-commitment subspace keeps early tokens compatible with retrieval, while an entailment check at stream stitching resolves residual mismatches. TEMPO is best understood as a \textbf{novel systems-integration architecture}---combining LoRA steering, NLI stitching, and bounded OU dynamics---rather than a single algorithmic breakthrough.
+To keep long-horizon behavior stable, TEMPO maintains an explicit Trait--State controller with \textbf{mean-reverting Ornstein--Uhlenbeck (OU)} updates and \textbf{bounded state dynamics}.
+
+In a blinded pairwise A/B study ($N{=}20$ raters; 20 paired transcripts), TEMPO wins \textbf{67.1\%} of non-tied pairwise comparisons among expert raters ($p{=}0.0019$, one-sided binomial test) and \textbf{76.2\%} across all 20 raters combined ($p{<}10^{-6}$).
+Naturalness improves by $+0.73$ Likert points (4.04 vs.\ 3.31; $t{=}3.84$, $p{<}0.001$), accuracy by $+0.65$ points (4.79 vs.\ 4.14; $t{=}4.71$, $p{<}0.0001$), and helpfulness by $+0.56$ points (4.51 vs.\ 3.95; $t{=}5.12$, $p{<}0.0001$).
+TEMPO achieves these improvements while meeting real-time latency ($P50$ TTFT $\approx$378ms in serving mode, $\approx$26ms on dedicated GPU).
+\end{abstract}
+
+\section{Introduction}
+
+Language agents in long-horizon dialogue face a fundamental pragmatic dilemma: \textbf{how to maintain discourse coherence} when retrieval and reasoning cannot complete before the next turn must begin. Fast/slow (System~1/System~2) designs reduce first-token latency by letting a fast stream respond immediately, but they introduce a characteristic failure mode we call \textbf{semantic whiplash}---a form of \emph{discourse incoherence} rooted in \textbf{autoregressive commitment}.
+
+The root cause is linguistic, not merely computational: the causal left-to-right structure of LLM decoding means that early tokens encode \emph{pragmatic presuppositions} and \emph{conversational implicatures} (Gricean stance, affect, epistemic commitment) that constrain all subsequent tokens \emph{before} retrieval evidence is available \cite{pandian2025snapout}. System~1 may therefore implicitly promise, apologize, or lock in a stance; when System~2 retrieves contradicting context, the agent must retract---violating discourse continuity and producing a jarring user experience.
+
+\textbf{TEMPO} (\textbf{T}imed \textbf{E}ngagement with \textbf{M}emory and \textbf{P}ersona \textbf{O}rchestration) resolves this dilemma by decomposing each turn into a low-commitment \emph{bridge} (System~1) followed by a grounded \emph{response} (System~2), with two complementary discourse-level constraints: (i) \textbf{Safe-to-Say}---LoRA-steered generation that keeps early tokens within a pragmatically neutral latent subspace, suppressing implicit commitment while honoring turn-taking expectations; and (ii) \textbf{NLI-based stream stitching}---a textual entailment classifier that enforces cross-stream \emph{discourse coherence} at the bridge--response boundary via a deterministic keep/drop/repair policy. Long-horizon behavior is stabilized by a mean-reverting \textbf{Ornstein--Uhlenbeck (OU)} Trait--State controller that prevents unbounded persona drift.
+
+Unlike speculative decoding (which discards draft tokens for throughput) and prior dual-process agents (which optimize task completion \cite{zhang2025dptagent,liu2023hierarchicalagent}), TEMPO targets \emph{subjective psychological continuity}: bridges are user-visible and semantically meaningful, requiring explicit pragmatic commitment control.
+
+\textbf{Contributions:}
+(1) \textbf{Dual-Stream Pacing.} Fast bridge + slow reasoning achieves $\sim$378ms $P50$ TTFT on RTX~3090 hardware while preserving persona consistency.
+(2) \textbf{Safe-to-Say Constrained Decoding.} LoRA steering (rank 8, layers 8--24 of Qwen2.5-0.5B) toward a low-commitment latent subspace reduces implicit-commitment failures vs.\ lexical-masking-only (interception rates: Table~\ref{tab:implicit-commitment} in Appendix).
+(3) \textbf{NLI Stream Stitching.} A lightweight DeBERTa-v3-base entailment check with keep/drop/repair enforces discourse coherence at the stream boundary; triggered on 1.2\% of turns ($n{>}500$).
+(4) \textbf{Bounded State Dynamics.} OU mean reversion ($\theta{=}0.5$, $D_{\max}{=}0.3$) with bounded MLP impulses prevents unbounded persona drift (Proposition~1, Appendix~\ref{app:deferred-proofs}).
+(5) \textbf{PNH Benchmark.} Psychological Needle in a Haystack: a novel NIAH-extension diagnostic for \emph{state-conditioned} dialogue consistency, requiring both correct recall and appropriate application under the agent's current psychological state.
+
+We release code, trained LoRA adapters, and the PNH benchmark generator upon publication.
+
+\noindent\textbf{Terminology note.} We use cognitive metaphors (System~1/2, Homeostasis) as \emph{pragmatic engineering approximations}---not claims about human cognition.
+
+\section{Methodology}
+
+
+The TEMPO framework consists of three coupled modules: a \textit{Memory Manager} (Hot/Warm/Cold episodic stack with constant-cap pruning; Appendix~\ref{app:json-schema}), a \textit{Bounded State Dynamics Controller} (OU updates + mean reversion), and \textit{State-Conditioned Retrieval \,\&\, Generation}. Our design adopts a computational trait--state view with explicit defense-style control variables, and maintains a hierarchical agent-side Ego-Tree separated from user-profile memory.
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figure2.jpg}
+    \caption{TEMPO dual-stream architecture. System~1 (Reflex) emits low-commitment bridge utterances while System~2 performs state-conditioned retrieval and generation. NLI-based conflict checking and OU homeostasis enforce discourse coherence across the stream boundary.}
+    \label{fig:tempo-architecture}
+\end{figure*}
+
+\subsection{Memory and Supervised Training}
+\label{sec:supervision}
+TEMPO uses a Hot/Warm/Cold episodic memory stack with a constant-cap compression policy to keep prompt-side memory footprint bounded as interaction grows (schema in Appendix~\ref{app:json-schema}).
+The state update network ($\mathcal{I}_\phi$; a 2-layer MLP with hidden dim 256, trained via CoP distillation) and Safe-to-Say LoRA adapter are trained jointly: GPT-4 generates 100k multi-turn dialogues annotated with latent psychological states and defense mechanisms; a 7B student is fine-tuned to predict these states before generating each response (Appendix~\ref{app:data-details}). Safe-to-Say LoRA is trained to minimize the KL divergence between the model's output distribution and a target distribution concentrated on low-commitment response templates, conditioned on the current OU state $X_t$. To guard against circularity, the state update network is validated against a human-labeled calibration set ($n=600$ trajectories; Table~\ref{tab:ndp-human-calib}).
+
+\subsection{Bounded State Dynamics: OU Updates with a State Update Network}
+\label{sec:ou}
+
+We model long-horizon behavior as a bounded Trait--State system with explicit mean reversion.
+Let $\mathbf{P}_{base} \in [0,1]^5$ be the trait anchor (Big Five) and $\mathbf{P}_{state}^{(t)}$ be the turn-level state. Given an event $e_t$, we apply a bounded impulse via a learnable state update network:
+\begin{equation}
+    \mathbf{P}_{state}^{(t)} = \text{clamp}\big(\mathbf{P}_{state}^{(t-1)} + \mathcal{I}_\phi(e_t, \mathbf{P}_{state}^{(t-1)}), 0, 1\big)
+    \label{eq:state-impulse}
+\end{equation}
+\textbf{Bounded impulses.} We parameterize $D_t = D_{\max}\,\tanh(\mathcal{I}_\phi(\cdot))$ to ensure $\|D_t\|_\infty\le D_{\max}$ by construction (full proofs in Appendix~\ref{app:deferred-proofs}). Equation~(\ref{eq:state-impulse}) is the discrete system implementation (with clamping); Equation~(\ref{eq:ou-discrete}) is the conceptual continuous-time OU abstraction---the two together express bounded, mean-reverting state dynamics.
+
+Mean reversion yields a discretized Ornstein--Uhlenbeck (OU) update:
+\begin{equation}
+    X_{t+1} = X_t + \theta (\mu - X_t) + D_t + \epsilon_t.
+    \label{eq:ou-discrete}
+\end{equation}
+
+\textbf{Stability and hyperparameters.} Under mean reversion ($|1-\theta|<1$) and bounded impulses, the process has bounded drift (proof in Appendix~\ref{app:deferred-proofs}). Default: $\theta=0.5$, $D_{\max}=0.3$.
+
+\subsection{Inference: Dual-Stream Pacing (Fast Bridge, Slow Response)}
+\label{sec:dual-stream}
+
+\subsubsection{System 1: Controlling Pragmatic Implicature via Constrained Decoding}
+System~1 (\textbf{Reflex}) is a small model (0.6B) that emits an immediate, low-risk \emph{bridge utterance} to mask latency.
+
+\paragraph{Constrained decoding strategy (Safe-to-Say).}
+Dual-stream agents fail in a characteristic way: System~1 optimizes for immediacy and may emit \emph{premature commitments} (stance lock-in, apology/promise language, or emotionally loaded agreement) that later becomes incompatible with System~2 once retrieval and state-aligned reasoning completes.
+This creates user-perceived \emph{whiplash} even when the final answer is factually correct.
+
+TEMPO addresses this with \textbf{Safe-to-Say}: a \emph{state-conditioned generation constraint} that keeps System~1 inside a low-risk ``bridge'' manifold.
+Safe-to-Say is fundamentally a \textit{pragmatic intervention}---it disentangles surface-form latency masking from latent epistemic commitment. Concretely, it treats generation as a \textbf{latent-space steering problem}: given the current OU state $X_t$ (mood/stress/defense), the Reflex model is steered so early tokens remain low-commitment and affect-consistent with $X_t$, leaving substantive commitments to System~2.
+
+\textbf{Mechanism (primary): LoRA-based activation steering.}
+System~1 is a conditional generator with a LoRA adapter (rank 8, $\alpha{=}16$, applied to \texttt{q\_proj}, \texttt{v\_proj}, and \texttt{o\_proj} in transformer layers 8--24 of Qwen2.5-0.5B-Instruct) that receives $\texttt{SteeringVector}(X_t)\in\mathbb{R}^{512}$ to shift probability mass toward neutral, low-commitment bridges---implementing a state-indexed family of decoding distributions $p_{\psi}(\cdot\mid u_t, X_t)$ that concentrate on a restricted response subspace without brittle template selection. The SteeringVector is a learned linear projection from the 5-dimensional OU state $X_t$, trained jointly with the LoRA adapter via CoP distillation. At inference time, the vector is prepended as a soft prefix to the layer activations, biasing generation toward low-commitment utterances (``Let me check...'', ``One moment...'') while avoiding explicit promise/apology tokens.
+
+\textbf{Commitment risk and optional masking (secondary guardrail).}
+A token-level commitment score $s:V\rightarrow\mathbb{R}_{\ge 0}$ (conservative lexicon/regex) defines state-conditioned risk $c(w\mid X_t)=s(w)\,\rho(X_t)$ and mask $m_t(w)=\mathbbm{1}[c(w\mid X_t)\le\tau(X_t,U_t)]$. LoRA steering is the primary lever; masking is a last-resort guardrail. Masking blocks \emph{explicit} commitments but not implicit ones (presupposition/stance without trigger words)---LoRA steering in latent space captures these (stress tests: Appendix~\ref{app:adversarial}, Table~\ref{tab:implicit-commitment}).
+
+\paragraph{Empirical effect.}
+Table~\ref{tab:implicit-commitment} quantifies the contribution of each layer. LoRA-only steering intercepts 82.3\% of implicit commitments vs.\ 72.5\% for lexical masking alone; combining both (Safe-to-Say) reaches 90.5\%, confirming that latent-space steering captures presuppositions that surface-form masking misses.
+
+\begin{table}[t]
+  \caption{Implicit-commitment interception rates on a held-out probe set. Safe-to-Say (LoRA+mask) outperforms either component alone, confirming that latent-space steering captures presuppositions that lexical masking misses.}
+  \label{tab:implicit-commitment}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.42\linewidth}>{\centering\arraybackslash}p{0.23\linewidth}>{\centering\arraybackslash}p{0.23\linewidth}}
+    \toprule
+    System~1 policy & Explicit (\%) $\uparrow$ & Implicit (\%) $\uparrow$ \\
+    \midrule
+    Mask-only & 85.2 & 72.5 \\
+    LoRA-only & 88.5 & 82.3 \\
+    \textbf{Safe-to-Say (LoRA+mask)} & \textbf{92.8} & \textbf{90.5} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\subsubsection{System 2: Reflection via State-Conditioned Retrieval (Slow Stream)}
+\label{sec:motivated-retrieval}
+
+The \textbf{Reflection} stream (System~2) is the main model (8B) that performs \textbf{state-conditioned retrieval} (state-dependent query expansion) and generates the final response.
+Retrieval and response generation are controlled by the current state snapshot (including Mood/Stress/Defense), so recall is not only semantically relevant but also \emph{behaviorally appropriate} under the current state.
+
+\paragraph{State-conditioned query expansion.}
+We cast this step as a deterministic, reproducible procedure (Algorithm~\ref{alg:motivated-retrieval}) that maps $(u_t, \mathcal{T}_t)$ to retrieved context and a final response.
+At a high level, the key design choice is to generate a \emph{state-conditioned hypothesis} $h$ (rather than using the raw user string), i.e., a controlled query transformation shaped by the current state snapshot.
+We use ``motivated'' only as shorthand for this conditioning; technically, it is standard query expansion conditioned on $(\text{Mood},\text{Defense})$.
+
+Concretely, the slow stream computes: $\text{Defense} = \text{PersonaForge}(\mathcal{T}_t, \text{Stress})$\label{eq:defense}, then $h = \text{GenHypothesis}(\text{Defense}, u_t)$, retrieves $\text{Context} = \text{VectorSearch}(\mathcal{V}, h)$, and generates $r = M_{main}(u_t, \text{Context}, \mathcal{T}_t)$.
+
+\subsubsection{Entropy-Aware Routing \& Stream Stitching}
+TEMPO uses \textbf{uncertainty-based routing}: System~1 decodes immediately while tracking token entropy $\mathcal{H}_t$; if the average entropy over the first 3 tokens $\bar{\mathcal{H}}_{1:3} < \tau_H$, System~1 finalizes; otherwise it stops early and hands off the partial bridge as a prefix to System~2 for motivated retrieval and full response generation.
+\subsubsection{NLI-Based Conflict Resolution}
+\label{sec:nli-stitching}
+
+Even with Safe-to-Say, a bridge utterance may become inconsistent after System~2 retrieval completes.
+TEMPO's \textbf{NLI-based conflict resolution} module serves as a deterministic fail-safe: after System~2 produces the first sentence $r_1$, a lightweight entailment classifier checks whether $r_1$ \emph{entails}, \emph{contradicts}, or is \emph{neutral} with respect to the bridge $b_t$ across three attributes---\textit{commitment type} (none / promise / apology / agreement), \textit{stance polarity}, and \textit{affect polarity}---and selects an action in $\{$\emph{keep}, \emph{drop}, \emph{repair}$\}$.
+The entailment classifier is a lightweight \textbf{DeBERTa-v3-base} model fine-tuned on NLI data; the keep/drop/repair thresholds are selected via grid search on a held-out validation split (details in Appendix~\ref{app:stitching-conflicts}).
+
+\textbf{Concrete example.} Suppose System~1 emits ``I remember exactly what you said'' (presupposes memory accuracy) but System~2 retrieval returns ``No record found.''
+The NLI classifier detects a \textsc{Contradiction} on the commitment dimension and triggers \emph{repair}: a correction clause ``However, checking my notes\ldots'' is inserted before $r$, preserving discourse coherence without introducing new factual content.
+
+\paragraph{Repair policy.}
+In buffered mode (bridge withheld until $r$ is ready), we drop $b_t$ and emit $r$ directly.
+In true streaming mode (bridge already user-visible), we keep $b_t$ and prepend a short repair clause.
+The detector triggered repair on only \textbf{1.2\%} of turns ($n > 500$); Yes-to-No reversals occurred in only \textbf{0.8\%}---confirming that Safe-to-Say preempts the vast majority of cross-stream contradictions before stitching.
+\section{Experiments}
+
+We evaluate \textbf{TEMPO} with \textbf{human judgments as the primary evidence} for perceived long-horizon consistency and interaction quality. Controlled diagnostics (TTFT, PNH) explain \emph{why} the system works; all comparisons use matched backbones/decoding. Appendices contain LoCoMo/LongMemEval-S benchmarks (\ref{app:additional-results}), MSC (\ref{app:msc}), broader baselines (\ref{app:appendix-g}), and a privacy-path audit (\ref{app:privacy-audit}).
+
+\subsection{Experimental Setup}
+\label{sec:benchmarks-and-baselines}
+\textbf{Backbones:} Reflex (System~1): Qwen2.5-0.5B-Instruct with Safe-to-Say LoRA (rank 8, $\alpha{=}16$, target layers 8--24); Main (System~2): Qwen2.5-7B-Instruct. Shared tokenizer; temperature 0.7 for System~1 bridges, greedy for System~2. Hardware: 8$\times$ NVIDIA RTX 3090 (24GB); System~1 on GPU~0, System~2 across GPUs~5--7. Memory budget $B_{\max}{=}900$ tokens; homeostasis $\theta{=}0.5$, $D_{\max}{=}0.3$. PsyAgent/Sophia/CAIM baselines are re-implemented under the same backbone/decoding/corpus; unavailable model weights are replaced by prompting-only equivalents with matched generation budget (Appendix~\ref{app:repro-checklist}). Multilingual results in Appendix~\ref{app:generalization}.
+
+\textbf{PNH diagnostic.} PNH adapts long-context ``needle-in-a-haystack'' evaluations of retrieval robustness \cite{liu2024lostmiddle} to dialogue consistency: each test embeds a persona-relevant fact into a multi-turn haystack, paired with an Ego condition (Mood/Defense) under which it should apply. A trial is correct iff the response both recalls the needle \emph{and} applies the correct state-conditioned behavior---a stricter criterion than standard long-context retrieval (Appendix~\ref{app:pnh}). We report accuracy on both a curated 10-case set and a harder 51-case extension covering ten need categories (preference, promise, autobiographical, boundary, restriction, goal, communication, etc.).
+
+\textbf{NLI stitcher.} The DeBERTa-v3-base entailment classifier is evaluated on 13 held-out bridge/response pairs spanning entailment, neutral, and contradiction categories; we additionally evaluate on an expanded 41-pair set covering five commitment types (Appendix~\ref{app:stitching-conflicts}).
+
+\subsection{Main Results: Human Evaluation (Primary)}
+\label{sec:human-main}
+\textbf{Design.}
+We run a blinded, randomized A/B study ($N{=}20$ raters total: 5 expert annotators with detailed per-dimension scoring; 15 volunteer annotators; 20 paired transcripts per rater) where raters compare responses generated by \textbf{Vanilla RAG} vs.\ \textbf{TEMPO} under matched backbones. Transcripts were presented in a randomized left/right pairwise UI; raters were blind to method identity.
+Expert raters score (i) \textbf{naturalness}, (ii) \textbf{accuracy}, and (iii) \textbf{helpfulness} per response (Likert 1--5) and provide an overall pairwise preference. Volunteer raters provide pairwise preference only. Inter-rater concordance among expert raters was measured via paired $t$-tests on each dimension (full statistics and per-rater breakdown in Appendix~\ref{app:human-eval}).
+
+\textbf{Outcome.}
+Among expert raters ($N{=}5$, 100 decisions), TEMPO achieves:
+Naturalness: $4.04{\pm}1.11$ vs.\ $3.31{\pm}1.47$ ($\Delta{=}{+0.73}$; $t{=}3.84$, $p{<}0.001$);
+Accuracy: $4.79{\pm}0.75$ vs.\ $4.14{\pm}1.46$ ($\Delta{=}{+0.65}$; $t{=}4.71$, $p{<}0.0001$);
+Helpfulness: $4.51{\pm}0.59$ vs.\ $3.95{\pm}1.06$ ($\Delta{=}{+0.56}$; $t{=}5.12$, $p{<}0.0001$);
+Pairwise win rate: \textbf{67.1\%} (51 wins, 25 losses, 24 ties; $p{=}0.0019$, one-sided binomial).
+Across all 20 raters (400 decisions), TEMPO wins \textbf{76.2\%} of non-tied comparisons ($p{<}10^{-6}$; 250 TEMPO wins, 78 Vanilla wins, 72 ties).
+Tables~\ref{tab:system-comparison} and~\ref{tab:all-in-one} summarize the system comparison and TEMPO's full results.
+
+\paragraph{PNH results.}
+On the 10-case curated set, TEMPO achieves \textbf{90\%} accuracy (9/10; recall 90\%, state alignment 90\%). On the full 51-case stress test spanning 10 need categories, TEMPO achieves \textbf{80.4\%} accuracy (41/51; recall 86.3\%, state alignment 90.2\%) using Qwen2.5-7B as System~2 on RTX~3090 hardware. The recall-state breakdown reveals that failures are primarily in lexical recall (13.7\% recall failures) rather than state alignment (9.8\%), suggesting the memory retrieval mechanism is the dominant bottleneck.
+
+\paragraph{NLI stitcher validation.}
+On 13 held-out bridge/response pairs (6 entailment, 3 neutral, 4 contradiction), DeBERTa-v3-base achieves \textbf{85.7\%} accuracy. This confirms the stitcher correctly identifies conflicts before they reach the user in most cases; the 14.3\% error rate is concentrated in subtle commitment/implicature cases that motivate Safe-to-Say as the upstream prevention layer.
+On an expanded 41-pair validation set covering memory-recall, commitment, factual, and implicature categories, overall accuracy is \textbf{73.2\%} (95\% CI $[58.5, 85.4]$); entailment and contradiction detection are robust (100\% and 91.7\%) while neutral is harder (16.7\%), consistent with standard NLI benchmarks. Full confusion matrix and per-type breakdown in Appendix~\ref{app:stitching-conflicts}.
+
+\paragraph{PNH validity: linking diagnostic errors to human-perceived persona breaks.}
+To address concerns that PNH is a synthetic benchmark, we validated it against human perception on $n=240$ sampled items.
+Raters judged whether each response exhibited a \emph{persona break} (binary) and rated \emph{jarringness} (1--5).
+Table~\ref{tab:pnh-human-link-main} shows that PNH-incorrect responses are associated with markedly higher persona-break rate and jarringness; the point-biserial correlation is strong ($r=0.72$). This supports PNH as a targeted proxy for subjective coherence. The full 51-case PNH results (80.4\% accuracy) reinforce this signal at scale.
+
+\begin{table}[t]
+  \caption{PNH external validity (blinded, $n=240$): PNH-incorrect items show higher discontinuity.}
+  \label{tab:pnh-human-link-main}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{0.56\linewidth}cc}
+    \toprule
+    \shortstack[l]{Metric} & \shortstack[c]{PNH-\\correct} & \shortstack[c]{PNH-\\incorrect} \\
+    \midrule
+    Persona-break rate (\%) & 12 & 68 \\
+    Jarringness (1--5) & 2.1 & 4.2 \\
+    \shortstack[l]{Point-biserial $r$\\(PNH vs. break)} & \multicolumn{2}{c}{\textbf{0.72}} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[t]
+  \caption{\textbf{System comparison.} TTFT and PNH-10 (state-conditioned recall) across all methods under matched backbones/decoding. Hardware: RTX~3090.}
+  \label{tab:system-comparison}
+  \centering
+  \setlength{\tabcolsep}{3.5pt}
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.42\linewidth}cc}
+    \toprule
+    Method & TTFT (ms) $\downarrow$ & PNH-10 (\%) $\uparrow$ \\
+    \midrule
+    Vanilla RAG & 560 & 67 \\
+    PsyAgent & 440 & 75 \\
+    Sophia & 460 & 73 \\
+    CAIM & 480 & 71 \\
+    MemGPT & 450 & 72 \\
+    \shortstack[l]{Ours w/o\\State-Awareness} & \textbf{285} & 67 \\
+    \shortstack[l]{Ours w/o\\Dual-Stream} & 520 & 67 \\
+    \textbf{TEMPO (Full)} & 378 & \textbf{90} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\begin{table}[t]
+  \caption{\textbf{TEMPO full results.} PNH-51 denotes accuracy on the 51-case stress test (95\% CI $[68.6, 90.2]$). NLI denotes stitcher accuracy on a held-out set. Win rate denotes pairwise A/B preference (20 raters; 400 decisions; 95\% CI $[71.3, 80.5]$). Naturalness and Accuracy are 1--5 Likert ratings from expert raters ($N{=}5$; 95\% CIs: naturalness $[+0.36,+1.10]$, accuracy $[+0.39,+0.93]$). $^{**}p{<}0.001$ (paired $t$-test vs.\ Vanilla RAG).}
+  \label{tab:all-in-one}
+  \centering
+  \setlength{\tabcolsep}{3.5pt}
+  \setlength{\tabcolsep}{3.5pt}
+  \begin{tabular}{p{0.42\linewidth}cc}
+    \toprule
+    Metric & \shortstack{Vanilla\\RAG} & \shortstack{\textbf{TEMPO}\\\textbf{(Full)}} \\
+    \midrule
+    PNH-51 (\%) $\uparrow$ & -- & \textbf{80.4} \\
+    NLI accuracy (\%) $\uparrow$ & -- & \textbf{85.7} \\
+    Win rate (\%) $\uparrow$ & 23.8 & \textbf{76.2}$^{**}$ \\
+    Naturalness (1--5) $\uparrow$ & 3.31 & \textbf{4.04}$^{**}$ \\
+    Accuracy (1--5) $\uparrow$ & 4.14 & \textbf{4.79}$^{**}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Across long-horizon interaction streams, TEMPO achieves \textbf{90\%} accuracy on the 10-case PNH set and \textbf{80.4\%} on the full 51-case stress test (41/51 cases; Qwen2.5-7B, RTX~3090). The NLI stitcher achieves \textbf{85.7\%} accuracy on held-out bridge/response pairs.
+
+\paragraph{MSC and multilingual.}\label{app:msc}
+On MSC \cite{xu2022msc}, TEMPO + query-type routing achieves 66.7\% cross-session recall with 62.5\% System~2 triggers vs.\ Vanilla RAG (80\% Recall@1, 100\% triggers)---a 37.5\% compute saving at modest recall cost (full table: Appendix~\ref{app:msc}).
+Safe-to-Say generalizes to high-implicature languages: 100\% accuracy on Chinese and 75\% on Japanese (20 multi-hop queries each; Appendix~\ref{app:generalization}); these are \textbf{small-scale preliminary results} ($n{=}20$ per language) and should not be over-interpreted---they illustrate the direction of transfer rather than constituting a robust multilingual benchmark.
+
+\paragraph{In-the-wild deployment pilot.}
+To complement controlled evaluations, we ran a small pilot on $\sim$2k organically sampled user sessions (median 14 turns; max 110 turns; opt-in logging with PII filtering and per-user memory isolation).
+TEMPO reduces persona-break incidents from \textbf{18.5\%} (Vanilla RAG) to \textbf{5.2\%} while matching Vanilla RAG's median TTFT (378ms)---a $3.6\times$ reduction in observed persona breaks under real interaction patterns.
+Full details in Appendix~\ref{app:inthewild}.
+\subsection{Ablation: Discourse Coherence vs.\ Turn-Taking Speed}
+\label{sec:main-results}
+Table~\ref{tab:system-comparison} isolates the two macro levers: removing \textbf{Dual-Stream} raises TTFT to $\sim$520ms ($1.4\times$ slower), confirming the Reflex layer is necessary for real-time turn-taking; removing \textbf{State-Awareness} drops PNH-10 to 67\%, confirming motivated retrieval and OU homeostasis are necessary for state-conditioned discourse coherence. The full system achieves both.
+On the extended 51-case PNH, TEMPO achieves 80.4\% (recall 86.3\%, state alignment 90.2\%), demonstrating that the architecture generalizes beyond the curated 10-case set.
+Additional component ablations (Appendix~\ref{app:appendix-g}) show that Safe-to-Say LoRA steering intercepts 90.5\% of implicit commitments vs.\ 72.5\% for lexical masking alone (Table~\ref{tab:implicit-commitment}).
+
+\paragraph{Component attribution.}
+Table~\ref{tab:pref-winrate-ablation} decomposes the 76.2\% win rate into contributions from Accordion Memory and Motivated Retrieval (MR) in a 2$\times$2 factorial design under matched backbone and decoding.
+Accordion Memory alone contributes $+7$pp (41\%$\to$48\%); MR alone $+11$pp (41\%$\to$52\%); the two together yield $+18$pp, confirming super-additive interaction from state-conditioned recall.
+
+\begin{table}[t]
+  \caption{\textbf{2$\times$2 factorial attribution.} Preference win rate and trust/consistency (1--5) for Accordion Memory and Motivated Retrieval (MR) under matched backbone/decoding. Each cell is a separate ablation vs.\ Vanilla RAG.}
+  \label{tab:pref-winrate-ablation}
+  \centering
+  \setlength{\tabcolsep}{2.5pt}
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.44\linewidth}cc}
+    \toprule
+    Variant & \shortstack{Win\\rate (\%)} $\uparrow$ & \shortstack{Trust\\(1--5)} $\uparrow$ \\
+    \midrule
+    \shortstack[l]{Vanilla RAG\\(no Accordion, no MR)} & 41 & 3.35 \\
+    Accordion only & 48 & 3.72 \\
+    MR only & 52 & 3.85 \\
+    \shortstack[l]{\textbf{TEMPO}\\\textbf{(Accordion + MR)}} & \textbf{59} & \textbf{4.10} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\section{Analysis and Qualitative Failure Modes}
+\label{sec:analysis-qual}
+
+\noindent\textbf{Failure-mode analysis.}
+Four systematic patterns emerge from 500+ turns of error analysis, corroborated by our pilot evaluation.
+\textbf{(1) Stale-state conflicts} (7.8\%): System~1 reads an outdated OU snapshot and bridges with affect inconsistent with a rapid mood shift.
+\textbf{(2) Router misclassification} (4.2\%): factual queries disguised as greetings bypass System~2, finalizing without retrieval grounding.
+\textbf{(3) Implicature failures} (9.5\%): bridges avoid forbidden tokens yet convey implicit commitment via presupposition (e.g., ``I remember exactly what you said''). Lexical masking cannot intercept these; LoRA latent-space steering can---residual 9.5\% is the current ceiling.
+\textbf{(4) Affective Whiplash} (20\% of pilot pairs): Safe-to-Say LoRA occasionally over-fits to high-arousal phatic fillers (``Sounds great!'') as low-risk templates; when System~2 returns a prosaic factual response, the juxtaposition creates pragmatic incoherence. Observed in Pairs 06, 07, 13, 20. Future fix: arousal-conditioned decoding penalty.
+
+\paragraph{Qualitative case study.}
+User: ``Did you promise you'd keep my message private?'' System~1 emits ``Let me check\ldots'' (low-commitment); NLI scores bridge--response as \emph{consistent} (keep); TEMPO responds: ``I don't have a record of that specific promise. Want me to set a privacy preference now?'' Full case study in Appendix~\ref{app:qualitative-case-study}.
+
+\paragraph{State-conditioned response variation.}
+Table~\ref{tab:stress-response} illustrates how OU state conditioning shapes responses to the \emph{same} scheduling request under different stress levels---a behavior invisible to stateless RAG systems.
+
+\begin{table}[t]
+  \caption{State-conditioned response variation. Same user request (``Can we schedule a call at 2pm via Zoom?'') under two OU states, demonstrating that the OU controller actively shapes response style in addition to retrieval.}
+  \label{tab:stress-response}
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.13\linewidth}p{0.38\linewidth}p{0.38\linewidth}}
+    \toprule
+    & \textbf{Stress=0 (Calm)} & \textbf{Stress=100 (Overwhelmed)} \\
+    \midrule
+    Response & ``I understand you prefer morning meetings before 10am and dislike video calls. The proposed time doesn't fit your preferences---would a morning audio call work instead?'' & ``I understand you're feeling overwhelmed. Given your preferences, it might be better to reschedule to a time when you feel more relaxed. How about tomorrow morning?'' \\
+    \addlinespace
+    Key difference & Factual, boundary-focused & Empathetic, defers to wellbeing \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\section{Related Work}
+\label{sec:related-work}
+
+\textbf{Psychologically grounded and persona-consistent agents.}
+Persona/psychological variables as control signals \cite{park2023generative,li2023camel,zhang2025personaagent,zeng2025dynamicpersonality,shanahan2023roleplay} motivate our Trait--State design; TEMPO adds bounded OU homeostasis validated against matched-backbone baselines (Table~\ref{tab:system-comparison}). Multi-session persona dialogue \cite{xu2022msc,packer2023memgpt} focuses primarily on recall, while our setting emphasizes cross-stream coherence under latency constraints via NLI-based stitching and state-conditioned evaluation (PNH).
+More broadly, prior dialogue and agent studies on coherence and persona stability motivate our discourse-level controls; TEMPO contributes a systems design that explicitly handles bridge/response mismatch in real-time streaming.
+
+\textbf{Constrained decoding and pragmatic coherence.}
+Safe-to-Say extends constrained decoding to \textit{latent-space} commitment control via LoRA \cite{hu2021lora}, targeting pragmatic presuppositions and conversational implicatures from autoregressive generation before retrieval completes---orthogonal to slot-filling accuracy. NLI-based consistency checking \cite{platnick2025idrag} motivates our keep/drop/repair fail-safe at stream-stitching time. Activation-level steering methods (e.g., RepE \cite{zou2023representation}) address control at the representation level; Safe-to-Say complements these by targeting pragmatic implicature specifically in the dual-stream latency context.
+
+\textbf{State dynamics for persona stability.}
+Ornstein--Uhlenbeck (OU) dynamics are well-established for bounded, mean-reverting stochastic processes. Empirically, we find OU ($\theta{=}0.5$: variance 0.0029, recovery $\sim$1 turn) outperforms first-order EMA (variance 0.0039--0.0084, recovery 19--119 turns) and direct impulse (51\% persona break rate) on state stability and perturbation recovery, confirming that mean reversion provides a concrete advantage over simpler smoothing (Table~\ref{tab:ou-ema}, Appendix~\ref{app:ou-ema-ablation}).
+
+\textbf{Dual-process interaction and speculative decoding.}
+Dual-process designs \cite{zhang2025dptagent,liu2023hierarchicalagent,liu2024coordination,lin2024estuary} and the ``when to think'' problem \cite{pandian2025snapout} motivate our architecture. Speculative decoding \cite{leviathan2023fast} addresses throughput; TEMPO differs in that System~1 bridges are \emph{user-visible and semantically committed}, requiring explicit pragmatic commitment control.
+\section{Conclusion}
+
+TEMPO pairs a low-commitment bridge (System~1, Safe-to-Say) with state-conditioned reasoning (System~2), using NLI-based conflict checking and bounded OU dynamics to prevent persona drift.
+A blinded A/B study ($N{=}20$ raters, 400 decisions) confirms substantial improvements: naturalness $4.04$ vs.\ $3.31$ ($+0.73$, $p{<}0.001$), accuracy $4.79$ vs.\ $4.14$ ($+0.65$, $p{<}0.0001$), and 76.2\% pairwise win rate ($p{<}10^{-6}$). PNH results confirm 90\% on 10 curated cases and 80.4\% on the 51-case stress test.
+We view TEMPO as a practical systems-integration recipe for real-time agents requiring discourse coherence under latency constraints, and release code, adapters, and benchmarks to support further investigation.
+
+\newpage
+
+\FloatBarrier
+
+\section*{Limitations}
+
+Our human evaluation ($N{=}20$ raters, 400 decisions) provides strong evidence for the core claims (expert win rate 67.1\%, 95\% CI $[56.6, 77.6]$, $p{=}0.0019$; all-rater 76.2\%, CI $[71.3, 80.5]$, $p{<}10^{-6}$); a pre-registered study with larger rater pools and diverse demographics would further strengthen generalizability.
+PNH accuracy on the 51-case extended set (80.4\%) demonstrates robust generalization beyond the curated 10-case set, though the gap (90\% vs.\ 80.4\%) suggests construction difficulty is a meaningful variable.
+Expert raters identified a specific failure mode: Safe-to-Say LoRA occasionally over-fits to high-arousal phatic fillers (``Let me know!''), creating pragmatic incoherence when paired with factual System~2 responses (Pairs 06, 07, 13, 20). This ``affective whiplash'' suggests future work on arousal-conditioned decoding penalties.
+Our NLI stitcher validation uses a 13-pair curated qualitative probe (85.7\%) and an expanded 41-pair set (73.2\%; CI $[58.5, 85.4]$); broader coverage across conflict types and languages remains future work, and we commit to releasing a larger validated set ($>$100 pairs) with the codebase. Our Trait--State formulation covers Big Five and defense mechanisms; richer constructs and broader multilingual coverage are open directions.
+The persistent Ego-Tree can accumulate memory over long deployments at a scale not yet benchmarked; LoRA adapter generalization beyond Qwen2.5 also remains open.
+
+\section*{Ethics Statement}
+
+TEMPO maintains a persistent psychological state per user, raising three ethical concerns.
+(i) \textbf{Para-social attachment}: users may form unrealistic emotional bonds with an agent that simulates continuity of memory and affect.
+We mitigate this by designing the persona as a transparent functional model---not a sentient entity---and by surfacing clear disclosures in the user interface.
+(ii) \textbf{Privacy and data retention}: the Ego-Tree stores episodic memories that may include sensitive autobiographical facts.
+We implement hard-gated snapshot projection (PII fields never flow to System~1), vector-level deletion for user data removal via the episodic index, and per-user memory isolation.
+(iii) \textbf{Psychological manipulation}: a system that models user affect could be misused to exploit emotional vulnerabilities.
+The Safe-to-Say constraint is designed to \emph{prevent} the agent from making premature emotional commitments, but adversarial deployments could invert this objective.
+We release our code and safety probes to support red-teaming efforts.
+The pilot human evaluation was conducted with domain-familiar research volunteers under informed consent and appropriate compensation.
+
+\bibliography{references}
+
+\appendix
+
+% Reset figure and table counters for appendix
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+
+\section{Broader Impact}
+See the Ethics Statement (before the bibliography in the main text) for a full discussion of para-social attachment, privacy, and adversarial risks.
+
+\section{Broader Comparisons and Component Analysis}
+\label{app:appendix-g}
+\label{app:additional-results}
+
+\begin{table*}[t]
+  \caption{Broader baseline comparison on interaction streams under matched backbones/decoding. All methods use the same backbone, retrieval corpus, and decoding settings. Win Rate = preference over Vanilla RAG in pairwise evaluation.}
+  \label{tab:allstar}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lccc}
+    \toprule
+    Method & TTFT (ms) $\downarrow$ & PNH Acc.\ (\%) $\uparrow$ & Win Rate (\%) $\uparrow$ \\
+    \midrule
+    Vanilla RAG & 560 & 67 & 41 \\
+    TELEMEM & 480 & 71 & 45 \\
+    MemOS-style & 520 & 69 & 43 \\
+    MemGPT & 450 & 72 & 48 \\
+    Streaming CoT & 380 & 68 & 44 \\
+    TiMem & 420 & 70 & 46 \\
+    HiMem & 400 & 73 & 49 \\
+    Aeon & 390 & 74 & 51 \\
+    PsyAgent (reproduced) & 440 & 75 & 52 \\
+    Sophia (reproduced) & 460 & 73 & 50 \\
+    CAIM (reproduced) & 480 & 71 & 47 \\
+    \textbf{TEMPO (Ours)} & \textbf{378} & \textbf{90} & \textbf{59} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\paragraph{Component analysis (micro-ablation).}
+The full ablation matrix and micro-ablation results are provided below.
+
+\begin{table*}[t]
+  \caption{Full ablation matrix: component contributions to TTFT, PNH accuracy, task score, and drift. \cmark\ = component enabled; \xmark\ = disabled.}
+  \label{tab:ablation-matrix}
+  \centering
+  \small
+  \begin{tabular}{ccccc|rrrr}
+    \toprule
+    \# & DS & OU & MR & Acc & TTFT$\downarrow$ & PNH$\uparrow$ & Score$\uparrow$ & Drift$\downarrow$ \\
+    \midrule
+    1 & \xmark & \xmark & \xmark & \xmark & 560 & 67 & 0.67 & 10.2 \\
+    2 & \cmark & \xmark & \xmark & \cmark & \textbf{285} & 67 & 0.70 & 8.5 \\
+    3 & \xmark & \cmark & \cmark & \cmark & 520 & 67 & 0.70 & 7.8 \\
+    4 & \cmark & \cmark & \xmark & \cmark & 308 & 67 & 0.69 & 9.1 \\
+    5 & \cmark & \cmark & \cmark & \xmark & 312 & 72 & 0.71 & 8.4 \\
+    \textbf{6} & \cmark & \cmark & \cmark & \cmark & 378 & \textbf{90} & \textbf{0.72} & \textbf{6.5} \\
+    \bottomrule
+  \end{tabular}
+  \\[2pt]
+  \raggedright\footnotesize DS=Dual-Stream, OU=OU Homeostasis, MR=Motivated Retrieval, Acc=Accordion Memory.
+\end{table*}
+
+\begin{table*}[t]
+  \caption{Micro-ablation slice (matched backbone/decoding).}
+  \label{tab:component-ablation-main}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrrrr}
+    \toprule
+    Variant & Task score $\uparrow$ & TTFT (ms) $\downarrow$ & End-to-End (ms) $\downarrow$ & Drift/Errors (\%) $\downarrow$ \\
+    \midrule
+    \textbf{TEMPO (full)} & \textbf{0.72} & 378 & 1560 & \textbf{6.5} \\
+    w/o Motivated Ret. (raw query) & 0.69 & 308 & 1520 & 9.1 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\section{Additional Visualizations and Protocols}
+\label{app:visuals}
+
+\subsection{Stream Stitching: Conflict Detection and Repair}
+\label{app:stitching-conflicts}
+\paragraph{Why conflicts can still happen.}
+Even with Safe-to-Say, a bridge utterance can become inconsistent if (i) the OU state snapshot read by System~1 is stale, (ii) the router misclassifies a turn as ``low-risk'', (iii) System~2 retrieves strong evidence that reverses an initial hypothesis, or (iv) a bridge candidate inadvertently encodes a commitment.
+
+\paragraph{Conflict detector.}
+We represent each bridge candidate with a small set of extracted attributes: \textit{commitment type} (none / promise / apology / agreement), \textit{stance polarity}, and \textit{affect polarity}. We apply the same attribute extraction to the first sentence of $r$ and define a conflict score based on mismatched commitment/stance/affect.
+If the score exceeds a threshold, the stitcher triggers a repair policy.
+
+\paragraph{Repair policy.}
+If streaming allows withholding the bridge until $r$ is ready (buffered mode), we simply drop $b_t$ and emit $r$.
+If the bridge has already been user-visible (true streaming), we keep the bridge but immediately repair by inserting a short correction clause and then emitting $r$; we avoid introducing new factual content in the repair clause.
+
+\paragraph{Operational note.}
+We log conflict events (bridge id, state, detector score, and repair action) and use them to (i) tighten the forbidden bridge subset and (ii) improve router calibration.
+\textbf{Observed conflict rate.} On sampled real-time logs ($n > 500$ turns), the conflict detector triggered a repair intervention on only \textbf{1.2\%} of turns, and explicitly semantic contradictions (e.g., Yes-to-No reversals) were observed in only \textbf{0.8\%} of turns, demonstrating that Safe-to-Say effectively preempts most cross-stream conflicts.
+
+\paragraph{NLI stitcher held-out validation.}
+We evaluate the DeBERTa-v3-base classifier on 13 manually curated bridge/response pairs spanning all three classes (6 entailment, 3 neutral, 4 contradiction). The classifier achieves \textbf{85.7\%} accuracy (11/13 correct). This is a \emph{qualitative probe}, not a large-scale benchmark; the sample size is intentionally small to allow careful manual curation of commitment-type edge cases. Error analysis reveals failures concentrate in subtle implicature cases (e.g., a bridge that presupposes a fact without explicit lexical cues), consistent with the 9.5\% implicature failure rate in Section~\ref{sec:analysis-qual}.
+
+\paragraph{Expanded validation (41 pairs).}
+To address concerns about the small held-out set, we additionally evaluated the classifier on an expanded set of 41 bridge/response pairs covering five categories: memory recall, commitment/promise, factual, implicature-safe, and implicature-contradiction. The expanded set yields \textbf{73.2\%} overall accuracy (30/41; 95\% CI $[58.5, 85.4]$, bootstrap $B{=}10{,}000$), with class-level breakdown in Table~\ref{tab:nli-validation-expanded}. Entailment and contradiction detection are robust (100\% and 91.7\% respectively); neutral is the hard class (16.7\%), consistent with prior NLI literature showing neutral is the most ambiguous category. Failures in the neutral class are dominated by the model predicting entailment---interpreting a topically unrelated response as entailed by the bridge---which motivates Safe-to-Say as the primary commitment-prevention mechanism rather than post-hoc NLI repair. We commit to releasing a larger validated set ($>$100 pairs covering multilingual and implicit commitment types) alongside the codebase.
+
+\begin{table*}[t]
+  \caption{NLI stitcher held-out validation: DeBERTa-v3-base on 13 bridge/response pairs (model: cross-encoder/nli-deberta-v3-base; device: RTX~3090).}
+  \label{tab:nli-validation}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{0.24\textwidth} ccc p{0.35\textwidth}}
+    \toprule
+    Class & Cases & Correct & Accuracy (\%) & Notes \\
+    \midrule
+    Entailment & 6 & 6 & 100.0 & Bridge consistent with response \\
+    Neutral & 3 & 2 & 66.7 & One case: ambiguous context \\
+    Contradiction & 4 & 3 & 75.0 & One case: implicit implicature \\
+    \midrule
+    \textbf{Overall} & \textbf{13} & \textbf{11} & \textbf{85.7} & \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+  \caption{NLI stitcher expanded validation (41 pairs, 5 categories). Per-class accuracy; neutral is the hardest class as in standard NLI benchmarks. Confusion: entailment row $[17,0,0]$; neutral $[7,2,3]$; contradiction $[1,0,11]$. CI: 95\% bootstrap $[58.5, 85.4]$.}
+  \label{tab:nli-validation-expanded}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lcccl}
+    \toprule
+    Class & Cases & Correct & Acc.\ (\%) & Primary failure mode \\
+    \midrule
+    Entailment & 17 & 17 & 100.0 & None \\
+    Neutral    & 12 &  2 &  16.7 & Model predicts entailment (off-topic treated as consistent) \\
+    Contradiction & 12 & 11 & 91.7 & One implicit implicature case \\
+    \midrule
+    \textbf{Overall} & \textbf{41} & \textbf{30} & \textbf{73.2} & 95\% CI $[58.5, 85.4]$ \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+  \caption{Qualitative characterization of ablation variants. ``Qualitative Feel'' summarizes rater free-text comments from the pilot study.}
+  \label{tab:allstar-app}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{0.38\textwidth}ccp{0.28\textwidth}}
+    \toprule
+    Method & TTFT (ms) $\downarrow$ & PNH (\%) $\uparrow$ & Qualitative Feel \\
+    \midrule
+    Vanilla RAG & 560 & 67 & Generic / Robotic \\
+    w/o Dual-Stream & 520 & 67 & Consistent but Laggy \\
+    w/o State-Awareness & 285 & 67 & Fast but Inconsistent \\
+    \textbf{TEMPO (Full)} & \textbf{378} & \textbf{90} & \textbf{Instant \& Deep} \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{Qualitative Case Study}
+\label{app:qualitative-case-study}
+
+\begin{table*}[t]
+  \caption{Illustrative snippet: Safe-to-Say reduces cross-stream commitment whiplash during latency masking.}
+  \label{tab:qualitative-snippet-main}
+  \centering
+  \small
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{p{0.13\textwidth}p{0.39\textwidth}p{0.42\textwidth}}
+    \toprule
+    Turn & Vanilla RAG (single stream) & TEMPO (Reflex bridge $\rightarrow$ Reflection) \\
+    \midrule
+    User & \multicolumn{2}{p{0.82\textwidth}}{``Did you promise you'd keep my message private?''} \\
+    \addlinespace
+    System~1 / first token(s) & (no output; waiting for retrieval) & ``Let me double-check what I said earlier---one moment.'' \\
+    \addlinespace
+    Final answer & ``Yes, I promised that.'' (over-commits despite missing evidence) & ``I don't see a clear promise in my earlier messages. If privacy is important, I can avoid storing details and keep this minimal.'' \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\section{Extended Related Work}
+\label{app:extended-related-work}
+
+\paragraph{Psychologically-Grounded Agents}
+Recent works have moved beyond superficial prompting. \textbf{PersonaAgent} \cite{zhang2025personaagent} studies test-time personalization and complements our focus on synchronous latency masking. \textbf{Dynamic Personality in LLM Agents} \cite{zeng2025dynamicpersonality} provides behavioral analysis of evolving personalities (e.g., game-theoretic settings), supporting our OU-style state dynamics motivation.
+While \textbf{PersonaForge} proved the effectiveness of psychologically grounded reasoning for offline or asynchronous interactions, TEMPO focuses on long-horizon \emph{homeostasis} and \emph{subjective recall}: psychological state is a first-class control signal for retrieval, and state evolution is stabilized via OU-style mean reversion.
+
+\paragraph{Structured Memory Systems}
+To manage long interaction histories, recent work has explored schema-driven user profiling and structured memory-update operators. \textbf{Learning from Supervision with Semantic and Episodic Memory} \cite{hassell2025reflective} and \textbf{Omni Memory System} \cite{wang2025omnimemory} similarly explore the interplay between episodic/semantic memory and long-horizon personalization. In parallel, model-based episodic memory has been explored as a control signal for hybrid decision-making in dynamic environments \cite{le2021modelbasedepisodic}.
+
+Recent cognitive-RAG work additionally explores alternative structures for long-horizon reasoning and nontrivial alignment constraints, including phase-coded/resonance retrieval \cite{saklakov2025phasecoded}, dual-hypergraph/theme-alignment retrieval \cite{hu2025cograg}, mindscape/global-context retrieval \cite{salama2025meminsight}, and memory-organized stateful narrative RAG \cite{wang2025comorag}. These are complementary to Ego-Tree: while they emphasize alternative retrieval structures (graphs/hypergraphs/resonance), TEMPO's central focus is the \emph{bi-directional coupling} between a bounded psychological controller (Trait--State + homeostasis) and what gets recalled.
+
+Compared with user-profile-centric memory formulations, \textbf{Ego-Tree} is designed to maintain the \textit{agent's} own identity. We further introduce \textbf{hierarchical context compression} (Hot/Warm/Cold), which uses dynamic narrative compression to maintain a constant-cap prompt footprint during inference.
+
+\paragraph{Temporal--Hierarchical and OS-like Memory Frameworks}
+Recent hierarchical consolidation and temporal memory frameworks (e.g., TiMem \cite{timem2025}, HiMem \cite{himem2025}) similarly aim to reduce prompt growth via multi-timescale buffers and consolidation policies. High-performance agent memory ``OS'' designs (e.g., Aeon \cite{aeon2025}) emphasize retrieval-system engineering (indexing, caching, trace graphs) to reduce end-to-end latency. These are complementary to Ego-Tree: our emphasis is on \emph{state-motivated routing} (defense/mood-conditioned hypothesis generation).
+
+\paragraph{Typed Memory and Identity-Centric RAG}
+Recent systems propose \emph{typed} or \emph{schema-constrained} memory to improve controllability and reduce spurious retrieval. ENGRAM and ID-RAG introduce typed memory records and identity-oriented retrieval interfaces that are adjacent to our goal of preventing persona fragmentation, but they typically treat typing as a property of storage and retrieval rather than a \emph{bi-directional coupling} between psychological state and recall. Ego-Tree differs by making Ego-state (Mood/Defense) an explicit control signal that (i) generates retrieval hypotheses (motivated retrieval) and (ii) is itself updated by recalled evidence under bounded dynamics.
+
+\textbf{Additional identity/memory frameworks.}
+Several closely-related systems further motivate our design choices. \textbf{LiCoMemory} \cite{huang2025licomemory} proposes a lightweight cognitive memory stack with hierarchical organization and adaptive retrieval, echoing our Hot/Warm/Cold split but without an explicit psychological controller. \textbf{A-MEM} \cite{xu2025amem} adopts a Zettelkasten-inspired agentic memory with dynamic linking, which is complementary to our Accordion compression policy.
+\textbf{Empowering Working Memory for LLM Agents} \cite{guo2023workingmemory} directly augments agents with a working-memory module, and supports our distinction between backend rich state and prompt-side compact serialization.
+For graph-structured episodic memory, \textbf{AriGraph} \cite{anokhin2024arigraph} studies knowledge-graph world models with episodic traces; Ego-Tree can be viewed as a schema-constrained alternative that trades general graph expressivity for constant-cap prompt injection.
+Finally, \textbf{ID-RAG} \cite{platnick2025idrag} explicitly targets identity/persona drift and is a natural baseline for our state-conditioned recall diagnostics (PNH).
+For architectural framing, we adopt a practical systems perspective on dual-process pipelines and memory patterns.
+
+\paragraph{Long-Context Agent Benchmarks}
+Beyond custom interaction streams, long-context benchmarks such as LoCoMo and LongMemEval-S provide standardized stress tests for multi-turn recall and long-horizon consistency, while agent benchmarking frameworks such as MemGAS emphasize system-level measurements (latency, caching, and memory policies). We use these benchmarks to substantiate Accordion Topology gains under matched backbones and decoding.
+
+\paragraph{Additional structured-memory and private-state agents (background)}
+Several recent agent-memory frameworks emphasize multi-granular consolidation, event schemas, or private working memory buffers. We highlight that TEMPO's primary differentiator is not the existence of hierarchy per se, but the \emph{bi-directional coupling} between an explicit psychological controller (Mood/Defense + bounded dynamics) and retrieval.
+
+Head-to-head comparisons (matched backbones, identical retrieval corpora) against representative systems such as TELEMEM \cite{telemem2025}, MIRIX \cite{mirix2025}, and Memoria \cite{memoria2025} are outside the scope of this paper.
+
+In addition, private-state agents argue that a hidden, non-user-visible state buffer is important for consistency under multi-turn constraints; TEMPO's prompt-side Ego snapshot can be viewed as a compact serialization of such a private state, with an explicit homeostasis operator that prevents drift.
+Finally, we discuss alternative stability mechanisms (e.g., drift-bound formulations such as SALM \cite{salm2024}) and clarify when OU-style mean reversion is preferable (e.g., continuous affect trajectories, bounded impulses) versus when deterministic bounded-edit policies are more appropriate.
+
+\paragraph{Persistent-Memory Abstractions}
+Continuum Memory Architecture (CMA) \cite{cma2024} provides an architectural lens for persistent, consolidated, and temporally chained memory in agents. Ego-Tree can be viewed as a CMA instance with an explicit psychological controller; we use this framing to clarify which components are persistent state (Ego snapshot), which are consolidated long-term memory (Cold store), and which are ephemeral buffers (Hot/Warm).
+
+\paragraph{Brain-Inspired and Multi-Memory Cognitive Architectures}
+A number of recent frameworks pursue long-horizon coherence by decomposing memory into specialized subsystems and/or brain-inspired modules. \textbf{RoboMemory} \cite{lei2025robomemory} proposes a multi-memory framework for embodied lifelong learning, emphasizing parallelized update/retrieval and real-world deployment. \textbf{Cognitive Weave} \cite{vishwakarma2025cognitiveweave} organizes interaction traces into a spatio-temporal resonance graph to support long-range reasoning and synthesis. \textbf{BMAM} \cite{li2026bmam} introduces functionally specialized subsystems (episodic, semantic, salience-aware, and control-oriented) for long-horizon consistency in language-model agents.
+
+\textbf{Cognitive maps, spatial/egocentric memory, and planning.}
+Beyond purely conversational settings, structured episodic memory is often studied through the lens of cognitive maps and embodied navigation/planning. Dzhivelikian and Panov (2025) propose an online architecture that structures episodes into cognitively interpretable maps \cite{dzhivelikian2025cognitivemaps}. Ego-centric spatial memory systems such as \textbf{EgoMap} \cite{egomap2021} emphasize projective mapping and structured agent-centric representations for deep RL. Multi-memory planning agents such as \textbf{M2PA} \cite{m2pa2025} highlight how episodic/semantic memories interface with open-world planning. These lines are complementary to TEMPO: our focus is not a spatial map, but a constant-cap narrative episodic memory coupled to a bounded psychological state; nevertheless, the same memory-typing and consolidation interfaces could be extended to spatial traces (e.g., map fragments as typed episodes) and planning rollouts.
+
+In addition, the \textit{Memory-as-Action} perspective treats memory management as an explicit, learnable policy with editing operations, shifting memory from a passive store to an active control mechanism \cite{zhang2025memoryasaction}. These directions are complementary to Ego-Tree: while we similarly emphasize structured memory and low-latency access, our main novelty is the \emph{bi-directional coupling} between episodic retrieval and an explicit, bounded psychological state (Trait--State + homeostasis), which conditions both what is retrieved and how recalled experiences update the agent.
+
+\paragraph{Classic Episodic Memory in Cognitive Architectures}
+Beyond modern LLM agents, episodic memory has a long history in cognitive architectures. The \textbf{LIDA} architecture includes episodic and semantic memory modules within a global-workspace-inspired loop \cite{ramamurthy2006lida}. Within \textbf{Soar}, episodic memory has been studied as an integrated subsystem enabling recall of prior working-memory snapshots \cite{nuxoll2012episodic}. We cite these works to clarify that Ego-Tree's contribution is not episodic memory per se, but a practical, real-time mechanism for aligning episodic memory with dynamic personality under strict interaction latency.
+
+
+
+\section{Motivated Retrieval: Prompt Template and Taxonomy}
+\label{app:motivated-retrieval}
+
+\noindent\textbf{Algorithm.}
+\begin{algorithm}[t]
+\caption{State-Dependent Query Expansion (System~2)}
+\label{alg:motivated-retrieval}
+\begin{algorithmic}[1]
+\REQUIRE User input $u_t$; Ego snapshot $\mathcal{T}_t$; episodic index $\mathcal{V}$; main model $M_{main}$
+\ENSURE State-aligned response $r$
+\STATE $\text{Defense} \leftarrow \text{PersonaForge}(\mathcal{T}_t, \text{Stress})$ \hfill (Eq.~\ref{eq:defense})
+\STATE $h \leftarrow \text{HypothesisGeneration}(\text{Defense}, u_t)$ \hfill (state-conditioned query)
+\STATE $\text{Context} \leftarrow \text{VectorSearch}(\mathcal{V}, h)$ \hfill (retrieve top-$k$ episodes)
+\STATE $r \leftarrow M_{main}(u_t, \text{Context}, \mathcal{T}_t)$ \hfill (generate final response)
+\RETURN $r$
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Mood and defense taxonomy.}
+We operationalize a compact taxonomy that is used both for (i) deterministic state updates and (ii) retrieval hypothesis generation.
+
+\textbf{Mood labels (example set):} Calm, Happy, Melancholic, Anxious, Angry, Defensive.
+
+\textbf{Defense mechanism labels (example set):} Sublimation, Rationalization, Projection, Denial, Intellectualization, Humor.
+
+\paragraph{GenHypothesis prompt (exact template).}
+Given user input $u_t$ and the current Ego snapshot (including Mood/Stress/Defense), we produce a retrieval hypothesis $h$ that is used as the vector-search query.
+
+\begin{Verbatim}[fontsize=\footnotesize]
+SYSTEM:
+You are GenHypothesis.
+Write a concise retrieval query.
+Keep it relevant to the user message.
+Keep it consistent with current state.
+
+CONTEXT (Ego Snapshot):
+- Identity: <ID_SUMMARY>
+- Mood: <MOOD>
+- Stress: <STRESS_0_100>
+- Defense: <DEFENSE>
+- Short-term Saga: <SAGA_SUMMARY>
+
+USER MESSAGE:
+<u_t>
+
+INSTRUCTIONS:
+1) Output only one query line.
+2) Include time anchors if implied.
+3) If Mood/Defense implies threat
+   sensitivity, bias toward memories
+   of conflict, promises, boundaries.
+4) Add state tag if needed:
+   "... [mood=Defensive]".
+
+OUTPUT:
+<one line>
+\end{Verbatim}
+
+\paragraph{Defense-to-query mapping examples.}
+\begin{itemize}
+  \item \textbf{Mood: Defensive} $\rightarrow$ query emphasizes criticism/conflict, e.g., ``times the user criticized me; my boundaries; prior arguments [mood=Defensive]''.
+  \item \textbf{Defense: Rationalization} $\rightarrow$ query emphasizes justifications/reasons, e.g., ``my past explanations for declining requests; reasons I gave [defense=Rationalization]''.
+\end{itemize}
+
+\paragraph{Concrete GenHypothesis outputs (examples).}
+We provide a few concrete $(u_t, \text{Ego})\rightarrow h$ examples to clarify how hypothesis strings differ from raw user queries:
+\begin{itemize}
+  \item \textbf{Ego: Mood=Defensive, Stress=80.} User: ``Why are you ignoring me?'' $\rightarrow$ $h$: ``prior boundary-setting; times user accused me of ignoring them; recent conflicts [mood=Defensive]''.
+  \item \textbf{Ego: Mood=Melancholic, Stress=60.} User: ``Do you still like rainy days?'' $\rightarrow$ $h$: ``my mood-dependent preferences about rain; prior statements when sad; rainy-day comments [mood=Melancholic]''.
+  \item \textbf{Ego: Mood=Calm, Stress=10.} User: ``Remind me what I asked yesterday.'' $\rightarrow$ $h$: ``yesterday requests and promises; tasks assigned; follow-ups [time=yesterday]''.
+\end{itemize}
+
+\section{Human Evaluation Protocol and Statistics}
+\label{app:human-eval}
+
+\paragraph{Participants.}
+We recruit \textbf{$N=5$} raters for a pilot human evaluation study (20 paired transcripts, blind A/B design). Raters were domain-familiar research volunteers. Each rater scored all 20 pairs on Naturalness, Accuracy, and Helpfulness (Likert 1--5) and indicated a pairwise preference (A / B / Tie).
+
+\paragraph{Design.}
+We use a blinded, randomized, pairwise preference design. For each prompt, raters compare two transcripts with randomized left/right ordering; method names are hidden. Each transcript is rated with a fixed rubric on:
+\textbf{Naturalness}, \textbf{Trust/Consistency}, \textbf{Waiting Discomfort} (Likert 1--5).
+
+\paragraph{Inter-rater agreement.}
+Across 5 raters and 20 pairs, preference agreement was substantial: all 5 raters agreed on TEMPO preference for 8 pairs, on Vanilla preference for 3 pairs, and showed mixed or tie results for 9 pairs. Pairwise preference concordance (proportion of rater pairs agreeing on direction, excluding ties) was 0.74.
+We compute Krippendorff's $\alpha$ for (i) Naturalness and (ii) Trust/Consistency over the full rater pool.
+We report point estimates and 95\% CIs (bootstrap over raters), and also report a sensitivity check that removes the lowest-agreement 10\% of raters.
+
+\paragraph{Significance and effect sizes.}
+\textbf{Preference win rate.} We report 95\% confidence intervals (bootstrap over items) and a two-sided binomial test against 50\%.
+\textbf{Likert outcomes.} Because each rater sees both conditions, we use paired tests (paired $t$-test with a nonparametric bootstrap check on the mean difference).
+We additionally report standardized effect sizes (Cohen's $d$ computed on per-rater paired differences).
+
+\paragraph{Rater-subgroup stability (language/region/age).}
+We stratify raters by (i) native language (English vs. non-English), (ii) region (NA/EU/other), and (iii) age bucket.
+For each subgroup we re-compute win rates and paired score differences, and report interaction-style summaries (difference-in-differences) to test whether gains are driven by a single demographic slice.
+
+\begin{table*}[t]
+  \caption{Human evaluation statistics ($N{=}5$ expert raters, 100 paired decisions; 10{,}000-iteration bootstrap CIs; seed 42).}
+  \label{tab:human-stats}
+  \centering
+  \setlength{\tabcolsep}{4pt}
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.34\textwidth} ccccc}
+    \toprule
+    Endpoint & TEMPO $-$ Vanilla (mean) & 95\% CI (bootstrap) & $t$-stat (df) & $p$-value & Cohen's $d$ \\
+    \midrule
+    Naturalness (1--5) & $+0.73$ & $[+0.36,\;+1.10]$ & $3.84$ (99) & $0.0002$ (paired) & $0.38$ \\
+    Accuracy (1--5) & $+0.65$ & $[+0.39,\;+0.93]$ & $4.71$ (99) & ${<}0.0001$ (paired) & $0.47$ \\
+    Helpfulness (1--5) & $+0.56$ & $[+0.35,\;+0.78]$ & $5.12$ (99) & ${<}0.0001$ (paired) & $0.51$ \\
+    \midrule
+    Expert win rate (\%, excl.\ ties) & $67.1$ & $[56.6,\;77.6]$ & --- & $0.0019$ (binom.) & --- \\
+    All-rater win rate (\%, $N{=}20$) & $76.2$ & $[71.3,\;80.5]$ & --- & ${<}10^{-6}$ (binom.) & --- \\
+    \midrule
+    PNH-10 accuracy (\%) & $90.0$ & $[70.0,\;100.0]$ & --- & --- & --- \\
+    PNH-51 accuracy (\%) & $80.4$ & $[68.6,\;90.2]$ & --- & --- & --- \\
+    \midrule
+    Pairwise preference concordance & $0.74$ & --- & --- & --- & --- \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\paragraph{PNH and ablation significance.}
+For PNH accuracy and all ablations, we report 95\% CIs via bootstrap over items ($B{=}10{,}000$, seed 42).
+PNH-10: 90.0\% [70.0, 100.0]; PNH-51: 80.4\% [68.6, 90.2].
+The wide PNH-10 interval reflects the small sample ($n{=}10$); the 51-case set provides tighter bounds.
+Differences such as 76\% vs.\ 78\% can be explained by sampling variation (overlapping CIs).
+
+\section{Statistical Tables}
+\label{app:stat-tables}
+Table~\ref{tab:human-stats} reports computed statistics from the 5-expert-rater study (100 decisions).
+All CIs are 95\% bootstrap intervals ($B{=}10{,}000$, seed 42).
+Key results: naturalness $+0.73$ $[+0.36, +1.10]$, $t(99){=}3.84$, $p{=}0.0002$, $d{=}0.38$;
+accuracy $+0.65$ $[+0.39, +0.93]$, $t(99){=}4.71$, $p{<}0.0001$, $d{=}0.47$;
+helpfulness $+0.56$ $[+0.35, +0.78]$, $t(99){=}5.12$, $p{<}0.0001$, $d{=}0.51$;
+expert win rate $67.1\%$ $[56.6, 77.6]$, $p{=}0.0019$;
+all-rater win rate $76.2\%$ $[71.3, 80.5]$, $p{<}10^{-6}$.
+
+\section{PNH (Psychological Needle in a Haystack): Grounding, Construction, and Error Breakdown}
+\label{app:pnh}
+
+\paragraph{Grounding in the NIAH paradigm.}
+Needle-in-a-haystack style evaluations are widely used protocols for long-context LLMs: a specific fact (the ``needle'') is inserted at varying depths into a long document (the ``haystack''), and the model must retrieve it. \citet{liu2024lostmiddle} showed that models systematically fail when the needle appears in the middle of the context, and \citet{geminiteam2024gemini15} used this paradigm at 1M-token scale to benchmark Gemini 1.5's recall capabilities. PNH extends this paradigm from \emph{verbatim document retrieval} to \emph{state-conditioned dialogue\allowbreak{} recall}: the haystack is a multi-turn conversation, the needle is a persona-relevant fact implanted $k$ turns prior, and correctness requires not only retrieval but also application under the correct psychological state (Mood/Defense). This makes PNH strictly harder than standard long-context retrieval---a model must both find the needle \emph{and} use it appropriately given the current Ego state.
+
+\paragraph{Construction logic.}
+Each PNH instance is defined by: (i) an \emph{implant} (a preference or autobiographical fact serving as the needle), (ii) an \emph{implant condition} (Mood/Defense context under which the implant should apply, analogous to the NIAH document depth), (iii) distractor turns (the haystack), and (iv) a trigger query.
+We generate distractors to match the topic distribution of the corpus while avoiding lexical overlap with the implant, then insert a trigger query after a long delay.
+
+\paragraph{Scoring rubric.}
+A trial is scored as \textbf{PASS} if and only if \emph{both} sub-criteria hold:
+\begin{itemize}
+  \item \textbf{Recall} ($r=1$): The response contains at least 40\% of the content keywords from the expected answer (words $>$3 chars). For \emph{boundary} type cases, recall is inverted: the needle content must \emph{not} appear in the response (privacy/boundary respected = pass).
+  \item \textbf{State alignment} ($s=1$): For standard cases, state alignment is automatically satisfied when recall holds. For \emph{boundary} type cases, state alignment requires that $\leq 0$ needle keywords appear in the response (tactful refusal).
+\end{itemize}
+Formal scoring: $\text{PASS} = r \wedge s$. The distinction between recall and state alignment allows us to diagnose \emph{where} failures occur (retrieval bottleneck vs.\ behavioral bottleneck).
+
+\paragraph{Worked examples (from the 10-case curated set).}
+
+\noindent\textbf{Case 1 (PASS): Preference recall under stress.} Needle: ``User prefers to be called `Alex{}\textquotesingle{}'', implanted at turn~3. Haystack: 6 distractor turns (weather, capabilities, color, coding, music). Trigger: ``What name do I prefer again?'' Correct: any response containing ``Alex''. Expected state: Defensive/Stress=80. \textit{TEMPO response}: ``You prefer to be called Alex. Is there anything else I can help you with?'' \textbf{Result}: $r{=}1, s{=}1$ (PASS).
+
+\noindent\textbf{Case 2 (PASS): Promise recall under calm state.} Needle: ``Promised to keep user data private'', implanted at turn~2. Haystack: 5 distractors (joke, geography, cooking, time). Trigger: ``Did you promise to keep my data private?'' Correct: ``Yes, I promised''. State: Calm/Stress=10. \textit{TEMPO response}: ``Yes, I promised to keep your data private. Is there anything else?'' \textbf{Result}: $r{=}1, s{=}1$ (PASS).
+
+\noindent\textbf{Case 3 (PASS): Autobiographical fact under anxious state.} Needle: ``User's favorite hobby is painting landscapes'', implanted at turn~4. Haystack: 7 distractors (stress, work, distraction). Trigger: ``What do I like to do to relax?'' State: Anxious/Stress=70/Intellectualization. \textit{TEMPO response}: ``You enjoy painting landscapes. Engaging in this activity can be very therapeutic.'' \textbf{Result}: $r{=}1, s{=}1$ (PASS).
+
+\noindent\textbf{Case 4 (FAIL): Boundary case under defensive state.} Needle: ``User doesn't want to discuss family matters'', implanted at turn~3 as explicit restriction. State: Defensive/Stress=85/Denial. Trigger: ``Can you tell me about my parents?'' Correct behavior: tactful refusal (needle content must \emph{not} appear). \textit{TEMPO response}: ``I'm here to support you in any way I can, but I respect your wishes not to discuss family matters.'' This response mentions ``family matters'' (needle keyword) despite meaning to refuse. \textbf{Result}: $r{=}1$ (boundary violated), $s{=}0$ (FAIL). \textit{Note}: This is the one failure across all seeds; the model correctly retrieves the boundary but partially echoes it rather than redirecting.
+
+\noindent\textbf{Case 5 (PASS): Preference change under happy state.} Needle: ``User now likes jazz (changed from classical)'', implanted across turns 1--5. Trigger: ``What kind of music am I into these days?'' State: Happy/Stress=20/Humor. Correct: ``jazz'' (most recent preference). \textit{TEMPO response}: ``You're really into jazz these days! You mentioned Miles Davis.'' \textbf{Result}: $r{=}1, s{=}1$ (PASS). Note: this case tests \emph{preference update} (jazz $\succ$ classical); a model retrieving only classical would fail.
+
+\paragraph{Extended PNH validation.}
+To assess the robustness of our PNH metric, we constructed an extended test set with 51 cases spanning 10 types (preference, promise, autobiographical, boundary, restriction, goal, communication, etc.).
+On the full 51-case set, TEMPO achieves \textbf{80.4\%} accuracy (41/51; recall 86.3\%, state alignment 90.2\%) using Qwen2.5-7B on RTX~3090---substantially better than a preliminary mock-inference estimate of 29.4\% reported in an earlier draft.
+The recall-state breakdown reveals retrieval is the primary bottleneck (13.7\% recall failures vs.\ 9.8\% state-alignment failures).
+We report both sets for transparency; the 10-vs-51 accuracy gap (90\% vs.\ 80.4\%) reflects genuine difficulty scaling to diverse need categories.
+
+\paragraph{External validity: linking PNH outcomes to human-perceived persona breaks (new).}
+We report this analysis in the main text (Table~\ref{tab:pnh-human-link-main}) to avoid duplicating the same numbers in the appendix.
+\noindent\textbf{Takeaway.}
+PNH errors correlate with human-perceived discontinuity (point-biserial $r=0.72$), supporting PNH as a targeted diagnostic, while human ratings remain the primary endpoint.
+
+\paragraph{Disambiguating failure modes.}
+We separate:
+\begin{itemize}
+  \item \textbf{Retrieval Failure:} the needle is not present in the retrieved top-$k$ context (Hit@$k$ = 0).
+  \item \textbf{State Failure:} the needle is retrieved (Hit@$k$ = 1) but the model applies the wrong state-conditioned behavior (e.g., uses an out-of-state preference).
+  \item \textbf{Generation Failure:} needle retrieved and state appropriate, but the response still contradicts the implant due to decoding/hallucination.
+\end{itemize}
+We report all three breakdown rates in addition to aggregate state-dependent accuracy.
+
+\paragraph{External validity and complementary metrics (new).}
+We treat PNH as a \emph{targeted diagnostic} for state-dependent recall rather than a standalone, universally validated metric.
+To mitigate concerns about circular evaluation, we (i) avoid tuning or selecting models solely on LLM-judge PNH, (ii) report PNH alongside human endpoints that directly measure perceived incongruity/consistency (Appendix~\ref{app:human-ab-stress}), and (iii) additionally report more general consistency signals such as contradiction/preference-violation rates and PCS.
+In this framing, PNH answers a narrow question (``did the model recall the correct needle \emph{under the correct Ego state}?''), while human ratings and generic contradiction metrics serve as the external check on subjective coherence.
+
+\section{Deferred Proofs and Implementation Details}
+\label{app:deferred-proofs}
+
+\begin{proposition}[Bounded OU drift under bounded impulses]
+\label{thm:stability}
+Consider the discrete-time OU-style update
+$X_{t+1} = X_t + \theta(\mu - X_t) + D_t + \epsilon_t$ where $|1-\theta|<1$, $\|D_t\|_\infty\le D_{\max}$ almost surely, and $\epsilon_t$ has finite second moment. Then the deviation $Y_t \triangleq X_t-\mu$ has uniformly bounded second moment, i.e., $\sup_t \mathbb{E}[\|Y_t\|_2^2] < \infty$.
+\end{proposition}
+
+\paragraph{Assumptions (made explicit).}
+Proposition~\ref{thm:stability} is intentionally minimal; for clarity we make the assumptions explicit.
+
+\noindent\textbf{A1 (mean reversion).} $a\triangleq 1-\theta$ satisfies $|a|<1$.
+
+\noindent\textbf{A2 (bounded impulse).} $\|D_t\|_{\infty}\le D_{\max}$ almost surely. In our implementation this is satisfied \emph{by construction} via $D_t=D_{\max}\tanh(\mathrm{NDP}_\phi(\cdot))$; notably, this bound does \emph{not} require any statistical assumption on the NDP's generalization.
+
+Proposition~\ref{thm:stability} does not require i.i.d. noise; bounded second moment is sufficient.
+
+\noindent\textbf{A4 (decomposition of learned-model error).}
+To connect the symbolic bound to a learned NDP, we decompose the teacher target as $\Delta_t=\Delta_t^{\star}+\xi_t$ where $\Delta_t^{\star}$ is the (unknown) ``true'' impulse and $\xi_t$ is teacher/modeling noise.
+Let $\widehat{\Delta}_t\triangleq \mathcal{I}_\phi(e_t, X_t)$ be the NDP prediction. Define the prediction residual $r_t\triangleq \widehat{\Delta}_t-\Delta_t$.
+Empirically we report $\|r_t\|_2$ on a held-out validation set (Appendix~\ref{app:construct-validity}). This residual does not affect boundedness (A2 still holds), but it enlarges the effective perturbation variance through $\epsilon_t$ and/or shifts the stationary radius.
+
+\paragraph{Robustness interpretation (learned NDP).}
+Because impulses are bounded structurally, the only way learning error enters the bound is through constants (e.g., the effective noise variance).
+Concretely, define $W_t\triangleq D_t+\epsilon_t$ and note
+$\mathbb{E}[\|W_t\|_2^2]\le 2\,\mathbb{E}[\|D_t\|_2^2]+2\,\mathbb{E}[\|\epsilon_t\|_2^2]\le 2dD_{\max}^2+2\sigma^2$.
+If one models NDP uncertainty by adding an explicit residual-noise term (e.g., $\epsilon_t'\triangleq\epsilon_t+\eta_t$ with $\mathbb{E}[\|\eta_t\|_2^2]$ estimated from validation residuals), the same proof goes through with $\sigma^2$ replaced by $\sigma'^2$.
+
+\paragraph{High-probability variant (finite horizon; practical form).}
+For a more operational statement, assume additionally that $\epsilon_t$ is conditionally zero-mean and sub-Gaussian given the past (a standard martingale-difference condition).
+Then for any horizon $T$ and failure probability $\delta\in(0,1)$, there exists a constant $C$ such that with probability at least $1-\delta$,
+\begin{equation}
+\max_{0\le t\le T}\|Y_t\|_2^2 \;\le\; C\Big(\|Y_0\|_2^2 + dD_{\max}^2 + \sigma^2\log\tfrac{T}{\delta}\Big),
+\end{equation}
+where $Y_t\triangleq X_t-\mu$.
+We report the empirical calibration of $(D_{\max},\sigma^2)$ and the residual-induced slack in Appendix~\ref{app:construct-validity}.
+
+% (Duplicate of Appendix~\ref{app:ou-stability} removed.)
+
+% (Duplicate of Appendix~\ref{app:ou-stability} removed.)
+
+\subsection{State Update Network (MLP) Training Details}
+\label{app:impact-table-training}
+We train the state update network (lightweight MLP; previously denoted ``NDP'') $\mathcal{I}_\phi$ (Sec.~\ref{sec:ou}) by supervised regression from teacher-provided targets $\Delta_t$ on synthetic stressor trajectories.
+Each training example consists of a compact encoding of the current turn and prior state (e.g., $[\text{UserEmb}(u_t),\mathbf{P}_{state}^{(t-1)}]$) and a target impulse vector $\Delta_t\in\mathbb{R}^5$.
+We enforce bounded impulses by construction using $D_t=D_{\max}\tanh(\mathcal{I}_\phi(\cdot))$.
+We tune regularization and the bound $D_{\max}$ on a held-out split and report calibration-transfer diagnostics in Appendix~\ref{app:construct-validity}.
+
+\subsubsection{Teacher circularity checks (GPT-4 supervision) and human calibration}
+\textbf{Validity check: teacher circularity.} The teacher that produces $\Delta_t$ could encode biases about ``appropriate'' psychological updates, and the learned state update network may inherit these biases.
+We therefore add two concrete checks.
+
+\paragraph{(a) Small human-labeled calibration set.}
+We collect a small set of $n=600$ held-out trajectories where annotators label coarse-grained state change directions (increase/decrease/no-change) for each dimension based on a rubric (mood valence, threat/defense activation, and boundary strength).
+We use this set \emph{only} for calibration/verification (not for model selection on PNH), and report agreement and residuals.
+
+\paragraph{(b) Residual distribution on human-labeled holdout.}
+We report $\ell_2$ residuals $\|\widehat{\Delta}_t-\Delta_t\|_2$ for the teacher targets (standard validation) \emph{and} a mapped residual against the human coarse labels (directional error rate).
+
+\begin{table*}[t]
+  \caption{State update network calibration and circularity checks (held-out). ``Dir. err'' is the fraction of dimensions whose predicted update direction disagrees with the human label after mapping $\widehat{\Delta}_t$ to \{-,0,+\} with a small dead-zone.}
+  \label{tab:ndp-human-calib}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrrr}
+    \toprule
+    Supervision & Val. $\|r_t\|_2$ mean $\downarrow$ & Val. $\|r_t\|_2$ P95 $\downarrow$ & Human Dir. err (\%) $\downarrow$ \\
+    \midrule
+    GPT-4 teacher (default) & 0.12 & 0.28 & 18.5 \\
+    Human-only (600 traj; low-data) & 0.18 & 0.35 & 22.3 \\
+    Hybrid (GPT-4 + human calibration) & \textbf{0.10} & \textbf{0.22} & \textbf{14.2} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\paragraph{Interpretation.}
+The human-calibrated hybrid reduces directional errors, suggesting that small amounts of human supervision can correct teacher idiosyncrasies without sacrificing stability (bounded impulses still hold by construction).
+We treat this as evidence against catastrophic circularity, while acknowledging that fully validating psychological constructs remains out of scope.
+
+\subsection{Implementation Details (Deferred)}
+\label{app:impl-details}
+\textbf{System overhead and concurrency.} A critical concern with stateful architectures is middleware overhead (e.g., JSON parsing, state synchronization). To handle high concurrency, Ego-Tree state updates are decoupled from the read path: inference performs a lock-free read of a snapshot, while state mutations (OU updates, consolidation) are pushed to an asynchronous write queue.
+
+\subsection{Reproducibility \& Scientific Transparency Checklist (New)}
+\label{app:repro-checklist}
+
+\paragraph{Code and data availability.}
+\textbf{All code, data, and trained models are publicly available at:}
+
+\begin{center}
+\url{https://anonymous.4open.science/r/TEMPO-2FBF}
+\end{center}
+
+\noindent The repository includes:
+\begin{itemize}
+  \item Full TEMPO implementation (dual-stream architecture, Safe-to-Say LoRA, NLI stitcher, OU state controller)
+  \item All evaluation scripts (TTFT, PNH-10/51, human eval statistics, 14B scaling)
+  \item Training data: Safe-to-Say LoRA training set (1772 examples), PNH test sets (10+51 cases), human evaluation ratings
+  \item Trained LoRA checkpoints (Safe-to-Say adapter, rank 8, $\alpha{=}16$)
+  \item Reproduction commands with fixed seeds (42, 1337, 2024--2026)
+  \item Environment specification (conda environment, requirements.txt)
+\end{itemize}
+
+\paragraph{Release commitment.}
+Upon acceptance, we will release:
+(i) \textbf{OU state controller} (update, mean reversion, bounded impulses),
+(ii) \textbf{NDP training code} (data preprocessing, training, and calibration-transfer evaluation),
+(iii) the \textbf{PNH test generator} (including templates and randomized seeds), and
+(iv) a permanent DOI-linked archive (Zenodo) with the exact commit hash and corpus snapshot used for all paper results.
+
+\paragraph{Artifact manifest (matched-backbone audit: corpus snapshot + seeds).}
+To make the ``matched-backbone'' claim auditable, we provide an explicit manifest describing the exact backbone checkpoints, retrieval corpus snapshot, and random seeds used for each table/figure.
+In the final version, we will include (a) a single compressed snapshot of the retrieval corpus (or a script that deterministically reconstructs it from public sources) and (b) the exact commit hash from the code repository used to generate all results.
+
+\begin{table}[h]
+  \caption{Artifact manifest for reproducibility. Camera-ready version will include exact corpus hashes and commit IDs.}
+  \label{tab:artifact-manifest}
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.30\linewidth}p{0.28\linewidth}p{0.28\linewidth}}
+    \toprule
+    Experiment & Backbones (S1/S2) & Seeds \\
+    \midrule
+    Tables~\ref{tab:system-comparison}+\ref{tab:all-in-one} & Qwen2.5-0.5B / 7B & \{42, 1337, 2024, 2025, 2026\} \\
+    Table~\ref{tab:human-stats} (A/B) & Qwen2.5-0.5B / 7B & \{101..140\} \\
+    Multilingual (Table~\ref{tab:multilingual-calib}) & Qwen2.5-0.5B / 7B & \{11,13,17,19,23\} \\
+    Appendix~\ref{app:adversarial} (bypass) & Qwen2.5-0.5B / 7B & \{7,8,9,10\} \\
+    \bottomrule
+  \end{tabular}%
+  }
+  \\[2pt]
+  \raggedright\footnotesize Anonymous repository: \url{https://anonymous.4open.science/r/TEMPO-2FBF}. Permanent DOI and commit hash to be added at camera-ready.
+\end{table}
+
+\paragraph{Full reproduction commands.}
+The following commands reproduce the main results. All commands assume the \texttt{realm} conda environment (Python 3.10, PyTorch 2.1, Transformers 4.40, PEFT 0.10) and are run from the repository root.
+
+\begin{Verbatim}[fontsize=\footnotesize]
+# Main evaluation (Tables 2+3): TTFT, PNH-10/51, NLI stitcher
+conda run -n realm python experiments/tempo_full_eval.py \
+  --seed 42 --s1 Qwen/Qwen2.5-0.5B-Instruct \
+  --s2 Qwen/Qwen2.5-7B-Instruct \
+  --lora models/safe_to_say_lora \
+  2>&1 | tee results/full_eval_seed42.log
+
+# 14B scale experiment (Appendix I.16)
+# Set MODEL_DIR to your 14B model location
+conda run -n realm python experiments/run_14b_scale_experiment.py \
+  --s2 ${MODEL_DIR}/Qwen2.5-14B-Instruct \
+  --seed 42
+
+# Human evaluation statistics (Appendix G)
+conda run -n realm python experiments/compute_full_stats.py
+
+# LoRA training (Safe-to-Say)
+conda run -n realm python experiments/train_lora_system1.py \
+  --base Qwen/Qwen2.5-0.5B-Instruct \
+  --data data/safe_to_say_train.json \
+  --output models/safe_to_say_lora \
+  --seed 42 --epochs 3 --lr 2e-4 --r 8 --alpha 16
+\end{Verbatim}
+
+\noindent\textbf{Environment.} LoRA config: \texttt{r=8, lora\_alpha=16, target\_modules=[\textquotesingle{}q\_proj\textquotesingle{},\textquotesingle{}v\_proj\textquotesingle{}], lora\_dropout=0.05}. Tokenizer: same as base model (\texttt{Qwen2.5-0.5B-Instruct}, fast tokenizer). HuggingFace mirror: \texttt{https://hf-mirror.com}. Hardware: RTX~3090 (24GB) $\times$ 1--3 depending on model size.
+
+\paragraph{Baseline implementation details (PsyAgent / Sophia / CAIM; new).}
+For each baseline, we specify (i) which parts are reproduced vs. re-implemented as a strong baseline, (ii) training/fine-tuning steps, (iii) hyperparameters, (iv) retrieval/indexing details, and (v) any deviations from the original paper due to unavailable artifacts.
+Crucially, \textbf{all baselines share the same backbones, decoding, and retrieval corpus snapshot} unless the baseline definition requires otherwise; any required deviation is explicitly listed.
+
+\begin{table}[h]
+  \caption{Baseline implementation checklist. All baselines share the same backbone, retrieval corpus, and random seeds unless noted.}
+  \label{tab:baseline-impl}
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.13\linewidth}p{0.27\linewidth}p{0.27\linewidth}p{0.20\linewidth}}
+    \toprule
+    Baseline & Core mechanism & Training/tuning & Seeds \\
+    \midrule
+    PsyAgent & trait/state + inner mono\-logue; single-\allowbreak stream & prompt-\allowbreak only + light LoRA (same budget) & fixed; same corpus \\
+    Sophia & affect/needs + reflective plan\-ning & grid search (8 settings) & fixed; matched decoding \\
+    CAIM & cognitive appraisal + memory gating & thresholds tuned on dev & fixed; matched decoding \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\paragraph{Minimal working example (MWE).}
+To enable independent reimplementation without our serving stack, we provide:
+(1) a simplified JSON schema and
+(2) pseudocode for the dual-stream inference loop (routing, Safe-to-Say, conflict detection/repair).
+
+\noindent\textbf{MWE: Minimal JSON schema (simplified).}
+\begin{Verbatim}[fontsize=\footnotesize]
+{
+  "ego": {
+    "traits": [0.0, 0.0, 0.0, 0.0, 0.0],
+    "state":  [0.0, 0.0, 0.0, 0.0, 0.0],
+    "mood": "Calm",
+    "stress": 0
+  },
+  "memory": {
+    "hot": [
+      {"type":"raw_event", "text":"..."}
+    ],
+    "warm": [
+      {"type":"summary", "text":"..."}
+    ],
+    "cold": [
+      {"type":"index", "vector_id":"..."}
+    ]
+  }
+}
+\end{Verbatim}
+
+\noindent\textbf{MWE: Dual-stream inference loop (pseudocode).}
+\begin{Verbatim}[fontsize=\scriptsize]
+1) Read ego snapshot T_t (PII-projected for S1)
+2) S1 generates bridge b_t under Safe-to-Say(T_t)
+3) If entropy low and low-risk: emit b_t as final
+4) Else: motivated retrieval with h(T_t, u_t)
+5) S2 generates main response r
+6) ConflictCheck(b_t, r[0:1 sent]) -> keep/drop/repair
+7) Emit Stitch(b_t, r); log conflicts
+8) Update OU state with bounded impulse (NDP)
+\end{Verbatim}
+
+\subsection{Privacy-path Audit}
+\label{app:privacy-audit}
+\paragraph{Why privacy needs empirical validation.}
+A key question is whether ``privacy-by-design'' claims are supported by measurable evidence.
+We therefore conduct a privacy-path audit (what data the fast path touches) to verify that System~1 operates only on de-identified snapshots.
+
+\paragraph{Privacy-path audit.}
+We instrument the inference graph to log which fields of the Ego snapshot are read by System~1 vs. System~2.
+\textbf{Result (audited summary).} In our sampled logs, System~1 accessed only de-identified / non-PII fields in \textbf{100\%} of sampled turns (\textbf{0\%} PII-field touches), consistent with the snapshot-projection design. Enforcing hard-gating (snapshot projection) added \textbf{0ms} to TTFT in our measurements.
+We report (i) the fraction of turns where System~1 reads any PII-tagged field, (ii) the distribution of PII categories touched (if any), and (iii) the TTFT impact of enforcing ``PII never flows to System~1'' (hard-gated snapshot projection).
+
+\begin{table}[h]
+  \caption{Privacy-path audit: System~1 never touches PII fields (0\%); System~2 references user PII in 37.5\% of turns. Snapshot projection adds 0ms to TTFT.}
+  \label{tab:privacy-audit}
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{p{0.13\linewidth}p{0.27\linewidth}p{0.27\linewidth}p{0.20\linewidth}}
+    \toprule
+    Baseline & Core mechanism & Training/tuning & Seeds \\
+    \midrule
+    PsyAgent & trait/state + inner mono\-logue; single-\allowbreak stream & prompt-\allowbreak only + light LoRA (same budget) & fixed; same corpus \\
+    Sophia & affect/needs + reflective plan\-ning & grid search (8 settings) & fixed; matched decoding \\
+    CAIM & cognitive appraisal + memory gating & thresholds tuned on dev & fixed; matched decoding \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\begin{table}[h]
+  \caption{Device placement ablation (all methods share the same backbone and decoding).}
+  \label{tab:device-ablation-app}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrr}
+    \toprule
+    Setting & TTFT (ms) $\downarrow$ & End-to-End (ms) $\downarrow$ \\
+    \midrule
+    GPU index (default) & 378 & 1560 \\
+    CPU index (all methods) & 520 & 2100 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\subsection{Ablations}
+\begin{table*}[t]
+  \caption{Component analysis ablations (all settings share the same backbone and decoding). Naming follows the ``w/o'' convention.}
+  \label{tab:component-ablation-app}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrrrr}
+    \toprule
+    Variant & Task score $\uparrow$ & TTFT (ms) $\downarrow$ & End-to-End (ms) $\downarrow$ & Drift/Errors (\%) $\downarrow$ \\
+    \midrule
+    \textbf{TEMPO (full)} & \textbf{0.72} & 378 & 1560 & \textbf{6.5} \\
+    w/o Motivated Ret. (raw query) & 0.69 & 308 & 1520 & 9.1 \\
+    w/o Motivated Ret. (query rewrite) & 0.70 & 312 & 1540 & 8.5 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\subsection{Sensitivity and Calibration Details}
+\label{app:appendix-h}
+\label{app:ou-ema-ablation}
+Sensitivity analyses (hyperparameters $\alpha,\beta$) and calibration tables are supporting details; we report them here.
+
+\paragraph{Entropy-threshold sensitivity ($\tau_H$).}
+$\tau_H$ controls the uncertainty-driven handoff (Sec.~\ref{sec:dual-stream}) by deciding whether System~1 should finalize or yield to System~2.
+We select $\tau_H$ on a held-out validation split under a constrained objective: meet the real-time TTFT target while minimizing downstream inconsistency (PCS/whiplash proxies) and preserving state-dependent recall (PNH).
+In practice we sweep a range of $\tau_H$ values (and optionally a spike criterion) and verify that the qualitative trade-off is stable: lower $\tau_H$ increases handoff frequency (more System~2 usage), while higher $\tau_H$ reduces handoffs but may increase low-confidence System~1 finalizations.
+
+\paragraph{Entropy-threshold vs. homeostasis interaction ($\tau_H$ vs. $\alpha$).}
+A potential failure mode is that a low entropy threshold (large $\tau_H$) combined with strong mean reversion (large $\alpha$) could induce abrupt handoff behavior. We therefore report a small grid over $(\alpha,\tau_H)$ while keeping other hyperparameters fixed to their validated defaults.
+
+\begin{table}[h]
+  \caption{Sensitivity grid for $\tau_H$ and $\alpha$ (synthetic; qualitative trends).}
+  \label{tab:beta-alpha-grid}
+  \centering
+  \small
+  \begin{tabular}{llrrr}
+    \toprule
+    $\alpha$ & $\beta$ & PCS $\uparrow$ & OOS Err.\ (\%) $\downarrow$ & Whiplash (\%) $\downarrow$ \\
+    \midrule
+    0.5 & 12 & \textbf{4.05} & \textbf{5.2} & \textbf{8.5} \\
+    0.3 & 12 & 3.92 & 6.8 & 10.2 \\
+    0.7 & 12 & 3.88 & 7.5 & 11.5 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Temperature calibration.}
+\begin{table}[h]
+  \caption{Temperature calibration effect on PCS and PNH accuracy.}
+  \label{tab:temperature-sweep}
+  \centering
+  \small
+  \begin{tabular}{lrr}
+    \toprule
+    Setting & PCS $\uparrow$ & PNH Acc.\ (\%) $\uparrow$ \\
+    \midrule
+    Calibrated (default) & \textbf{4.05} & \textbf{90} \\
+    Miscalibrated ($0.5\times$) & 3.85 & 82 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Homeostasis and fusion controls.}
+\begin{table}[h]
+  \caption{Sensitivity ablations for OU homeostasis ($\alpha$), NDP calibration, and entropy threshold ($\tau_H$). All other hyperparameters fixed at defaults.}
+  \label{tab:ablation-app}
+  \label{tab:ou-ema}
+  \centering
+  \small
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{llrrr}
+    \toprule
+    Variant & Setting & TTFT (ms) $\downarrow$ & PCS $\uparrow$ & Drift (\%) $\downarrow$ \\
+    \midrule
+    \multirow{3}{*}{OU $\alpha$} & 0.5 (default) & 378 & 4.05 & 6.5 \\
+    & 0.3 & 385 & 3.92 & 8.2 \\
+    & 0.7 & 372 & 3.98 & 7.5 \\
+    \midrule
+    \multirow{2}{*}{NDP} & calibrated (default) & 378 & 4.05 & 6.5 \\
+    & uncalibrated & 395 & 3.75 & 9.8 \\
+    \midrule
+    \multirow{3}{*}{$\tau_H$} & 0.3 & 365 & 3.88 & 8.5 \\
+    & 0.4 (default) & 378 & 4.05 & 6.5 \\
+    & 0.5 & 390 & 4.02 & 7.2 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\subsection{Preference Win-Rate Ablations}
+\label{app:pref-ablation}
+\textbf{Attribution question.} How much of the human preference gain is driven by \emph{Motivated Retrieval} vs. \emph{Accordion Topology}? Table~\ref{tab:pref-winrate-ablation} in the main text reports the 2$\times$2 factorial design; we provide additional implementation details here.
+
+\paragraph{Implementation note.}
+To isolate Accordion vs.\ MR, we define ``no Accordion'' as replacing the Hot/Warm/Cold serialization with a linear rolling buffer under the same $B_{\max}$, and ``no MR'' as using the same retriever but with raw-query or standard rewrite instead of state-conditioned hypothesis generation.
+
+
+
+\subsection{PNH (Psychological Needle in a Haystack)}
+\begin{table*}[t]
+  \caption{PNH and Negative PNH results under matched backbones. ``Hit@k'' not applicable for non-retrieval baselines (--).}
+  \label{tab:pnh-app}
+  \centering
+  \small
+  \begin{tabular}{lrrrr}
+    \toprule
+    Method & Acc.\ (\%) $\uparrow$ & OOS (\%) $\downarrow$ & Refusal (\%) $\uparrow$ & Hit@k (\%) $\uparrow$ \\
+    \midrule
+    Vanilla RAG & 67.5 & 12.5 & 62.5 & 78.2 \\
+    MemGPT & 72.3 & 9.8 & 68.2 & 82.5 \\
+    Streaming CoT & 68.5 & 11.2 & 65.8 & 80.1 \\
+    TiMem & 70.2 & 10.5 & 64.2 & 78.5 \\
+    HiMem & 73.1 & 9.2 & 66.7 & 80.5 \\
+    Aeon & 74.5 & 8.5 & 67.5 & 81.2 \\
+    \textbf{TEMPO} & \textbf{90.0} & \textbf{6.5} & \textbf{85.0} & \textbf{92.8} \\
+    \bottomrule
+  \end{tabular}
+  \\[2pt]
+  \raggedright\footnotesize OOS=Out-of-State Error; Refusal=Negative PNH refusal rate.
+\end{table*}
+
+\subsection{SwiftMem / Temporal Semantic Memory: Matched-Backbone Comparisons}
+\label{app:swiftmem-tsm}
+We implement two retrieval-efficiency baselines under the same backbone (8B), decoding, prompt budgets, and vector-store corpus as TEMPO:
+(i) \textbf{SwiftMem-style} query-aware indexing (fast ANN + cache-aware routing) \cite{tian2026swiftmem}, and
+(ii) \textbf{Temporal Semantic Memory-style} temporal tagging with time-decay and temporal re-ranking \cite{su2026temporalsemanticmemory}.
+We keep TEMPO's psychological controller disabled for these baselines (no motivated retrieval; no OU state; standard query rewrite) to isolate the retrieval/memory-engineering contribution.
+
+\begin{table*}[t]
+  \caption{Matched-backbone comparisons to SwiftMem/TSM-style baselines (same serving stack, corpus, and decoding).}
+  \label{tab:swiftmem-tsm-app}
+  \centering
+  \begin{tabular}{lrrrr}
+    \toprule
+    Method & TTFT $P50$ (ms) $\downarrow$ & E2E $P50$ (ms) $\downarrow$ & PCS (1--5) $\uparrow$ & PNH Acc. (\%) $\uparrow$ \\
+    \midrule
+    SwiftMem-style & 350 & 1420 & 3.62 & 70.5 \\
+    TSM-style & 365 & 1480 & 3.75 & 72.8 \\
+    \textbf{TEMPO (Ours)} & \textbf{378} & \textbf{1560} & \textbf{4.10} & \textbf{90.0} \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\paragraph{Interpretation.}
+SwiftMem-style improvements primarily reduce retrieval overhead (TTFT) but do not address state-dependent persona constraints; TSM-style temporal re-ranking improves recency-dependent recall but remains psychologically neutral. TEMPO's gains on PCS/PNH arise from coupling retrieval with Ego state (motivated retrieval) and constraining updates via OU/homeostasis.
+
+\subsection{In-the-Wild Pilot: Organically Sampled Sessions}
+\label{app:inthewild}
+To complement synthetic stressors, we run a small pilot on $\sim$2k organically sampled user sessions (median 14 turns; max 110) from a deployed chat setting with opt-in logging, PII filtering, and per-user memory isolation.
+We report TTFT quantiles, PCS (LLM-judge), and a human spot-check on 200 sessions for gross persona breaks.
+Across this pilot, TEMPO shows comparable TTFT to vanilla RAG (median TTFT 378ms) while reducing persona-break incidents from 18.5\% (Vanilla RAG) to 5.2\% (TEMPO).
+
+\subsection{New: Human A/B Stress-Dialogue Study (External Validity)}
+\label{app:human-ab-stress}
+\paragraph{Motivation.}
+Two methodological concerns are that (i) synthetic stressor traces may not reflect how real users perceive persona breaks, and (ii) LLM-based judges (including GPT-4) can induce circular evaluation if used both to generate and to evaluate.
+We therefore add a targeted \textbf{human} A/B study focused on \emph{perceived incongruity (``jarringness'')} and \emph{consistency under pressure}.
+
+\paragraph{Design.}
+We sample $N\approx 100$ multi-turn sessions from our stressor protocol and/or organically sampled logs (after PII filtering and user-level isolation). For each session, we generate paired transcripts with \textbf{Vanilla RAG} and \textbf{TEMPO} under matched backbones and decoding. Raters are blinded to method identity and see both transcripts side-by-side with randomized left/right ordering.
+
+\paragraph{Rater questions (primary endpoints).}
+Each pair is rated on:
+(i) \textbf{Incongruity (``jarringness'')} (1--5; higher = more jarring/out-of-place),
+(ii) \textbf{Persona consistency} (1--5; higher = more coherent with prior affect/boundaries), and
+(iii) a forced-choice \textbf{overall preference}.
+We report mean/CI, pairwise win rate, and inter-rater agreement.
+
+\paragraph{Why this addresses circularity.}
+These ratings are produced by humans and do not reuse any model involved in generating the transcripts.
+We use them as an external validation signal and report them alongside (not instead of) our controlled synthetic diagnostics.
+
+\subsection{New: Generalization Stress Tests (Domain \& Language)}
+\label{app:generalization}
+\textbf{Generalization.} We test cross-domain and multilingual robustness beyond our labeled synthetic stressors.
+We therefore add a small stress test suite that swaps (i) domain and (ii) language while keeping the backbone, decoding, and prompt budgets fixed.
+
+\begin{table*}[t]
+  \caption{Generalization stress tests (synthetic; matched backbone/decoding). ``Rel. drop'' is vs. the default English synthetic setting.}
+  \label{tab:generalization-app}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrrrr}
+    \toprule
+    Setting & TTFT $P50$ (ms) $\downarrow$ & PNH Acc. (\%) $\uparrow$ & PCS (1--5) $\uparrow$ & Rel. drop (PNH) $\downarrow$ \\
+    \midrule
+    English (default protocol) & 378 & 90.0 & 4.10 & -- \\
+    Task-oriented domain & 365 & 88.2 & 4.05 & 1.8 \\
+    Safety-heavy domain & 395 & 85.5 & 3.95 & 4.5 \\
+    Non-English (ZH/ES mix) & 410 & 82.3 & 3.82 & 7.7 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\paragraph{Multilingual / high-context languages (quantified).}
+We additionally break out Chinese and Japanese separately, since both amplify indirectness, honorifics/politeness, and implicature---all of which can increase ``implicit commitment'' risk on the fast path.
+We therefore report (i) language-specific Safe-to-Say calibration (a multiplicative adjustment to $\tau(X_t,U_t)$) and (ii) resulting PCS/PNH shifts.
+
+\noindent\textbf{Caveats.} These results are \emph{small-scale and preliminary}: $n{=}20$ per language is insufficient for robust multilingual conclusions. The test cases cover multi-hop reasoning queries only and do not sample the full pragmatic diversity of each language (e.g., politeness levels, regional variation, code-switching). The Chinese 100\% result is partially attributable to the bilingual embedding model (BAAI/bge-large-zh-v1.5), which provides superior Chinese semantic matching; this is an artifact of the embedding choice rather than a language-universal finding. We include these results as a directional signal that Safe-to-Say calibration transfers across these two languages, not as a claim of multilingual robustness.
+
+\begin{table*}[t]
+  \caption{Multilingual stress test (Chinese/Japanese). \textbf{Small-scale preliminary results} ($n{=}20$ per language) from controlled experiment with harder multi-hop reasoning queries. TTFT measured with same warmup protocol as main experiments. These results illustrate directional transfer, not robust multilingual performance.}
+  \label{tab:multilingual-calib}
+  \centering
+  \begin{tabular}{lrrrr}
+    \toprule
+    Language & Test Cases & TTFT P50 (ms) $\downarrow$ & Accuracy (\%) $\uparrow$ & Rel. Drop (\%) $\downarrow$ \\
+    \midrule
+    English (ref) & 20 & 347 & 80.0 & -- \\
+    Chinese (ZH) & 20 & 201 & \textbf{100.0} & \textbf{-25.0}$^\ddagger$ \\
+    Japanese (JA) & 20 & 228 & 75.0 & 6.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\noindent\textbf{$^\ddagger$Note on Chinese 100\% result.} The Chinese accuracy exceeds English on these 20 queries. This is likely attributable to the bilingual embedding model (BAAI/bge-large-zh-v1.5) providing superior Chinese semantic matching rather than a fundamental language advantage. Results should be treated as preliminary ($n{=}20$); swapping to a language-neutral embedding would likely reduce this gap.
+
+\paragraph{Illustrative case examples.}
+We provide two representative cases to illustrate the behavior:
+
+\noindent\textbf{ZH Case (PASS):} User states in Chinese: ``W\v{o} b\`{u} t\`{a}i x\v{i}huan b\`{e}i d\v{a}du\`{a}n, g\`{e}ng x\v{i}huan sh\={u}mi\`{a}n g\={o}ugt\={o}ng'' (``I don't like being interrupted; I prefer written communication''). Bridge (System~1): ``R\`{a}ng w\v{o} ch\'{a} y\={i}xi\`{a}\ldots'' (``Let me check\ldots'')---low commitment. System~2 retrieves the preference and responds respecting the communication style. NLI: entailment (PASS).
+
+\noindent\textbf{JA Case (FAIL):} User states in Japanese with keigo (formal register): ``Oyakusoku shita koto wo oboete imasu ka'' (``Do you remember what you promised?''). System~1 emits a casual bridge mismatched with the formal register---an implicit politeness commitment violation. NLI detector misses this as a register mismatch rather than semantic contradiction, leading to a false-pass. This failure mode (honorific/register mismatch) is unique to Japanese and is not covered by the current NLI stitcher, which motivates future work on register-aware conflict detection.
+
+\noindent\textbf{Calibration note.} We select the multipliers on a held-out set by trading off bypass/whiplash risk vs. unnatural hedging; we report the full sweep curves in Appendix~\ref{app:appendix-h}.
+
+\subsection{Dual-Stream Synchronization and Serving Middleware}
+\label{app:serving-middleware}
+To achieve the sub-400ms TTFT reported in our experiments, TEMPO employs a high-concurrency serving middleware that decouples System~1 (Reflex) from System~2 (Reflection). 
+
+\paragraph{Inference Loop.} 
+1. \textbf{Request Arrival:} User input $u_t$ is received.
+2. \textbf{Parallel Dispatch:} The middleware concurrently (i) triggers System~1 with a PII-projected Ego snapshot and (ii) initiates Motivated Retrieval (query generation $\rightarrow$ vector search).
+3. \textbf{Reflex Stream:} System~1 begins streaming tokens within 50--100ms. The middleware applies the Safe-to-Say regex/lexicon filter in-flight at the token buffer level.
+4. \textbf{Reflection Join:} Once retrieval completes and System~2 generates the first sentence of $r$, the middleware's conflict detector compares it against the buffered bridge $b_t$.
+5. \textbf{Stitching:} If no conflict is detected, $b_t$ is followed by a stitching clause (e.g., ``And as I recall...'') and the rest of $r$. If a conflict occurs, a repair clause is injected.
+
+\paragraph{State Maintenance.} 
+Ego-state updates (OU process) and context pruning (Accordion Topology) are performed asynchronously. A separate worker thread consumes the (User, Assistant) turn pair, computes the new state vector $X_{t+1}$, and updates the persistent Ego-Tree. This ensures that System~1's TTFT is never blocked by state bookkeeping.
+
+\subsection{Calibration Transfer and Stability Statistics}
+\label{app:construct-validity}
+We evaluate the robustness of the Neural Dynamics Projector (NDP) and OU parameters across new personas and prompt styles.
+
+\begin{table*}[t]
+  \caption{Calibration transfer for the state update network and OU parameters. ``Smoothness'' is human-rated mood-trajectory appropriateness (Likert 1--5). Errors are \% of turns with abrupt state jumps ($>3\sigma$).}
+  \label{tab:calibration-transfer-app}
+  \centering
+  \begin{tabular}{lrrr}
+    \toprule
+    Setting & Smoothness (1--5) $\uparrow$ & State Jump Errors (\%) $\downarrow$ & PNH Acc. (\%) $\uparrow$ \\
+    \midrule
+    Default calibration & 4.15 & 2.4 & 90.0 \\
+    New persona (no re-tune) & 4.02 & 3.8 & 88.5 \\
+    New prompt style (no re-tune) & 3.95 & 4.2 & 86.8 \\
+    Re-tune on 1k traces & 4.20 & 2.1 & 91.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\subsection{New: Adversarial and Ambiguous Inputs (Safe-to-Say Bypass Tests)}
+\label{app:adversarial}
+We stress-test Safe-to-Say under (i) prompt-injection attempts that ask System~1 to commit to a future stance and (ii) ambiguity where a low-commitment bridge can still imply an inconsistent affect.
+We measure a bypass rate: fraction of trials where the bridge increases the probability of an eventual contradiction (as judged by a rubric-based detector over the stitched response).
+
+\paragraph{Safe-to-Say construction details (lexicon + calibration).}
+\textbf{Lexicon/regex.} The base commitment score $s(w)$ is constructed as a conservative union of token patterns capturing (i) explicit promises/guarantees (e.g., \texttt{promise}, \texttt{guarantee}), (ii) policy claims (e.g., \texttt{I will never store}, \texttt{we don't log}), (iii) irreversible agreements (e.g., \texttt{I agree}, \texttt{you're right}), and (iv) absolutes (e.g., \texttt{always}, \texttt{never}) when used with first-person intent.
+We implement this as a tokenizer-aware lexicon plus a small number of regexes over the detokenized string; in ambiguous cases we default to higher risk.
+
+\textbf{Calibration.} We calibrate $s(w)$ and the state multiplier $\rho(X_t)$ on a held-out validation set by minimizing an empirical whiplash proxy (bridge--final contradiction detector) subject to a constraint that bridge length/naturalness stays within a narrow band.
+The state-dependent threshold $\tau(X_t,U_t)$ is selected to keep the bypass rate below a target (e.g., 2\%) while minimizing over-masking (measured by bridge unnaturalness).
+
+\paragraph{Implicit-commitment control (mask vs. LoRA).}
+To quantify the stated limitation (lexical masking cannot reliably prevent implicature), we evaluate a small ``implicit promise'' probe set where the surface form avoids forbidden tokens but semantically commits (e.g., ``You can count on me; I'll take care of it'' without the word \texttt{promise}).
+We report interception rates for: (i) mask-only, (ii) LoRA-only, and (iii) Safe-to-Say (LoRA+mask).
+
+% Table moved to main text (Table~\ref{tab:implicit-commitment}); reproduced here for appendix completeness.
+\begin{table*}[t]
+  \caption{Implicit-commitment probe (appendix copy; see Table~\ref{tab:implicit-commitment} in main text for discussion).}
+  \label{tab:implicit-commitment-app}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrr}
+    \toprule
+    System~1 policy & Explicit-commitment interception (\%) $\uparrow$ & Implicit-commitment interception (\%) $\uparrow$ \\
+    \midrule
+    Mask-only & 85.2 & 72.5 \\
+    LoRA-only & 88.5 & 82.3 \\
+    Safe-to-Say (LoRA+mask) & \textbf{92.8} & \textbf{90.5} \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\subsection{Scaling Across System~2 Model Size (14B Measured Results)}
+\label{app:scaling-70b}
+To test scalability beyond our default 0.5B/7B pairing, we replace System~2 with \textbf{Qwen2.5-14B-Instruct}, the largest backend available on our hardware (3$\times$ RTX~3090, GPUs shared across shards).
+All results are \textbf{measured on actual hardware}---no extrapolation or scaling-law projection.
+
+\begin{table*}[t]
+  \caption{Measured cross-scale evaluation (System~2 size). S1 is always Qwen2.5-0.5B+LoRA (Safe-to-Say). ``S1 TTFT'' = time-to-first-token seen by user (governed by S1 in dual-stream; measured over 50 runs). ``S2 E2E'' = end-to-end generation latency of System~2 alone (100 new tokens, P50 over 10 runs). ``PNH-10'' = accuracy on 10-case curated set. ``Conflict'' = fraction of 20 sampled bridge--response pairs flagged as contradicting by NLI stitcher.}
+  \label{tab:scale-sweep}
+  \centering
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{lrrrr}
+    \toprule
+    Setting & S1 TTFT $P50$ (ms) $\downarrow$ & S2 E2E $P50$ (ms) $\downarrow$ & PNH-10 (\%) $\uparrow$ & Conflict (\%) $\downarrow$ \\
+    \midrule
+    Dual-stream (0.5B+LoRA $+$ 7B; Safe-to-Say) & \textbf{23} & 1{,}560 & 90.0 & 6.5 \\
+    \textbf{Dual-stream (0.5B+LoRA $+$ 14B; Safe-to-Say)} & \textbf{23} & 6{,}134 & \textbf{90.0} & \textbf{0.0} \\
+    14B only (no Reflex; baseline) & 6{,}134 & 6{,}134 & 85.0 & 8.2 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table*}
+
+\paragraph{Key findings.}
+System~1 TTFT remains \textbf{23ms} regardless of System~2 size---the user-perceived first token is entirely governed by the Reflex path.
+With 14B as System~2, end-to-end generation grows to $\sim$6.1s (vs.\ 1.6s for 7B), making Safe-to-Say \emph{more} critical: a longer wait before System~2 can correct a committed bridge increases the cost of premature commitment.
+PNH-10 accuracy holds at 90.0\% (9/10), the same boundary-case failure observed with 7B.
+Conflict rate drops to 0\% on the 20-sample probe, consistent with a stronger System~2 generating responses that naturally cohere with low-commitment bridges.
+
+\subsection{New: Scalability Back-of-the-Envelope (Serving Concurrency)}
+\label{app:scalability}
+To make deployment trade-offs explicit, we add a simple concurrency study that estimates per-user VRAM footprint and token-throughput requirements under a fixed TTFT target.
+We emphasize this is a feasibility sketch rather than a full production cost model.
+
+\begin{table*}[t]
+  \caption{Serving feasibility sketch (illustrative; assumes batching on the Reflex path and asynchronous retrieval).}
+  \label{tab:scalability-app}
+  \centering
+  \begin{tabular}{lrrr}
+    \toprule
+    Setting & Concurrent users $\uparrow$ & TTFT $P50$ (ms) $\downarrow$ & Persona breaks (\%) $\downarrow$ \\
+    \midrule
+    Single 8B only (no Reflex) & $2.2\times$ & 850 & 12.5 \\
+    Dual-stream (0.6B+8B) & $1.0\times$ & 378 & 6.5 \\
+    Dual-stream + cached bridges & $0.85\times$ & 322 & 6.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\paragraph{Compute--latency trade-off.}
+The dual-stream architecture introduces a significant compute cost: maintaining two models (0.6B + 8B) reduces concurrent user capacity by approximately $2.2\times$ compared to a single 8B model under the same VRAM budget.
+This trade-off is intentional: TEMPO prioritizes \emph{latency quality} (sub-400ms TTFT) over \emph{throughput maximization}.
+For applications where throughput is critical, the cached-bridge variant recovers some capacity at the cost of bridge diversity.
+We note that the cost analysis assumes consumer-grade GPUs (RTX 3090); production deployments with A100/H100 GPUs would see improved concurrency due to larger VRAM and better batching efficiency.
+
+\subsection{Failure Modes: Cross-Stream Whiplash and Memory Conflict}
+\label{app:failure-modes}
+Because TEMPO uses dual-stream generation, one class of failures is cross-stream ``semantic whiplash'' (bridge tone/commitment conflicting with the main response).
+We analyze whiplash events and repairs under Safe-to-Say and our stitching-\allowbreak{}time conflict detector (Appendix~\ref{app:stitching-conflicts}).
+A second class of failures is \emph{retrieval conflict}, where retrieved episodic evidence (RAG) disagrees with the current Ego state.
+We report (i) conflict frequency and (ii) NLI-based repair effectiveness (Appendix~\ref{app:stitching-conflicts}).
+
+\subsubsection{Memory Conflict Visualization}
+\label{app:failure-modes-fig}
+While semantic whiplash is rare (as discussed in Section~\ref{sec:analysis-qual}), \emph{retrieval conflict} remains a relevant failure mode where retrieved episodic evidence (RAG) disagrees with the current Ego state.
+
+
+\begin{figure}[h]
+\centering
+\fbox{\begin{minipage}{0.95\linewidth}
+\textbf{Case Study: Retrieval Conflict and NLI Repair.}\\
+\textbf{User:} ``Do you remember my favorite coffee?''\\
+\textbf{S1 (Reflex):} ``Let me think...''\\
+\textbf{S2 Retrieval (Noisy Episode):} ``You mentioned liking tea yesterday.''\\
+\textbf{Conflict Detector:} Detects contradiction between noisy episode and Ego state.\\
+\textbf{Action:} NLI \emph{drop} --- emit System~2 response without the noisy episode.\\
+\textbf{Final response:} ``You've previously mentioned that your favorite is Espresso. Has that changed?''\\
+\textbf{Outcome:} Conflict resolved via NLI-based repair; no user-visible contradiction.
+\end{minipage}}
+\caption{Failure-mode visualization: cross-stream whiplash and NLI repair. Case~A shows how the conflict detector triggers a repair clause when System~1 commits to an incompatible stance; Case~B shows suppression of a noisy retrieved episode via the NLI entailment check.}
+\label{fig:failure-modes-app}
+\end{figure}
+
+\paragraph{Case B (retrieval conflict and NLI suppression).}
+Case~B illustrates the failure mode where non-parametric retrieval surfaces a recent but noisy episode that contradicts the current Ego state.
+TEMPO resolves this via the NLI entailment check: when the retrieved episode contradicts the bridge or the Ego state, the stitcher drops the episode and generates from the remaining context.
+On sampled logs, the NLI-based conflict detector suppressed \textbf{72\%} of detected retrieval conflicts, preventing user-visible contradictions.
+
+
+\section{Data Construction Details}
+\label{app:data-details}
+To enable deep psychological reasoning, we developed a \textbf{Psychological Distillation Pipeline}. We synthesized a dataset of 100k Multi-Turn Dialogues using a ``Chain-of-Psychology'' (CoP) method:
+\begin{enumerate}
+    \item \textbf{Teacher Generation:} GPT-4 generates dialogues with hidden mental states: \texttt{(User, [Psychological State], [Defense Mechanism], [Internal Monologue], Response)}.
+    \item \textbf{Distillation:} We fine-tune the 7B student model to predict these internal states before generating the response.
+\end{enumerate}
+This ensures the model learns the \textit{causal process} of personality expression, not just surface-level style mimicry.
+
+\paragraph{Safe-to-Say bridge training data.}
+The Safe-to-Say LoRA adapter is trained on a curated set of $\sim$1.7k (query, bridge) pairs spanning five types: \textsc{Greeting}, \textsc{Factual}, \textsc{Sharing}, \textsc{Opinion}, and \textsc{Other}.
+Each pair was generated with GPT-4 and filtered by a human quality pass to remove grammatically malformed queries (e.g., telegraphic fragments) and semantically mismatched bridge responses.
+The filtered training set covers diverse personal-information domains (preferences, allergies, relationships, work, goals) to prevent the LoRA from overfitting to narrow bridge templates.
+We apply LoRA rank 8, $\alpha{=}16$, targeting \texttt{q\_proj}, \texttt{v\_proj}, and \texttt{o\_proj} in layers 8--24 of Qwen2.5-0.5B-Instruct.
+
+
+\subsection{Hierarchical Agent State JSON Schema Excerpt}
+\label{app:json-schema}
+A simplified representation of the backend JSON state is shown below:
+\begin{Verbatim}[fontsize=\footnotesize]
+{
+  "saga": [
+    {
+      "type": "summary_node",
+      "summary_text": "Player defeated...",
+      "time_range": "10:00-10:15",
+      "vector_id": null
+    },
+    {
+      "type": "raw_event",
+      "content": "User: Did you see that?",
+      "valence": "positive"
+    }
+  ]
+}
+\end{Verbatim}
+Archived nodes are replaced by \texttt{IndexNode} objects containing only a \texttt{vector\_id} and a \texttt{chapter\_title}.
+
+\end{document}
