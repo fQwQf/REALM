@@ -1,14 +1,28 @@
 #!/usr/bin/env python3
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 import os, torch
 os.environ['CUDA_VISIBLE_DEVICES'] = '5'
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
 
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 
 MODEL_ID = 'Qwen/Qwen2.5-0.5B-Instruct'
-LORA_PATH = '/data1/tongjizhou/REALM/models/safe_to_say_lora'
+LORA_PATH = str(REPO_ROOT / 'models/safe_to_say_lora')
 
 tokenizer = AutoTokenizer.from_pretrained(LORA_PATH, trust_remote_code=True)
 base = AutoModelForCausalLM.from_pretrained(MODEL_ID, dtype=torch.float16, device_map={'': 0}, trust_remote_code=True)

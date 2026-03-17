@@ -1,2 +1,54 @@
+# Python
 *.pyc
 __pycache__/
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Paper / LaTeX (entire directory — not for public release)
+paper/
+
+# Caches
+.cache/
+*.cache
+.pytest_cache/
+
+# Model checkpoints (keep LoRA adapters, exclude large checkpoints)
+models/*/checkpoint-*/
+!models/safe_to_say_lora/
+
+# Results (keep summary JSONs, exclude raw logs)
+results/**/*.log
+results/**/raw/
+results/**/*_debug.json
+
+# Environment
+.env
+.env.local
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+tmp/
+temp/
+*.tmp

@@ -1,0 +1,82 @@
+{
+  "likert": {
+    "naturalness": {
+      "tempo_mean": 4.04,
+      "vanilla_mean": 3.31,
+      "diff_mean": 0.73,
+      "ci_95": [
+        0.36,
+        1.1
+      ],
+      "t_stat": 3.84,
+      "df": 99,
+      "p_value": 0.000217,
+      "cohen_d": 0.384,
+      "n": 100
+    },
+    "accuracy": {
+      "tempo_mean": 4.79,
+      "vanilla_mean": 4.14,
+      "diff_mean": 0.65,
+      "ci_95": [
+        0.39,
+        0.93
+      ],
+      "t_stat": 4.707,
+      "df": 99,
+      "p_value": 8e-06,
+      "cohen_d": 0.471,
+      "n": 100
+    },
+    "helpfulness": {
+      "tempo_mean": 4.51,
+      "vanilla_mean": 3.95,
+      "diff_mean": 0.56,
+      "ci_95": [
+        0.35,
+        0.78
+      ],
+      "t_stat": 5.116,
+      "df": 99,
+      "p_value": 2e-06,
+      "cohen_d": 0.512,
+      "n": 100
+    }
+  },
+  "wins_expert": {
+    "wins": 51,
+    "losses": 25,
+    "ties": 24,
+    "wr_excl_pct": 67.1,
+    "ci_95_pct": [
+      56.6,
+      77.6
+    ],
+    "p": 0.001918
+  },
+  "wins_all": {
+    "wins": 250,
+    "losses": 78,
+    "ties": 72,
+    "wr_excl_pct": 76.2,
+    "ci_95_pct": [
+      71.3,
+      80.5
+    ],
+    "p_str": "1.88e-22"
+  },
+  "pnh_10": {
+    "accuracy_pct": 90.0,
+    "ci_95": [
+      70.0,
+      100.0
+    ]
+  },
+  "pnh_51": {
+    "accuracy_pct": 80.4,
+    "ci_95": [
+      68.6,
+      90.2
+    ]
+  }
+}

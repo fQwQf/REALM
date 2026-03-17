@@ -12,9 +12,9 @@ import torch
 import re
 from typing import List, Dict, Optional, Union
 
-# Set Hugging Face mirror for China
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
+# Set Hugging Face environment
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+os.environ['HF_HOME'] = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
 
 # GPU Allocation Strategy:
 # GPU 2: System 1 (Reflex) - Qwen2.5-0.5B-Instruct

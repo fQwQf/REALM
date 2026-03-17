@@ -4,11 +4,27 @@ Aggregate human evaluation results from all 20 raters.
 Expert raters 1-5 provided per-pair Likert scores.
 Volunteers 6-20 provided aggregate win rates.
 """
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 import json, numpy as np
 from scipy import stats
 from scipy.stats import binomtest
 
-with open('/data1/tongjizhou/REALM/results/human_eval/answer_key.json') as f:
+with open(str(REPO_ROOT / 'results/human_eval/answer_key.json')) as f:
     key = {item['pair_id']: item for item in json.load(f)}
 
 # Expert rater data: (pair_id, left_sys, ln, la, lh, right_sys, rn, ra, rh, pref_sys)
@@ -144,7 +160,7 @@ for rater_id, ratings in EXPERT_RATINGS.items():
             'preference': left_pref,
         })
 
-with open('/data1/tongjizhou/REALM/results/human_eval/rater_data.json', 'w') as f:
+with open(str(REPO_ROOT / 'results/human_eval/rater_data.json'), 'w') as f:
     json.dump(rater_data, f, indent=2)
 print(f'Saved {len(rater_data)} expert ratings')
 
@@ -220,6 +236,6 @@ result = {
         'binomial_p': round(all_binom.pvalue, 6),
     },
 }
-with open('/data1/tongjizhou/REALM/results/human_eval/statistics_summary.json', 'w') as f:
+with open(str(REPO_ROOT / 'results/human_eval/statistics_summary.json'), 'w') as f:
     json.dump(result, f, indent=2)
 print('\nSaved statistics_summary.json')

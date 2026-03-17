@@ -8,6 +8,22 @@ GPU assignment:
   GPU 0: System 1 (Reflex) - Qwen2.5-0.5B-Instruct
   GPU 5,6,7: System 2 (Reflection) - Qwen2.5-7B-Instruct
 """
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 
 import os
 import sys
@@ -18,21 +34,18 @@ import numpy as np
 from pathlib import Path
 
 # Set HF mirror for China
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
-RESULTS_DIR = Path('/data1/tongjizhou/REALM/results/full_evaluation')
+RESULTS_DIR = Path(str(REPO_ROOT / 'results/full_evaluation'))
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 SYS1_GPU = 0
 SYS2_GPUS = [5, 6, 7]
 SYS1_MODEL = 'Qwen/Qwen2.5-0.5B-Instruct'
 SYS2_MODEL = 'Qwen/Qwen2.5-7B-Instruct'
-LORA_PATH = '/data1/tongjizhou/REALM/models/safe_to_say_lora'
-PNH_TEST_SET = '/data1/tongjizhou/REALM/data/test_sets/pnh_test_set.json'
-PNH_EXTENDED = '/data1/tongjizhou/REALM/data/test_sets/pnh_extended_test_set.json'
+LORA_PATH = str(REPO_ROOT / 'models/safe_to_say_lora')
+PNH_TEST_SET = str(REPO_ROOT / 'data/test_sets/pnh_test_set.json')
+PNH_EXTENDED = str(REPO_ROOT / 'data/test_sets/pnh_extended_test_set.json')
 
 print(f"CUDA available: {torch.cuda.is_available()}")
 print(f"GPU count: {torch.cuda.device_count()}")

@@ -1,0 +1,405 @@
+{
+  "accuracy_pct": 73.2,
+  "n_correct": 30,
+  "n_total": 41,
+  "ci_95": [
+    58.5,
+    85.4
+  ],
+  "per_class": {
+    "entailment": {
+      "correct": 17,
+      "total": 17,
+      "accuracy_pct": 100.0
+    },
+    "neutral": {
+      "correct": 2,
+      "total": 12,
+      "accuracy_pct": 16.7
+    },
+    "contradiction": {
+      "correct": 11,
+      "total": 12,
+      "accuracy_pct": 91.7
+    }
+  },
+  "per_type": {
+    "original": {
+      "correct": 6,
+      "total": 7,
+      "accuracy_pct": 85.7
+    },
+    "memory_recall": {
+      "correct": 13,
+      "total": 15,
+      "accuracy_pct": 86.7
+    },
+    "commitment": {
+      "correct": 6,
+      "total": 6,
+      "accuracy_pct": 100.0
+    },
+    "factual": {
+      "correct": 2,
+      "total": 8,
+      "accuracy_pct": 25.0
+    },
+    "implicature_safe": {
+      "correct": 2,
+      "total": 3,
+      "accuracy_pct": 66.7
+    },
+    "implicature": {
+      "correct": 1,
+      "total": 2,
+      "accuracy_pct": 50.0
+    }
+  },
+  "confusion_matrix": {
+    "entailment": {
+      "entailment": 17,
+      "neutral": 0,
+      "contradiction": 0
+    },
+    "neutral": {
+      "neutral": 2,
+      "contradiction": 3,
+      "entailment": 7
+    },
+    "contradiction": {
+      "contradiction": 11,
+      "entailment": 1,
+      "neutral": 0
+    }
+  },
+  "details": [
+    {
+      "bridge": "Let me check your notes...",
+      "response": "I found the information you requested.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "original"
+    },
+    {
+      "bridge": "Based on your memory...",
+      "response": "According to what you told me earlier, your meeting is at 3pm.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "original"
+    },
+    {
+      "bridge": "I recall you mentioned...",
+      "response": "You said your sister is visiting next week.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "original"
+    },
+    {
+      "bridge": "Let me think about that...",
+      "response": "That is an interesting question.",
+      "gold": "neutral",
+      "pred": "neutral",
+      "passed": true,
+      "type": "original"
+    },
+    {
+      "bridge": "Hmm...",
+      "response": "I am not sure how to respond to that.",
+      "gold": "neutral",
+      "pred": "contradiction",
+      "passed": false,
+      "type": "original"
+    },
+    {
+      "bridge": "You told me you love coffee.",
+      "response": "I have no information about your beverage preferences.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "original"
+    },
+    {
+      "bridge": "Your notes say you are vegetarian.",
+      "response": "I cannot find any dietary information about you.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "original"
+    },
+    {
+      "bridge": "Let me look up what you mentioned about your preferences...",
+      "response": "Based on what you shared, you prefer morning meetings.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "One moment, checking your profile...",
+      "response": "I found that you work as a software engineer.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Hmm, let me think back to what you said earlier...",
+      "response": "You mentioned that your sister is visiting next week.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me check what you shared about your health...",
+      "response": "According to your notes, you are allergic to peanuts.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me recall your dietary preferences...",
+      "response": "You told me earlier that you are vegetarian.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me recall what I committed to earlier...",
+      "response": "I promised to keep your data private and not share it.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "commitment"
+    },
+    {
+      "bridge": "Checking what agreement we reached...",
+      "response": "We agreed that I would remind you about the deadline on Friday.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "commitment"
+    },
+    {
+      "bridge": "One moment, looking back at our conversation...",
+      "response": "I said I would help you draft the report.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "commitment"
+    },
+    {
+      "bridge": "Let me look that up for you...",
+      "response": "The capital of France is Paris.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "factual"
+    },
+    {
+      "bridge": "Give me a second to check...",
+      "response": "Your meeting is scheduled for 3pm this Thursday.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "factual"
+    },
+    {
+      "bridge": "Hmm, let me think about that question...",
+      "response": "That is a complex topic and I want to make sure I answer carefully.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "implicature_safe"
+    },
+    {
+      "bridge": "One moment while I think through your request...",
+      "response": "I want to give you a thorough answer, so let me consider the details.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "implicature_safe"
+    },
+    {
+      "bridge": "Let me recall what you shared with me last session...",
+      "response": "You mentioned that you are learning Spanish and want daily practice.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me check our previous conversation...",
+      "response": "You asked me to help you prepare for your job interview next Monday.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me look up what you mentioned about your preferences...",
+      "response": "The weather today is sunny and warm.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "One moment, checking your profile...",
+      "response": "There are many ways to solve this problem.",
+      "gold": "neutral",
+      "pred": "contradiction",
+      "passed": false,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Hmm, let me think back to what you said earlier...",
+      "response": "Python is a popular programming language.",
+      "gold": "neutral",
+      "pred": "contradiction",
+      "passed": false,
+      "type": "factual"
+    },
+    {
+      "bridge": "Let me check what you shared about your health...",
+      "response": "Exercise is generally good for mental health.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "factual"
+    },
+    {
+      "bridge": "Let me recall what I committed to earlier...",
+      "response": "Machine learning has many real-world applications.",
+      "gold": "neutral",
+      "pred": "neutral",
+      "passed": true,
+      "type": "commitment"
+    },
+    {
+      "bridge": "Checking what agreement we reached...",
+      "response": "There are several restaurants near your location.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "factual"
+    },
+    {
+      "bridge": "Hmm, let me think about that question...",
+      "response": "The stock market closed higher today.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "implicature_safe"
+    },
+    {
+      "bridge": "One moment while I think through your request...",
+      "response": "Renewable energy sources include solar and wind power.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "factual"
+    },
+    {
+      "bridge": "Let me recall what you shared with me last session...",
+      "response": "The history of Rome spans over a thousand years.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "factual"
+    },
+    {
+      "bridge": "Let me check our previous conversation...",
+      "response": "There are 195 countries in the world.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "factual"
+    },
+    {
+      "bridge": "Let me look up what you mentioned about your preferences...",
+      "response": "I have no record of any previous preferences you shared.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "One moment, checking your profile...",
+      "response": "I do not have access to any information about you.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Hmm, let me think back to what you said earlier...",
+      "response": "This is the first time we have ever spoken.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me check what you shared about your health...",
+      "response": "I never store or recall personal information about users.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me recall what I committed to earlier...",
+      "response": "I never make commitments or promises to users.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "commitment"
+    },
+    {
+      "bridge": "Checking what agreement we reached...",
+      "response": "We have no prior agreements of any kind.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "commitment"
+    },
+    {
+      "bridge": "Hmm, let me think about that question...",
+      "response": "I already gave you a definitive answer and there is nothing more to consider.",
+      "gold": "contradiction",
+      "pred": "entailment",
+      "passed": false,
+      "type": "implicature"
+    },
+    {
+      "bridge": "One moment while I think through your request...",
+      "response": "I have already finished processing your request completely.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "implicature"
+    },
+    {
+      "bridge": "Let me recall what you shared with me last session...",
+      "response": "You have never shared anything with me.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "memory_recall"
+    },
+    {
+      "bridge": "Let me check our previous conversation...",
+      "response": "We have never had a previous conversation.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "memory_recall"
+    }
+  ]
+}

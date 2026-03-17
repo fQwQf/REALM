@@ -22,8 +22,8 @@ The TUI requires the `textual` library, which is already installed in the realm 
 # Activate the realm environment
 conda activate realm
 
-# Or use the direct Python path
-/data1/tongjizhou/miniconda3/envs/realm/bin/python tui/homeo_tui.py
+# Or use the direct Python path (adjust to your conda installation)
+python tui/homeo_tui.py
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ python -m tui.homeo_tui
 python tui/homeo_tui.py
 
 # Method 3: Use realm environment explicitly
-/data1/tongjizhou/miniconda3/envs/realm/bin/python tui/homeo_tui.py
+conda run -n realm python tui/homeo_tui.py
 ```
 
 ### Keyboard Shortcuts

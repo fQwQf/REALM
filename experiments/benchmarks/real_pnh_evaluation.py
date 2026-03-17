@@ -3,6 +3,22 @@
 PNH Evaluation with Real LLM
 Tests Psychological Needle-in-Haystack accuracy with real inference
 """
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 
 import os
 import sys
@@ -10,8 +26,6 @@ import time
 import json
 
 # Set HF mirror
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 

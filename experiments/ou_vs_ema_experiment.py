@@ -15,16 +15,29 @@ Metrics:
 
 GPU: 0 for S2 inference
 """
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 import os, sys, json, time, math
 import numpy as np
 from pathlib import Path
 from copy import deepcopy
 
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
-OUT_DIR = Path('/data1/tongjizhou/REALM/results/ou_vs_ema')
+OUT_DIR = Path(str(REPO_ROOT / 'results/ou_vs_ema'))
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ==========================================

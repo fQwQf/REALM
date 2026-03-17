@@ -14,24 +14,37 @@ GPU assignment:
 Usage:
   conda run -n realm python experiments/tempo_full_eval.py 2>&1 | tee results/full_eval.log
 """
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 import os, sys, json, time
 import numpy as np
 from pathlib import Path
 
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
-OUT_DIR = Path('/data1/tongjizhou/REALM/results/full_evaluation')
+OUT_DIR = Path(str(REPO_ROOT / 'results/full_evaluation'))
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 SYS1_GPU = 0
 SYS2_GPUS = [5, 6, 7]
 SYS1_MODEL = 'Qwen/Qwen2.5-0.5B-Instruct'
 SYS2_MODEL = 'Qwen/Qwen2.5-7B-Instruct'
-LORA_PATH = '/data1/tongjizhou/REALM/models/safe_to_say_lora'
-PNH_10 = '/data1/tongjizhou/REALM/data/test_sets/pnh_test_set.json'
-PNH_51 = '/data1/tongjizhou/REALM/data/test_sets/pnh_extended_test_set.json'
+LORA_PATH = str(REPO_ROOT / 'models/safe_to_say_lora')
+PNH_10 = str(REPO_ROOT / 'data/test_sets/pnh_test_set.json')
+PNH_51 = str(REPO_ROOT / 'data/test_sets/pnh_extended_test_set.json')
 
 def save(obj, name):
     p = OUT_DIR / f'{name}.json'

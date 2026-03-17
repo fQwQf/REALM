@@ -11,20 +11,33 @@ Metrics:
 
 GPU: 5,6,7 for Qwen2.5-7B-Instruct
 """
+import os
+import sys
+from pathlib import Path
+
+# Auto-detect repository root
+REPO_ROOT = Path(__file__).parent.parent.resolve()
+sys.path.insert(0, str(REPO_ROOT))
+
+# Environment variables with fallbacks
+HF_HOME = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+os.environ['HF_HOME'] = HF_HOME
+os.environ['HF_ENDPOINT'] = os.environ.get('HF_ENDPOINT', 'https://hf-mirror.com')
+
+# Model directory (for 14B experiments)
+MODEL_DIR = os.environ.get('MODEL_DIR', str(REPO_ROOT / 'models'))
+
 import os, sys, json, time, re, string
 import numpy as np
 from pathlib import Path
 from collections import Counter
 
-os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
-os.environ['HF_HOME'] = '/data1/tongjizhou/.cache/huggingface'
-sys.path.insert(0, str(Path(__file__).parent.parent))
 
-OUT_DIR = Path('/data1/tongjizhou/REALM/results/benchmarks')
+OUT_DIR = Path(str(REPO_ROOT / 'results/benchmarks'))
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-LOCOMO_PATH = '/data1/tongjizhou/REALM/data/benchmarks/locomo10.json'
-LME_PATH = '/data1/tongjizhou/REALM/data/benchmarks/longmemeval_s.json'
+LOCOMO_PATH = str(REPO_ROOT / 'data/benchmarks/locomo10.json')
+LME_PATH = str(REPO_ROOT / 'data/benchmarks/longmemeval_s.json')
 
 SYS2_GPUS = [5, 6, 7]
 SYS2_MODEL = 'Qwen/Qwen2.5-7B-Instruct'
