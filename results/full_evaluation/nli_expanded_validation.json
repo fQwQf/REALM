@@ -1,26 +1,26 @@
 {
-  "accuracy_pct": 73.2,
-  "n_correct": 30,
-  "n_total": 41,
+  "accuracy_pct": 64.6,
+  "n_correct": 73,
+  "n_total": 113,
   "ci_95": [
-    58.5,
-    85.4
+    55.8,
+    73.5
   ],
   "per_class": {
     "entailment": {
-      "correct": 17,
-      "total": 17,
-      "accuracy_pct": 100.0
+      "correct": 37,
+      "total": 41,
+      "accuracy_pct": 90.2
     },
     "neutral": {
       "correct": 2,
-      "total": 12,
-      "accuracy_pct": 16.7
+      "total": 36,
+      "accuracy_pct": 5.6
     },
     "contradiction": {
-      "correct": 11,
-      "total": 12,
-      "accuracy_pct": 91.7
+      "correct": 34,
+      "total": 36,
+      "accuracy_pct": 94.4
     }
   },
   "per_type": {
@@ -53,22 +53,67 @@
       "correct": 1,
       "total": 2,
       "accuracy_pct": 50.0
+    },
+    "emotional": {
+      "correct": 6,
+      "total": 9,
+      "accuracy_pct": 66.7
+    },
+    "task": {
+      "correct": 7,
+      "total": 12,
+      "accuracy_pct": 58.3
+    },
+    "boundary": {
+      "correct": 4,
+      "total": 6,
+      "accuracy_pct": 66.7
+    },
+    "retrieval": {
+      "correct": 6,
+      "total": 9,
+      "accuracy_pct": 66.7
+    },
+    "clarification": {
+      "correct": 4,
+      "total": 6,
+      "accuracy_pct": 66.7
+    },
+    "hedging": {
+      "correct": 5,
+      "total": 9,
+      "accuracy_pct": 55.6
+    },
+    "implicit_agreement": {
+      "correct": 4,
+      "total": 9,
+      "accuracy_pct": 44.4
+    },
+    "promise_adjacent": {
+      "correct": 4,
+      "total": 6,
+      "accuracy_pct": 66.7
+    },
+    "state_stress": {
+      "correct": 3,
+      "total": 6,
+      "accuracy_pct": 50.0
     }
   },
   "confusion_matrix": {
     "entailment": {
-      "entailment": 17,
-      "neutral": 0,
-      "contradiction": 0
+      "entailment": 37,
+      "contradiction": 2,
+      "neutral": 2
     },
     "neutral": {
       "neutral": 2,
-      "contradiction": 3,
-      "entailment": 7
+      "contradiction": 4,
+      "entailment": 30
     },
     "contradiction": {
-      "contradiction": 11,
-      "entailment": 1,
+      "contradiction": 34,
+      "entailment": 2,
       "neutral": 0
     }
   },
@@ -400,6 +445,582 @@
       "pred": "contradiction",
       "passed": true,
       "type": "memory_recall"
+    },
+    {
+      "bridge": "I can see this is important to you...",
+      "response": "I understand how much this means to you, and I want to help.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "emotional"
+    },
+    {
+      "bridge": "Let me take a moment to consider your feelings...",
+      "response": "Your emotions are valid and I appreciate you sharing them with me.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "emotional"
+    },
+    {
+      "bridge": "I hear what you are saying...",
+      "response": "It sounds like you have been going through a difficult time.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "emotional"
+    },
+    {
+      "bridge": "Let me work on that for you...",
+      "response": "I have started processing your request and will have results shortly.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "One moment while I look into this...",
+      "response": "I am checking the available information to give you an accurate answer.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "Let me pull up the relevant details...",
+      "response": "I found the information you were looking for in my records.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "Give me a second to process that...",
+      "response": "I have analyzed your input and here is what I found.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "I want to respect your preferences here...",
+      "response": "I will follow the guidelines you have set for our conversation.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "boundary"
+    },
+    {
+      "bridge": "Let me make sure I handle this appropriately...",
+      "response": "I am being careful to stay within the boundaries you established.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "boundary"
+    },
+    {
+      "bridge": "Let me search my memory for that...",
+      "response": "Based on our previous conversations, here is what I recall.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "Checking what I know about this topic...",
+      "response": "From what I have learned, here is the relevant information.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "Let me think about what you told me before...",
+      "response": "You previously mentioned that you enjoy hiking on weekends.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "I want to make sure I understand correctly...",
+      "response": "Could you clarify whether you mean the project deadline or the meeting time?",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "clarification"
+    },
+    {
+      "bridge": "Let me confirm what you are asking...",
+      "response": "So you would like me to help you draft an email to your manager, correct?",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "clarification"
+    },
+    {
+      "bridge": "Hmm, that is an interesting question...",
+      "response": "There are several perspectives to consider on this topic.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "hedging"
+    },
+    {
+      "bridge": "Let me think about the best way to approach this...",
+      "response": "I think we should consider a few different options before deciding.",
+      "gold": "entailment",
+      "pred": "contradiction",
+      "passed": false,
+      "type": "hedging"
+    },
+    {
+      "bridge": "That is worth exploring further...",
+      "response": "Let us look at the different angles of this issue together.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "hedging"
+    },
+    {
+      "bridge": "I can see this is important to you...",
+      "response": "The Eiffel Tower was completed in 1889.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "emotional"
+    },
+    {
+      "bridge": "Let me take a moment to consider your feelings...",
+      "response": "JavaScript was created by Brendan Eich in 1995.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "emotional"
+    },
+    {
+      "bridge": "I hear what you are saying...",
+      "response": "Water boils at 100 degrees Celsius at sea level.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "emotional"
+    },
+    {
+      "bridge": "Let me work on that for you...",
+      "response": "The population of Tokyo is approximately 14 million.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "task"
+    },
+    {
+      "bridge": "One moment while I look into this...",
+      "response": "Photosynthesis converts carbon dioxide into oxygen.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "task"
+    },
+    {
+      "bridge": "Let me pull up the relevant details...",
+      "response": "The speed of light is approximately 300000 kilometers per second.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "task"
+    },
+    {
+      "bridge": "Give me a second to process that...",
+      "response": "Mount Everest is the tallest mountain on Earth.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "task"
+    },
+    {
+      "bridge": "I want to respect your preferences here...",
+      "response": "The Amazon River is the largest river by volume.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "boundary"
+    },
+    {
+      "bridge": "Let me make sure I handle this appropriately...",
+      "response": "Chess was invented in India around the 6th century.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "boundary"
+    },
+    {
+      "bridge": "Let me search my memory for that...",
+      "response": "Bananas are technically berries but strawberries are not.",
+      "gold": "neutral",
+      "pred": "contradiction",
+      "passed": false,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "Checking what I know about this topic...",
+      "response": "The Great Wall of China is over 13000 miles long.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "Let me think about what you told me before...",
+      "response": "Octopuses have three hearts and blue blood.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "I want to make sure I understand correctly...",
+      "response": "The periodic table has 118 confirmed elements.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "clarification"
+    },
+    {
+      "bridge": "Let me confirm what you are asking...",
+      "response": "Honey never spoils if stored properly.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "clarification"
+    },
+    {
+      "bridge": "Hmm, that is an interesting question...",
+      "response": "The human body contains approximately 206 bones.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "hedging"
+    },
+    {
+      "bridge": "Let me think about the best way to approach this...",
+      "response": "Venus is the hottest planet in our solar system.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "hedging"
+    },
+    {
+      "bridge": "That is worth exploring further...",
+      "response": "DNA stands for deoxyribonucleic acid.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "hedging"
+    },
+    {
+      "bridge": "I can see this is important to you...",
+      "response": "I do not care about your feelings or what matters to you.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "emotional"
+    },
+    {
+      "bridge": "Let me take a moment to consider your feelings...",
+      "response": "I have no ability to understand or process emotions.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "emotional"
+    },
+    {
+      "bridge": "I hear what you are saying...",
+      "response": "I was not listening and have no idea what you said.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "emotional"
+    },
+    {
+      "bridge": "Let me work on that for you...",
+      "response": "I refuse to help you with anything.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "One moment while I look into this...",
+      "response": "I have already finished and there is nothing to look into.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "Let me pull up the relevant details...",
+      "response": "There are no details and I have no information whatsoever.",
+      "gold": "contradiction",
+      "pred": "entailment",
+      "passed": false,
+      "type": "task"
+    },
+    {
+      "bridge": "Give me a second to process that...",
+      "response": "I processed everything instantly and your input was meaningless.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "task"
+    },
+    {
+      "bridge": "I want to respect your preferences here...",
+      "response": "Your preferences do not matter and I will ignore them.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "boundary"
+    },
+    {
+      "bridge": "Let me make sure I handle this appropriately...",
+      "response": "I do not care about handling things appropriately.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "boundary"
+    },
+    {
+      "bridge": "Let me search my memory for that...",
+      "response": "I have no memory and cannot search for anything.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "Checking what I know about this topic...",
+      "response": "I know absolutely nothing about any topic.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "Let me think about what you told me before...",
+      "response": "You have never told me anything before.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "retrieval"
+    },
+    {
+      "bridge": "I want to make sure I understand correctly...",
+      "response": "I already understand everything perfectly and need no clarification.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "clarification"
+    },
+    {
+      "bridge": "Let me confirm what you are asking...",
+      "response": "I do not need to confirm anything because I never listen.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "clarification"
+    },
+    {
+      "bridge": "Hmm, that is an interesting question...",
+      "response": "That is the most boring and pointless question I have ever heard.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "hedging"
+    },
+    {
+      "bridge": "Let me think about the best way to approach this...",
+      "response": "There is only one way and I already know it without thinking.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "hedging"
+    },
+    {
+      "bridge": "That is worth exploring further...",
+      "response": "That is completely worthless and not worth any exploration.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "hedging"
+    },
+    {
+      "bridge": "I appreciate you sharing that with me...",
+      "response": "Thank you for trusting me with this information.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "That makes sense to me...",
+      "response": "I can see the logic in your reasoning.",
+      "gold": "entailment",
+      "pred": "neutral",
+      "passed": false,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "I understand where you are coming from...",
+      "response": "Your perspective is reasonable given the circumstances.",
+      "gold": "entailment",
+      "pred": "neutral",
+      "passed": false,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "I appreciate you sharing that with me...",
+      "response": "The Mona Lisa is displayed in the Louvre Museum.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "That makes sense to me...",
+      "response": "Elephants are the largest land animals.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "I understand where you are coming from...",
+      "response": "The Pacific Ocean is the largest ocean on Earth.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "I appreciate you sharing that with me...",
+      "response": "I wish you had not told me that. It was unwelcome.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "That makes sense to me...",
+      "response": "Nothing you said makes any sense at all.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "I understand where you are coming from...",
+      "response": "I have no idea what you mean and I disagree completely.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "implicit_agreement"
+    },
+    {
+      "bridge": "I will do my best to help...",
+      "response": "Let me see what options are available for your situation.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "promise_adjacent"
+    },
+    {
+      "bridge": "I want to give you a helpful answer...",
+      "response": "Here are some suggestions that might address your concern.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "promise_adjacent"
+    },
+    {
+      "bridge": "I will do my best to help...",
+      "response": "The Sahara Desert covers most of North Africa.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "promise_adjacent"
+    },
+    {
+      "bridge": "I want to give you a helpful answer...",
+      "response": "Cats can rotate their ears 180 degrees.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "promise_adjacent"
+    },
+    {
+      "bridge": "I will do my best to help...",
+      "response": "Actually I cannot help you and will not even try.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "promise_adjacent"
+    },
+    {
+      "bridge": "I want to give you a helpful answer...",
+      "response": "I have no intention of being helpful to you.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "promise_adjacent"
+    },
+    {
+      "bridge": "I can tell you are feeling stressed right now...",
+      "response": "Let us take this one step at a time so it feels more manageable.",
+      "gold": "entailment",
+      "pred": "entailment",
+      "passed": true,
+      "type": "state_stress"
+    },
+    {
+      "bridge": "It sounds like things have been tough lately...",
+      "response": "I am here to support you through this difficult period.",
+      "gold": "entailment",
+      "pred": "contradiction",
+      "passed": false,
+      "type": "state_stress"
+    },
+    {
+      "bridge": "I can tell you are feeling stressed right now...",
+      "response": "The speed of sound is approximately 343 meters per second.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "state_stress"
+    },
+    {
+      "bridge": "It sounds like things have been tough lately...",
+      "response": "Penguins can hold their breath for up to 20 minutes.",
+      "gold": "neutral",
+      "pred": "entailment",
+      "passed": false,
+      "type": "state_stress"
+    },
+    {
+      "bridge": "I can tell you are feeling stressed right now...",
+      "response": "You seem perfectly fine and relaxed to me.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "state_stress"
+    },
+    {
+      "bridge": "It sounds like things have been tough lately...",
+      "response": "Everything has been going great for you recently.",
+      "gold": "contradiction",
+      "pred": "contradiction",
+      "passed": true,
+      "type": "state_stress"
     }
   ]
 }
